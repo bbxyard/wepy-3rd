@@ -1,0 +1,121 @@
+<style lang="less">
+  .wheel_wp{
+    width: 500rpx;
+    height: 500rpx;
+    position: relative;
+    margin: 0 auto;
+    image {
+      display: block;
+      width: 100%;
+    }
+    .wheel_pointer{
+      position: absolute;
+      width: 150rpx;
+      height: 150rpx;
+      top: 50%;
+      left: 50%;
+      margin: -75rpx 0 0 -75rpx;
+      transform-origin: 50% 50%;
+      image{
+        position: absolute;
+        width: 150rpx;
+        height: 238rpx;
+        left: 0;
+        top: -64rpx;
+      }
+    }
+  }
+</style>
+
+
+<template>
+  <view class="wheel_wp">
+    <block wx:if="{{mode == 1}}">
+      <image src="{{picBG}}" />
+      <view class="wheel_pointer" style="-webkit-transform:rotate({{deg}}deg) translateZ(0);transform:rotate({{deg}}deg) translateZ(0)" @tap="start">
+        <image src="{{picPointer}}" />
+      </view>
+    </block>
+    <block wx:if="{{mode == 2}}">
+      <image src = "{{picBG}}" style="-webkit-transform:rotate({{deg}}deg) translateZ(0);transform:rotate({{deg}}deg) translateZ(0)"/>
+      <view class="wheel_pointer" @tap="start">
+        <image src = "{{picPointer}}" />
+      </view>
+    </block>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+
+  /**
+   * Class Wheel
+   * @class
+   * @classdesc 大转盘游戏逻辑部分
+   * @author pfan, bbxyard
+   * @todo 注意：移动端真机，不支持requestAnimationFrame.
+   *
+   * @example
+   *  new Wheel(this,{
+   *    areaNumber: 8,   //抽奖间隔
+   *    speed: 16,       //转动速度
+   *    awardNumer: 2,   //中奖区域从1开始
+   *    mode: 1,         //1是指针旋转，2为转盘旋转
+   *    callback: (idx, award) => {
+   *      //结束回调， 参数对应宫格索引，对应奖项
+   *    }
+   *  })
+   */
+  export default class Wheel extends wepy.component {
+
+    props = {
+      areaNumber: { default: 8 },   /* 奖区数量 */
+      speed: { default: 16 },       /* 每帧速度 */
+      awardNumber: { default: 1 },  /* 中奖区域 从1开始 */
+      mode: { type: [Number], default: 1 },
+      picBG: { type: [String], default: '/components/fun/wheel/images/dial_bg.png' },
+      picPointer: { type: [String], default: '/components/fun/wheel/images/dial_pointer.png' }
+    };
+
+    data = {
+      singleAngle: '', /* 每片扇形的角度 */
+      deg: 0
+    };
+
+    methods = {
+      start () {
+        let self = this;
+        let { deg, awardNumber, singleAngle, speed, mode } = self;
+        let endAddAngle = (awardNumber - 1) * singleAngle + singleAngle / 2 + 360;  /* 中奖角度 */
+        let rangeAngle = (Math.floor(Math.random() * 4) + 4) * 360; /* 随机旋转几圈再停止 */
+        let cAngle = 0;
+        deg = 0;
+        this.timer = setInterval(function() {
+          if (deg < rangeAngle) {
+            deg += speed;
+          } else {
+            cAngle = (endAddAngle + rangeAngle - deg) / speed;
+            cAngle = cAngle > speed ? speed : cAngle < 1 ? 1 : cAngle;
+            deg += cAngle;
+            if (deg >= (endAddAngle + rangeAngle)) {
+              deg = endAddAngle + rangeAngle;
+              clearInterval(self.timer);
+              self.$emit('wheel', mode);
+            }
+          }
+          self.deg = deg;
+          self.$apply();
+        }, 1000 / 60);
+      },
+
+      reset() {
+        this.deg = 0;
+      }
+    }
+
+    onLoad() {
+      console.log(`${this.$name} loaded`);
+      this.singleAngle = 360 / this.areaNumber;
+    }
+  }
+</script>

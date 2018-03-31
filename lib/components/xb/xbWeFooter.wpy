@@ -1,0 +1,25 @@
+<style>
+  .weui-footer { margin-bottom: 50px; }
+  .weui-footer_fixed-bottom { margin-bottom: 0; }
+</style>
+
+<template>
+  <view class="weui-footer weui-footer_fixed-bottom">
+    <view class="weui-footer__links">
+      <block wx:for="{{links}}" wx:key="*this">
+        <navigator class="weui-footer__link" url="{{item.url}}">{{item.txt}}</navigator>
+      </block>
+    </view>
+    <view class="weui-footer__text">{{copyright}}</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  export default class xbWeFooter extends wepy.component {
+    props = {
+      copyright: { type: [String], default: '' },
+      links: { type: [Array], default: [] }
+    };
+  }
+</script>

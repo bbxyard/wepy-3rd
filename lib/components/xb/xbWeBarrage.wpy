@@ -1,0 +1,348 @@
+<style lang="less">
+
+.container {
+  width: 100%;
+  height: 400rpx;
+  background-color: #eee;
+  position: relative;
+}
+.barrage-area {
+  position: absolute;
+  top: 200rpx;
+  left: 0;
+  right: 0;
+  padding: 0 20rpx;
+  height: 96rpx;
+  overflow: hidden;
+}
+.barrage-area-two {
+  top: -50rpx;
+  height: 100%;
+}
+
+.barrage-swiper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.barrage-swiper-items-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.barrage-swiper-item {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* barrage style */
+.v-center {
+  height: 100%;
+  align-items: center;
+  display: flex;
+}
+.barrage-item-wrap {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 28rpx;
+  max-width: 100%;
+  height: 56rpx;
+  padding-right: 20rpx;
+  display: flex;
+  align-items: center;
+  .avatar {
+    width: 48rpx;
+    height: 48rpx;
+    border-radius: 50%;
+    margin-left: 4rpx;
+    margin-right: 10rpx;
+  }
+  .content {
+    font-size: 28rpx;
+    color: orange;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+</style>
+
+<template>
+<view class="container" wx:if="{{!disabled}}">
+  <view class="barrage-area barrage-area-two">
+    <view class="barrage-swiper">
+      <view class="barrage-swiper-items-wrap">
+        <block wx:for="{{comments}}" wx:key="id" wx:for-item="comment">
+          <view class="barrage-swiper-item {{ index === rt.curIndex ? 'is-active' : '' }}" animation="{{ rt.animationData[index] }}">
+            <view class="v-center">
+              <view class="barrage-item-wrap">
+                <image class="avatar" src="{{comment.avatarUrl}}"></image>
+                <view class="content">{{ comment.content }}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class XBWeBarrage extends wepy.component {
+  constructor() {
+    super();
+    console.log('Enjoy it.');
+  }
+  props = {
+    theme: {default: ''},
+    disabled: { type: [Boolean], default: false }
+  };
+
+  data = {
+    opt: {
+      height: 48,
+      total: 3,
+      showCount: 2,
+      auto: 2000,
+      speed: 1000,
+      circular: true,
+      scrollWhenOne: false,
+      ready: false,
+      defaultIndex: 0
+    },
+    rt: {
+      curIndex: 0,
+      animationData: [],
+      timer: null,
+      reInitTimer: null,
+      isDone: false
+    },
+    comments: []
+  };
+
+  methods = {
+
+  };
+
+  events = {
+
+  };
+
+  clearTimer() {
+    if (this.rt.timer != null) {
+      clearInterval(this.rt.timer);
+      this.rt.timer = null;
+    }
+  }
+
+  createAnimation(offset, opacity, dur) {
+    if (dur < 0)  return null;
+    const animation = wepy.createAnimation({
+      duration: dur,
+      timingFuction: 'ease-in-out',
+      delay: 0,
+      transformOrigin: '50% 50%'
+    });
+    animation.translateY(offset).opacity(opacity).step();
+    return animation;
+  }
+
+  doAnimate2nd() {
+    let that = this;
+    let opt = that.opt;
+    let rt = that.rt;
+    let total = opt.total;
+    let showCount = opt.showCount;
+    let newIndex = rt.curIndex;
+    let pageHeight = opt.height;
+    let animationData = rt.animationData;
+    // 复位：回到其下一次即将出现的地方之下
+    for (let i = 0; i < total; i++) {
+      let offset = 0;
+      let display = 0;
+
+      if (total > showCount) {
+        // 最后一个进入可视区域，且在可视区域期间
+        if (total - newIndex <= showCount && i < newIndex) {
+          offset = pageHeight * (i + total - newIndex);
+          display = i + total - newIndex < showCount ? 1 : 0;
+          animationData[i] = that.createAnimation(offset, display, 0);
+        }
+        // 最后一个离开可视区域
+        if (newIndex === 0 && i === total - 1) {
+          offset = pageHeight * (i - newIndex);
+          animationData[i] = that.createAnimation(offset, display, 0);
+        }
+      }
+
+      // 当 total <= showCount
+      if (total <= showCount) {
+        offset = pageHeight * (i + 1);
+        animationData[i] = that.createAnimation(offset, 0, 0);
+      }
+    }
+    that.animationData = animationData;
+    that.$apply();
+
+    // 当 total <= showCount 时，使其滚动复位
+    if (total <= showCount) {
+      setTimeout(() => {
+        for (let i = 0; i < total; ++i) {
+          let offset = pageHeight * i;
+          rt.animationData[i] = that.createAnimation(offset, 1, 500);
+        }
+        that.$apply();
+      }, 10);
+    }
+  }
+
+  doAnimate1st(towards) {
+    let that = this;
+    let opt = that.opt;
+    let rt = that.rt;
+    let total = opt.total;
+    let showCount = opt.showCount;
+    let circular = opt.circular;
+    let pageHeight = opt.height;
+    let newIndex = rt.curIndex;
+    let speed = opt.speed;
+    let animationData = [];
+    for (let i = 0; i < total; i++) {
+      let offset = opt.height * (i - newIndex);
+      let display = 0;
+      if (newIndex <= i && i < newIndex + opt.showCount) {
+        display = 1;
+      }
+      // 二次循环过渡时(index=0出现在可见范围内)，让往上滚动
+      if (opt.circular) {
+        if (opt.total > opt.showCount) {
+          // 最后一个进入可视区域，且在可视区域期间
+          if (total - newIndex <= showCount && i + total - newIndex < showCount) {
+            offset = pageHeight * (i + total - newIndex);
+            display = 1;
+          }
+          // 最后一个离开可视区域
+          if (newIndex === 0 && i === total - 1) {
+            offset = pageHeight * (i - total - newIndex);
+          }
+          if (newIndex === 0 && i > 0 && i < total - 1) {
+            offset = pageHeight * (i - newIndex);
+            display = i < showCount ? 1 : 0;
+          }
+        }
+
+        // 当 total <= showCount 时，使其有滚动效果
+        if (total <= showCount) {
+          offset = pageHeight * (i - 1);
+          speed = 500;
+        }
+      }
+      animationData.push(that.createAnimation(offset, display, speed));
+    }
+    that.rt.animationData = animationData;
+    that.$apply();
+
+    if (circular && towards === 'next') {
+      setTimeout(() => {
+        that.doAnimate2nd();
+      }, speed + 10);
+    }
+  }
+
+  doAnimate(towards) {
+    console.log(`${this.$name} wait to do.`);
+    let that = this;
+    let opt = that.opt;
+    let rt = that.rt;
+    let prevIndex = 0;
+    let nextIndex = 0;
+    let newIndex = 0;
+    if (opt.total === 0) return;
+
+    if (towards === 'next') {
+      prevIndex = rt.curIndex - 1;
+      nextIndex = rt.curIndex + opt.showCount;
+      if (prevIndex < 0)  prevIndex = opt.total - 1;
+      if (nextIndex > opt.total - 1) nextIndex = 0;
+      if (rt.curIndex < opt.total - 1) newIndex = rt.curIndex + 1;
+      if (rt.curIndex === opt.total - 1)  newIndex = 0;
+    }
+    rt.curIndex = newIndex;
+
+    setTimeout(() => {
+      rt.isDone = true;
+      that.doAnimate1st(towards);
+    }, 10);
+  }
+
+  next() {
+    console.log(`${this.$name} doAnimate next`);
+    this.doAnimate('next');
+  }
+
+  initData() {
+    console.log(`${this.$name} initData`);
+    let that = this;
+    let opt = that.opt;
+    let pageHeight = opt.height;
+    let animationData = [];
+    opt.total = this.comments.length;
+    if (opt.total > 0)  return;
+    // items初始位置
+    for (let i = 0; i < opt.total; ++i) {
+      let offset = pageHeight * (i - opt.defaultIndex);
+      let display = 0;
+      if (opt.defaultIndex <= i && i < opt.defaultIndex + opt.showCount) {
+        display = 1;
+      }
+      animationData.push(that.createAnimation(offset, display, 0));
+    }
+    // 载入动画.
+    that.rt.curIndex = opt.defaultIndex;
+    that.rt.animationData = animationData;
+    that.$apply();
+  }
+
+  initTimer() {
+    console.log(`${this.$name} initTimer`);
+    let that = this;
+    let rt = that.rt;
+    let opt = that.opt;
+    if (!that.disabled && opt.total > 0 && opt.auto > 0 && !rt.timer) {
+      rt.timer = setInterval(() => {
+        if (rt.curIndex > opt.total - 1) {
+          return that.clearTimer();
+        }
+        that.next();
+      }, opt.auto);
+    }
+  }
+
+  start(comments) {
+    this.comments = comments;
+    this.initData();
+    this.initTimer();
+  }
+
+  onHide() {
+    console.log(`${this.$name} onHide`);
+    this.clearTimer();
+  }
+  onShow() {
+    console.log(`{this.$name} onShow`);
+    this.initTimer();
+  }
+  onUnload() {
+    console.log(`${this.$name} onUnload`);
+    this.clearTimer();
+  }
+  onLoad() {
+    console.log(`${this.$name} onLoad`);
+    // this.start();
+  }
+}
+</script>

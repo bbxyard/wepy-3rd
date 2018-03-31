@@ -1,0 +1,16 @@
+<style>
+</style>
+
+<template>
+  <view class="weui-badge" style="position: absolute; top: {{offset}}rem; right: {{offset}}rem;">{{cnt}}</view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  export default class XBBadge extends wepy.component {
+    props = {
+      offset: { default: -0.4 },
+      cnt: { default: 1 }
+    }
+  }
+</script>

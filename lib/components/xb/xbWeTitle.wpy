@@ -1,0 +1,52 @@
+<style>
+  .xb-weui-title {
+    display: block;
+  }
+</style>
+
+<template>
+  <view class="page__hd xb-weui-title">
+    <view wx:if="{{ui}}">
+      <view class="page__title" style="color:{{color}}" @tap="tapTitle">{{ui.title}}</view>
+      <view class="page__desc">{{ui.desc}}</view>
+    </view>
+    <view wx:else>
+      <!-- 优先使用title，旧版使用name兼容 -->
+      <view wx:if="{{title}}">
+        <view class="page__title" style="color:{{color}}" @tap="tapTitle">{{title}}</view>
+      </view>
+      <view wx:else>
+        <view class="page__title" style="color:{{color}}" @tap="tapTitle">{{name}}</view>
+      </view>
+      <!-- 描述 -->
+      <view class="page__desc">{{desc}}</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import randomColor from 'randomcolor';
+  export default class XBWeTitle extends wepy.component {
+    props = {
+      ui: { type: [Object] },
+      title: { type: [String], default: '' },
+      name: { type: [String], default: '' },  // 后续移除
+      desc: { type: [String], default: '' },
+      color: { type: [String], default: 'green' }
+    };
+
+    methods = {
+      tapTitle(e) {
+        this.color = randomColor();
+        this.$emit('title-color-change', this.color);
+      },
+      refresh(ui) {
+        this.ui = ui;
+        this.title = this.ui.title;
+        this.desc = this.ui.desc;
+        this.$apply();
+      }
+    }
+  }
+</script>

@@ -1,0 +1,23 @@
+<style>
+</style>
+
+<template>
+  <view class="weui-cells__title" style="color: {{color}};" @tap="tap">{{name}}</view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import randomColor from 'randomcolor';
+  export default class XBGroupTitle extends wepy.component {
+    props = {
+      name: { type: [String], default: '' },
+      color: { type: [String], default: 'grey' }
+    };
+    methods = {
+      tap() {
+        this.color = randomColor();
+        this.$emit('grouptitle-color-changed', this.color);
+      }
+    };
+  }
+</script>

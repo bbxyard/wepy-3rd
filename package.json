@@ -1,6 +1,6 @@
 {
   "name": "wepy-3rd",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "wepy 3rd libs all-in-1 for wechat mini program",
   "main": "index.js",
   "scripts": {

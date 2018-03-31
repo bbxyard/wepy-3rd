@@ -1,0 +1,81 @@
+<style lang="less">
+@import '../../style/xb.less';
+.fb-page {
+  font-size: 16px;
+}
+.fb-form {
+  background-color: @xbActiveBGColor;
+}
+.weui-cells {
+  font-size: @xbMedSize;
+  color: orange;
+}
+</style>
+
+<template>
+  <view class="fb-page" wx:if="{{ui}}">
+    <!-- 表单区 -->
+    <form class="fb-form" bindsubmit="submit" bindreset="reset">
+      <!-- 主体 -->
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="{{ui.placeholder}}" name="content" disabled="{{disabled}}" style="height: 8rem;" value="{{txt}}"></textarea>
+            <view class="weui-textarea-counter">{{min}}/{{max}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 提交 -->
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" form-type="submit" disabled="{{disabled}}">{{ui.submitTitle}}</button>
+      </view>
+    </form>
+
+    <!-- 显示评论内容 -->
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+
+  export default class XBFeedback extends wepy.component {
+    props = {
+      disabled: { default: false },
+      max: { default: 200 },
+      min: { default: 0 }
+    };
+
+    data = {
+      txt: '',
+      ui: null,
+      submintCnt: 0
+    };
+
+    methods = {
+      refresh(ui) {
+        this.ui = ui;
+        this.$apply();
+      },
+      submit(e) {
+        const item = e.detail.value;
+        console.log(`method: ${this.$name}: [submit]`, item);
+        // this.commentList.push({nickName: '路人甲', content: e.detail.value.content});
+        if (this.submintCnt++ % 2 === 0) {
+          this.txt = null;
+        } else {
+          this.txt = '';
+        }
+        this.$apply();
+        this.$emit('feedbacker-submited', e.detail.value);
+      },
+      reset(e) {
+        console.log(`method: ${this.$name}: [reset]`, e);
+      }
+    };
+
+    onLoad() {
+      console.log(`${this.$name} loaded`);
+    }
+  }
+</script>

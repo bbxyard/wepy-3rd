@@ -1,0 +1,142 @@
+<style lang="less">
+.pic-info {
+  .item-img {
+    width: 100%;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    display: block;
+  }
+  .item-info {
+    padding-left: 32rpx;
+    padding-right: 32rpx;
+    .weui-cells-title {
+      padding-top: 20rpx;
+      padding-bottom: 20rpx;
+      color: grey;
+    }
+  }
+  .weui-btn-area {
+    margin-bottom: 20rpx;
+  }
+}
+</style>
+
+<template>
+  <!-- 图片信息 -->
+  <view class="pic-info" wx:if="{{ui}}">
+    <!-- 图片 -->
+    <view class="weui-panel weui-panel_access">
+      <image class="item-img" src="{{item.hdUrl}}" mode="aspectFit" @tap="preview" />
+    </view>
+    <!-- 图片信息 --> 
+    <view class="item-info">
+      <view class="weui-cells-title" wx:if="{{item.name.length > 0}}">{{item.name}}</view>
+      <view class="weui-cells-title" wx:if="{{item.desc.length > 0}}">{{item.desc}}</view>
+      <view class="weui-progress" wx:if="{{processing}}">
+        <view class="weui-progress__bar">
+          <progress percent="{{step}}" stroke-width="3" />
+        </view>
+        <view class="weui-progress__opr" @tap="cancel">
+          <icon type="cancel" size="22"></icon>
+        </view>
+      </view>
+    </view>
+    <!-- 操作区 -->
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" @tap="download" disabled="{{disabledBtn}}">{{ui.txtDownload}}{{item.suffix}}</button>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class XBWePicInfo extends wepy.component {
+  data = {
+    ui: null,
+    item: null,
+    suffix: '',
+    disabledBtn: false,
+    processing: false,
+    step: 0
+  };
+
+  methods = {
+    preview() {
+      wepy.previewImage({urls: [this.item.hdUrl]});
+    },
+    download() {
+      this.doDownload();
+    },
+    cancel() {
+      if (this.task != null) {
+        this.task.abort();
+        console.log('下载已中止');
+      }
+    },
+    refresh(ui, item) {
+      this.ui = ui;
+      this.item = item;
+      this.readImgInfo();
+      this.$apply();
+    }
+  }
+
+  async doDownload() {
+    console.log('downloading');
+    let that = this;
+    that.switchToWorkingStatus();
+    that.task = wx.downloadFile({
+      url: that.item.hdUrl,
+      success: (res) => {
+        wepy.saveImageToPhotosAlbum({filePath: res.tempFilePath}).then((ret) => {
+          console.log('download successfully finished. with: ', ret);
+          that.switchToFinishedStatus();
+        }, (err) => {
+          console.log('download failed with: ', err);
+          that.switchToFinishedStatus();
+        });
+      },
+      fail: (err) => {
+        console.log('download failed with: ', err);
+        that.switchToFinishedStatus();
+      }
+    });
+
+    that.task.onProgressUpdate((res) => {
+      that.step = res.progress;
+      that.$apply();
+      console.log('下载进度[%d/%d]-[%d/%d]', res.progress, 100, res.totalBytesWritten / 1024, res.totalBytesExpectedToWrite / 1024);
+    });
+  }
+
+  switchToWorkingStatus() {
+    wepy.showNavigationBarLoading();
+    this.disabledBtn = true;
+    this.processing = true;
+    this.step = 0;
+    this.task = null;
+    this.$apply();
+  }
+
+  switchToFinishedStatus() {
+    wepy.hideNavigationBarLoading();
+    this.disabledBtn = false;
+    this.processing = false;
+    this.step = 100;
+    this.task = null;
+    this.$apply();
+  }
+
+  async readImgInfo() {
+    // let resInfo = await wepy.getImageInfo({src: this.item.hdUrl});
+    // this.item.width = resInfo.width;
+    // this.item.height = resInfo.height;
+    // this.suffix = `-${this.item.width}x${this.item.height}`;
+    // this.$apply();
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
