@@ -1,0 +1,32 @@
+{
+  "name": "wepy-3rd",
+  "version": "1.0.0",
+  "description": "wepy 3rd libs all-in-1 for wechat mini program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbxyard/wepy-3rd.git"
+  },
+  "keywords": [
+    "wepy",
+    "wechat",
+    "wx",
+    "mini",
+    "program",
+    "app",
+    "node",
+    "js",
+    "xb",
+    "zan",
+    "weui"
+  ],
+  "author": "bbxyard@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bbxyard/wepy-3rd/issues"
+  },
+  "homepage": "https://github.com/bbxyard/wepy-3rd#readme"
+}
