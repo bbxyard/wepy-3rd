@@ -6,7 +6,7 @@
 <template>
   <view class="weui-footer weui-footer_fixed-bottom">
     <view class="weui-footer__links">
-      <block wx:for="{{links}}" wx:key="*this">
+      <block wx:for="{{links}}" wx:key="{{index}}">
         <navigator class="weui-footer__link" url="{{item.url}}">{{item.txt}}</navigator>
       </block>
     </view>
