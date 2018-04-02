@@ -28,5 +28,11 @@
   "bugs": {
     "url": "https://github.com/bbxyard/wepy-3rd/issues"
   },
-  "homepage": "https://github.com/bbxyard/wepy-3rd#readme"
+  "homepage": "https://github.com/bbxyard/wepy-3rd#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.0.5"
+  }
 }
