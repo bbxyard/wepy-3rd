@@ -115,9 +115,9 @@
 
 <script>
 import wepy from 'wepy';
-import VTMixGlobal from '../../mixins/MixGlobal';
+import MixGlobal from '../../mixins/MixCompGlobal';
 export default class XBWeCommenter extends wepy.component {
-  mixins = [VTMixGlobal];
+  mixins = [MixGlobal];
 
   props = { };
 
