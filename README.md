@@ -21,8 +21,11 @@ wepy 3rd libs for wechat mini program
 wepy new proj1
 
 # 将三方集结库clone到 proj1/src/3rd 下.
-pushd proj1/src
-git clone git@github.com:bbxyard/wepy-3rd.git 3rd
+pushd proj1
+git submodule add git@github.com:bbxyard/wepy-3rd.git src/3rd
+
+# 补充信赖包
+cnpm install nbox sprint-js randomcolor --save
 ```
 
 ### step2. 更新配置文件
