@@ -15,7 +15,7 @@ wepy 3rd libs for wechat mini program
 
 # how to use
 ## 使用步骤
-- step1. 创建新项目
+### step1. 创建新项目
 ```
 # proj1为工程名
 wepy new proj1
@@ -25,21 +25,27 @@ pushd proj1/src
 git clone git@github.com:bbxyard/wepy-3rd.git 3rd
 ```
 
-- step2. 更新配置文件
-# .gitignore
+### step2. 更新配置文件
+- .gitignore
 ```
 # add 
 src/3rd
 ```
 
-# .wepy.config.js
+- .wepyignore
+```
+# add
+.git
+```
+
+- .wepy.config.js
 ```
     alias: {
       '@': path.join(__dirname, 'src/3rd/lib/components')
     },
 ```
 
-# .eslintrc.js
+- .eslintrc.js
 ```
   // add your custom rules here
   'rules': {
@@ -57,7 +63,7 @@ src/3rd
   }
 ```
 
-# app.wpy
+- app.wpy
 ```
 @import '3rd/lib/style/weui.less';
 @import '3rd/lib/style/zan.less';
@@ -65,14 +71,18 @@ src/3rd
 ```
 
 
-- step3. 移除项目中的样例文件
+### step3. 移除项目中的样例文件
 ```
 #1. components 下的几个文件
 #2. index.wpy清空
 ```
 
-- step4. 代码风格
+### step4. 代码风格
 ```
 加上分号; 
 从C++系列转过来的，没有分号为界，没有安全感，也不习惯.
 ```
+
+---
+
+## 参考
