@@ -29,18 +29,6 @@ cnpm install nbox sprint-js randomcolor --save
 ```
 
 ### step2. 更新配置文件
-- .gitignore
-```
-# add 
-src/3rd
-```
-
-- .wepyignore
-```
-# add
-.git
-```
-
 - .wepy.config.js
 ```
     alias: {
