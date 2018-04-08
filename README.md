@@ -29,6 +29,19 @@ cnpm install nbox sprint-js randomcolor --save
 ```
 
 ### step2. 更新配置文件
+
+- package.json
+```
+  "scripts": {
+    "dev": "wepy build --watch",
+    "build": "cross-env NODE_ENV=production wepy build --no-cache",
+    "git-pull-3rd": "git -C src/3rd pull origin master",
+    "git-push-3rd": "git -C src/3rd add .; git -C src/3rd commit -am 'app-emit-update-3rd'; git -C src/3rd push origin master",
+    "git-push-main": "git add .; git commit -am 'app-self-push-3rd-id'; git push origin master",
+    "test": "mocha"
+  },
+```
+
 - .wepy.config.js
 ```
     alias: {
