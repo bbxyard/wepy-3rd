@@ -1,0 +1,122 @@
+<style lang="less">
+.weui-flex {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.weui-cells {
+  margin-top: 0;
+  opacity: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+.weui-cells:before,
+.weui-cells:after {
+  display: none;
+}
+.weui-cells_show {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.weui-cell:before {
+  right: 15px;
+}
+.kind-list__item {
+  margin: 10px 0;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.kind-list__item:first-child {
+  margin-top: 0;
+}
+.kind-list__img {
+  width: 30px;
+  height: 30px;
+}
+.kind-list__item-hd {
+  padding: 20px;
+  -webkit-transition: opacity .3s;
+  transition: opacity .3s;
+}
+.kind-list__item-hd_show {
+  opacity: .4;
+}
+.kind-list__item-bd {
+  height: 0;
+  overflow: hidden;
+}
+.kind-list__item-bd_show {
+  height: auto;
+}
+.page__ft{
+  font-size:26rpx;
+  color:#ccc;
+}
+</style>
+
+<template>
+<view class="page">
+  <!-- head -->
+  <view class="page__hd">
+    <view class="page__title">自定义组件</view>
+    <view class="page__desc">对WEUI样式的补充</view>
+  </view>
+
+  <!-- body -->
+  <view class="page__bd page__bd_spacing">
+    <view class="kind-list">
+      <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="id">
+      <view class="kind-list__item">
+        <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+          <view class="weui-flex__item">{{item.name}}</view>
+          <!--<image class="kind-list__img" src="images/icon_nav_{{item.id}}.png"></image>-->
+        </view>
+        <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+          <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+            <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
+            <navigator url="{{page}}" class="weui-cell weui-cell_access">
+              <view class="weui-cell__bd">{{page}}</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            </block>
+          </view>
+        </view>
+      </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- footer -->
+  <view class="page__ft">
+    深圳三十天科技@20170109 && refined by boxu.
+  </view>
+</view>  
+</template>
+
+<script>
+import config from '../../config';
+import wepy from 'wepy';
+export default class Index extends wepy.page {
+  data = {
+    list: []
+  };
+
+  methods = {
+    kindToggle(e) {
+      let id = e.currentTarget.id;
+      this.list = this.list.map((item) => {
+        item.open = (item.id === id);
+        return item;
+      });
+    }
+  };
+
+  onLoad() {
+    this.list = config.yzz.index.list;
+  }
+}
+</script>

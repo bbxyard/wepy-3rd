@@ -1,0 +1,148 @@
+<style lang="less">
+
+.comp-tabbar {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+
+  .left_tabbar {
+    width: 25%;
+    .left_tabbar_item {
+      color: #7c7c7c;
+      font-size: 26rpx;
+      width: 100%;
+      padding: 20rpx 0;
+      text-align: center;
+      border-bottom: 1rpx solid #fff;
+    }
+    .left_tabbar_list {
+      background: #eee;
+    } 
+    .active {
+      background: #fff;
+      color: #000;
+      transition: all 0.5s;
+      animation: show 0.5s;
+    }
+  }
+
+  .right_content {
+    width: 75%;
+    .tab_panel {
+      height: 100%;
+      margin: 0 20rpx;
+      font-size: 26rpx;
+      view {
+        padding: 20rpx;
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+@-webkit-keyframes show {
+  0% {
+    opacity: 0;
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateY(360deg);
+  }
+}
+
+
+
+</style>
+
+<template>
+<view class="comp-tabbar">
+  <view class="left_tabbar">
+    <scroll-view scroll-y="true" style="height:{{deviceHeight}}px;" class="left_tabbar_list">
+      <block wx:for="{{ui.tabs}}" wx:key="id" wx:for-index="index">
+      <view @tap="changeTab" data-index="{{index}}" data-name="{{item.tabName}}" class="left_tabbar_item {{ui.activeIndex==index?'active':''}}">
+        {{item.tabName}}
+      </view>
+      </block>
+    </scroll-view>
+  </view>
+  <view class="right_content">
+    <scroll-view bindscrolltoupper="getMore" bindscrolltolower="getMore" scroll-y="true" class="tab_panel">
+      <block wx:for="{{ui.contentList}}" wx:for-index="index" wx:key="{{index}}">
+        <view> ({{index+1}})  現在是{{ui.content}}</view>
+      </block>
+    </scroll-view>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class LeftTab extends wepy.component {
+  data = {
+    ui: {
+      activeIndex: 0,
+      content: '',
+      tabs: [],
+      contentList: []
+    },
+    deviceWidth: 0,
+    deviceHeight: 0
+  };
+
+  methods = {
+    changeTab(e) {
+      const dataset = e.currentTarget.dataset;
+      this.ui.activeIndex = dataset.index;
+      this.ui.content = dataset.name;
+    },
+    getMore() {
+      const other = [
+        { text: '菜单:' },
+        { text: '菜单:' },
+        { text: '菜单:' },
+        { text: '菜单:' },
+        { text: '菜单:' }
+      ];
+      this.ui.contentList.concat(other);
+    },
+    refresh(item) {
+      this.ui = item;
+    }
+  };
+
+  onPullDownRefresh() {
+    console.log(`${this.$name} onPullDownRefresh`);
+  }
+
+  onPageScroll(e) {
+    console.log(`${this.$name} onPageScroll: ` + e);
+  }
+
+  async onLoad() {
+    // 页面初始化 options为页面跳转所带来的参数
+    const res = await wepy.getSystemInfo();
+    this.deviceWidth = res.windowWidth;
+    this.deviceHeight = res.windowHeight;
+    this.$apply();
+  }
+}
+</script>

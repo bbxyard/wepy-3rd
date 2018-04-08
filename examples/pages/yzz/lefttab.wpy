@@ -1,0 +1,36 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <view>
+    <lt />
+  </view>
+</template>
+
+<script>
+import config from '../../config';
+import wepy from 'wepy';
+import Lefttab from '@/yzz/lefttab';
+export default class LefttabPage extends wepy.page {
+  components = { lt: Lefttab };
+
+  data = {
+    ltUI: null
+  };
+
+  onPullDownRefresh() {
+    console.log(`${this.$name} onPullDownRefresh`);
+  }
+
+  onPageScroll(e) {
+    console.log(`${this.$name} onPageScroll: ` + e);
+  }
+
+  onLoad() {
+    this.ltUI = config.yzz.lefttab.main;
+    this.$invoke('lt', 'refresh', this.ltUI);
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
