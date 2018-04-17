@@ -1,14 +1,56 @@
 <style lang="less">
-
+  .mine {
+    .hd {
+      margin: 20rpx;
+      display: flex;
+      flex-flow: column nowrap;
+      .item {
+        height: 3rem;
+        line-height: 3rem;
+        font-size: 2rem; 
+        margin: 10rpx;
+        display: flex;
+        flex-flow: row nowrap;
+        flex: 1;
+        .icon { padding-right: 20rpx; line-height: 3rem; }
+        .title { color: orange; padding-right: 20rpx; }
+        .desc { color: red }
+      }
+    }
+  }
 </style>
 
 <template>
-  
+  <view class="mine">
+    <text>FontAwesome Test</text>
+    <view class="hd">
+      <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+      <view class="item">
+        <view class="{{item.icon}} icon"></view>
+        <text class="title">{{item.title}}</text>
+        <text class="desc">{{item.desc}}</text>
+      </view>
+      </block>
+    </view>
+  </view>
 </template>
 
 <script>
 import wepy from 'wepy';
 export default class Mine extends wepy.page {
+  data = {
+    list: [
+      { icon: 'fa fa-pencil', title: 'foobar1', desc: 'desc1' },
+      { icon: 'fa fa-square-o', title: 'foobar2', desc: 'desc2' },
+      { icon: 'fa fa-twitter', title: 'foobar3', desc: 'desc3' },
+      { icon: 'fa fa-spinner fa-spin', title: 'fa-spin', desc: 'fa-spinner' },
+      { icon: 'fa fa-circle-o-notch fa-spin', title: 'fa-spin', desc: 'fa-circle-o-notch' },
+      { icon: 'fa fa-refresh fa-spin', title: 'fa-spin', desc: 'fa-refresh' },
+      { icon: 'fa fa-cog fa-spin', title: 'fa-spin', desc: 'fa-cog' },
+      { icon: 'fa fa-spinner fa-pulse', title: 'fa-pulse', desc: 'fa-spinner' }
+    ]
+  };
+
   onLoad() {
     console.log(`${this.$name} just do it.`);
   }
