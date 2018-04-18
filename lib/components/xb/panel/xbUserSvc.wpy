@@ -57,27 +57,31 @@
 import wepy from 'wepy';
 export default class XBUserSvc extends wepy.component {
   data = {
-    pkg: {
-      hd: { title: '我的服务', desc: '' },
-      bd: {
-        col: 4, // 列数
-        width: '25%',
-        list: [
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon6.png', fa: '', txt: '优惠券', cnt: 0 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon7.png', fa: '', txt: '收藏夹', cnt: 3 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon8.png', fa: '', txt: '商品点评', cnt: 0 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon9.png', fa: '', txt: '联系客服', cnt: 0 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon10.png', fa: '', txt: '地址管理', cnt: 0 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon11.png', fa: '', txt: '修改密码', cnt: 0 },
-          // { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon12.png', fa: '', txt: '帮助', cnt: 0 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon13.png', fa: '', txt: '设置', cnt: 0 }
-        ]
-      }
-    }
+    pkg: {}
   };
 
+  methods = {
+    refresh(pkg) {
+      this.pkg = pkg;
+      // 智能计算width
+      if (this.pkg.bd.width === 0) {
+        let arr = [5, 3, 4];
+        let len = this.pkg.bd.list.length();
+        let width = '25%';
+        for (let i = 0; i < arr.length; ++i) {
+          if (len % arr[i] === 0) {
+            width = Math.round(100 % arr[i]);
+            break;
+          }
+        }
+        this.pkg.bd.width = width;
+      }
+      this.$apply();
+    }
+  }
+
   onLoad() {
-    this.pkg.bd.width = 100 / this.pkg.bd.col + '%';
+
     console.log(`${this.$name} loaded.`);
   }
 }

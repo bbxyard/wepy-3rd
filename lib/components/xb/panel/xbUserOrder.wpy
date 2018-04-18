@@ -58,19 +58,15 @@
 import wepy from 'wepy';
 export default class XBUserOrder extends wepy.component {
   data = {
-    pkg: {
-      hd: { title: '我的订单', desc: '查看全部订单' },
-      bd: {
-        list: [
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon1.png', fa: '', txt: '待付款', cnt: 0 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon2.png', fa: '', txt: '待发货', cnt: 1 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon3.png', fa: '', txt: '已发货', cnt: 5 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon4.png', fa: '', txt: '待评价', cnt: 8 },
-          { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon5.png', fa: '', txt: '退款/售后', cnt: 0 }
-        ]
-      }
-    }
+    pkg: {}
   };
+
+  methods = {
+    refresh(pkg) {
+      this.pkg = pkg;
+      this.$apply();
+    }
+  }
 
   onLoad() {
     console.log(`${this.$name} loaded.`);

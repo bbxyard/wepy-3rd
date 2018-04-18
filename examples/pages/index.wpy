@@ -1,0 +1,47 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <view class='page'>
+
+    <title title="3rd Demos" desc="Enjoy it." />
+
+    <view class="zan-panel">
+      <navigator url="/3rd/examples/pages/fa">
+        Font Awesome Demo
+      </navigator>
+    </view>
+
+    <footer :copyright="copyright" :links="links" />
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MyTitle from '@/xb/xbWeTitle';
+import MyFooter from '@/xb/xbWeFooter';
+export default class DemoIndex extends wepy.page {
+  components = {
+    title: MyTitle,
+    footer: MyFooter
+  };
+
+  data = {
+    links: [
+      { url: '/pages/index', txt: 'Home', hidden: false },
+      { url: '/3rd/examples/pages/index', txt: '3rdHome', hidden: false },
+      { url: '/3rd/examples/pages/yzz/index', txt: 'yzz', hidden: false },
+      { url: '/3rd/examples/pages/mine', txt: 'Mine', hidden: false }
+    ],
+    copyright: 'Copyright © 2013-2018 bbxyard'
+  };
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+    console.log('Title: ', MyTitle);
+    console.log('Footer: ', MyFooter);
+  }
+}
+</script>

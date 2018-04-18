@@ -1,0 +1,57 @@
+<style lang="less">
+  .fa-demo {
+    .bd {
+      padding: 20rpx;
+      display: flex;
+      flex-flow: column nowrap;
+      .item {
+        height: 3rem;
+        line-height: 3rem;
+        font-size: 1.2rem; 
+        margin: 10rpx;
+        display: flex;
+        flex-flow: row nowrap;
+        flex: 1;
+        .icon { padding-right: 20rpx; line-height: 3rem; }
+        .title { color: orange; padding-right: 20rpx; }
+        .desc { color: red }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="fa-demo">
+    <title title="FontAwesome and User" desc="FontAwesome demo and sub-panel demo" />
+    <view class="bd zan-panel">
+      <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+      <view class="item">
+        <view class="{{item.icon}} icon"></view>
+        <text class="title">{{item.title}}</text>
+        <text class="desc">{{item.desc}}</text>
+      </view>
+      </block>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Title from '@/xb/xbWeTitle';
+import MixGlobal from '@/../mixins/MixCompGlobal';
+export default class FA extends wepy.page {
+  components = { title: Title };
+
+  mixins = [MixGlobal];
+
+  data = {
+    list: []
+  };
+
+  onLoad() {
+    this.config = this.getGConfig();
+    this.list = this.config.xb.fa.list;
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
