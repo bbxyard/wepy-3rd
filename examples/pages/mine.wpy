@@ -1,13 +1,13 @@
 <style lang="less">
   .mine {
-    .hd {
-      margin: 20rpx;
+    .bd {
+      padding: 20rpx;
       display: flex;
       flex-flow: column nowrap;
       .item {
         height: 3rem;
         line-height: 3rem;
-        font-size: 2rem; 
+        font-size: 1.2rem; 
         margin: 10rpx;
         display: flex;
         flex-flow: row nowrap;
@@ -22,8 +22,12 @@
 
 <template>
   <view class="mine">
-    <text>FontAwesome Test</text>
-    <view class="hd">
+    <title title="FontAwesome and User" desc="FontAwesome demo and sub-panel demo" />
+    
+    <userOrder />
+    <userSvc />
+
+    <view class="bd zan-panel">
       <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="index">
       <view class="item">
         <view class="{{item.icon}} icon"></view>
@@ -37,7 +41,16 @@
 
 <script>
 import wepy from 'wepy';
+import Title from '@/xb/xbWeTitle';
+import UserOrder from '@/xb/panel/xbUserOrder';
+import UserSvc from '@/xb/panel/xbUserSvc';
 export default class Mine extends wepy.page {
+  components = {
+    title: Title,
+    userOrder: UserOrder,
+    userSvc: UserSvc
+  };
+
   data = {
     list: [
       { icon: 'fa fa-pencil', title: 'foobar1', desc: 'desc1' },
