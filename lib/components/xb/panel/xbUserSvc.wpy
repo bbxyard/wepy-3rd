@@ -42,7 +42,7 @@
           <view class="fa {{item.fa}} img" wx:if="{{item.fa}}"></view>
           <view wx:else><image class="img" src="{{item.img}}" /></view>
           <!-- 文本描述 -->
-          <text class="txt">{{item.txt}}</text>
+          <text class="txt">{{item.title}}</text>
           <!-- 数量-徽标-小红点 -->
           <view class="zan-badge__count" wx:if="{{item.cnt > 0}}">
             <text>{{item.cnt}}</text>

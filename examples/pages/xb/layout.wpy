@@ -10,6 +10,7 @@
     <gridA width="20%" />
     <gridB />
     <gridC />
+    <listA />
   </view>
 </template>
 
@@ -17,6 +18,7 @@
 import wepy from 'wepy';
 import Title from '@/xb/xbWeTitle';
 import LayoutGrid from '@/xb/layout/xbGrid';
+import LayoutList from '@/xb/layout/xbList';
 import MixGlobal from '@/../mixins/MixCompGlobal';
 import MixPageRefresher from '@/../mixins/MixPageRefresher';
 export default class LayoutPage extends wepy.page {
@@ -24,7 +26,8 @@ export default class LayoutPage extends wepy.page {
     title: Title,
     gridA: LayoutGrid,
     gridB: LayoutGrid,
-    gridC: LayoutGrid
+    gridC: LayoutGrid,
+    listA: LayoutList
   };
 
   mixins = [MixGlobal, MixPageRefresher];
@@ -42,6 +45,9 @@ export default class LayoutPage extends wepy.page {
     this.$invoke('gridA', 'refresh', {theme: 'xb-border', bd});
     this.$invoke('gridB', 'refresh', {theme: 'xb', bd});
     this.$invoke('gridC', 'refresh', {theme: 'wux', bd});
+
+    // #2. list
+    this.$invoke('listA', 'refresh', {theme: 'default', bd});
   }
 
   onLoad() {
