@@ -1,0 +1,53 @@
+<style lang="less">
+  .layout-demo {
+
+  }
+</style>
+
+<template>
+  <view class="layout-demo">
+    <title title="layout-demo" desc="布局演示" />
+    <gridA width="20%" />
+    <gridB />
+    <gridC />
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import Title from '@/xb/xbWeTitle';
+import LayoutGrid from '@/xb/layout/xbGrid';
+import MixGlobal from '@/../mixins/MixCompGlobal';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
+export default class LayoutPage extends wepy.page {
+  components = {
+    title: Title,
+    gridA: LayoutGrid,
+    gridB: LayoutGrid,
+    gridC: LayoutGrid
+  };
+
+  mixins = [MixGlobal, MixPageRefresher];
+
+  data = {
+    pkg: {}
+  };
+
+  async startAsyncLoad() {
+    // #0. 本身
+    this.ui = this.config.xb.layout;
+
+    // #1. grid
+    const bd = { list: this.ui.list };
+    this.$invoke('gridA', 'refresh', {theme: 'xb-border', bd});
+    this.$invoke('gridB', 'refresh', {theme: 'xb', bd});
+    this.$invoke('gridC', 'refresh', {theme: 'wux', bd});
+  }
+
+  onLoad() {
+    this.config = this.getGConfig(); // 实际开发, 建议config统一从Global获取
+    this.startAsyncLoad();
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

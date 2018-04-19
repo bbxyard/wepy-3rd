@@ -1,0 +1,47 @@
+<style lang="less">
+.xb-layout-list {
+  .theme-default {
+    .weui-cell {
+      .img {
+        margin-right: 5px;
+        vertical-align: middle;
+        width: 40rpx; 
+        height: 40rpx;
+      }
+    }
+  }
+}
+
+</style>
+
+<template>
+<view class="xb-layout-list">
+  <!-- 缺省主题 -->
+  <view class="theme-default" wx:if="{{pkg.theme === 'default'}}">
+    <view class="weui-cells weui-cells_after-title">
+    <block wx:for="{{pkg.bd.list}}" wx:for-index="index" wx:key="{{index}}">
+      <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+            <image src="{{item.img}}" class="img"></image>
+        </view>
+        <view class="weui-cell__bd">{{item.title}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.desc}}</view>
+      </navigator>
+    </block>
+		</view>
+  </view>
+  <!-- 主题2 -->
+  <!-- 主题3 -->
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
+export default class XBList extends wepy.component {
+  mixins = [MixCompRefresher];
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

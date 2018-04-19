@@ -18,8 +18,7 @@ const mine = {
   userSvc: {
     hd: { title: '我的服务', desc: '' },
     bd: {
-      width: '25%',
-      list: [
+      width: '25%',      list: [
         { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon6.png', fa: '', txt: '优惠券', cnt: 0 },
         { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon7.png', fa: '', txt: '收藏夹', cnt: 3 },
         { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon8.png', fa: '', txt: '商品点评', cnt: 0 },
@@ -46,7 +45,21 @@ const fa = {
   ]
 };
 
+const layout = {
+  list: [
+    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon6.png', fa: '', title: '优惠券', desc: 'Coupon', cnt: 0 },
+    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon7.png', fa: '', title: '收藏夹', desc: 'Favor', cnt: 3 },
+    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon8.png', fa: '', title: '商品点评', desc: 'Comment', cnt: 0 },
+    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon9.png', fa: '', title: '联系客服', desc: 'Contact', cnt: 0 },
+    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon10.png', fa: '', title: '地址管理', desc: 'Address', cnt: 0 },
+    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon11.png', fa: '', title: '修改密码', desc: 'Password', cnt: 0 },
+    // { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon12.png', fa: '', title: '帮助', desc: 'Help', cnt: 0 },
+    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon13.png', fa: '', title: '设置', desc: 'Settings', cnt: 0 }
+  ]
+};
+
 export default {
   mine,
-  fa
+  fa,
+  layout
 };

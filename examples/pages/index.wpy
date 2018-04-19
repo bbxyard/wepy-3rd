@@ -11,6 +11,9 @@
       <navigator url="/3rd/examples/pages/fa">
         Font Awesome Demo
       </navigator>
+      <navigator url="/3rd/examples/pages/xb/layout">
+        Layout Demo
+      </navigator>
     </view>
 
     <footer :copyright="copyright" :links="links" />

@@ -1,0 +1,206 @@
+<style lang="less">
+.border-bottom-solid() {
+  border-bottom:1px solid #D9D9D9;
+}
+.border-right-solid() {
+  border-right:1rpx solid #D9D9D9;
+}
+
+.xb-layout-grid {
+  .theme-xb {
+    .grid-body {
+      padding-bottom: 24rpx;
+      margin-bottom: 20rpx;
+      display: flex;
+      flex-wrap: wrap;
+      .grid-b-item {
+        text-align: center;
+        margin-top: 30rpx;
+        position: relative;
+        .img { width: 45rpx; height: 45rpx; display: inline-block; }
+        .txt { font-size: 24rpx; color: #666; margin-top: 9rpx; display: block; }
+        .zan-badge__count { left:45%; width:36rpx; }
+      }
+    }
+  }
+
+  .theme-xb-border {
+    .grid-body {
+      margin-bottom: 20rpx;
+      display: flex;
+      flex-wrap: wrap;
+      .grid-b-item {
+        text-align: center;
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+        position: relative;
+        box-sizing: border-box;
+        .border-bottom-solid;
+        .border-right-solid;
+        .img { width: 45rpx; height: 45rpx; display: inline-block; }
+        .txt { font-size: 24rpx; color: #666; margin-top: 9rpx; display: block; }
+        .zan-badge__count { left:45%; width:36rpx; top: 4rpx; }
+      }
+    }
+  }
+
+  .theme-wux {
+    .grids {
+      position: relative;
+      overflow: hidden;
+      background-color: #fff;
+      margin-bottom: 20rpx;
+    }
+
+    .grids:before {
+      content: " ";
+      position: absolute;
+      box-sizing: border-box;
+      left: 0;
+      top: 0;
+      width: 200%;
+      height: 200%;
+      border: 1px solid #D9D9D9;
+      color: #D9D9D9;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scale(.5);
+      transform: scale(.5);
+    }
+
+    .grid {
+      position: relative;
+      float: left;
+      padding: 20px 10px;
+      width: 33.33333333%;
+      box-sizing: border-box;
+      text-decoration: none
+    }
+
+    .grids-small .grid {
+      width: 25%;
+      padding: 15px 8px
+    }
+
+    .grid:before {
+      content: " ";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      .border-right-solid;
+      color: #D9D9D9;
+      -webkit-transform-origin: 100% 0;
+      transform-origin: 100% 0;
+      -webkit-transform: scaleX(.5);
+      transform: scaleX(.5)
+    }
+
+    .grid:after {
+      content: " ";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      .border-bottom-solid;
+      color: #D9D9D9;
+      -webkit-transform-origin: 0 100%;
+      transform-origin: 0 100%;
+      -webkit-transform: scaleY(.5);
+      transform: scaleY(.5)
+    }
+
+    .grid:active {
+      background-color: #E4E4E4
+    }
+
+    .grid_icon {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto
+    }
+
+    .grid_icon .grid_img {
+      display: block;
+      width: 100%;
+      height: 100%
+    }
+
+    .grid_icon+.grid_label {
+      margin: 5px 0 0
+    }
+
+    .grid_label {
+      display: block;
+      text-align: center;
+      color: #000;
+      font-size: 14px
+    }
+  }
+}
+</style>
+
+<template>
+<view class="xb-layout-grid">
+  <!-- xb(缺省) -->
+  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'xb' || pkg.theme === 'xb-border'}}">
+    <view class="grid-body zan-panel">
+      <view class="grid-b-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};">
+        <navigator url="{{item.url}}">
+          <!-- 图标优先使用FontAwesome -->
+          <view class="fa {{item.fa}} img" wx:if="{{item.fa}}"></view>
+          <view wx:else><image class="img" src="{{item.img}}" /></view>
+          <!-- 文本描述 -->
+          <text class="txt">{{item.title}}</text>
+          <!-- 数量-徽标-小红点 -->
+          <view class="zan-badge__count" wx:if="{{item.cnt > 0}}">
+            <text>{{item.cnt}}</text>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <!-- wux -->
+  <view class="theme-wux" wx:if="{{pkg.theme === 'wux'}}">
+		<view class="grids grids-small">
+			<block wx:for="{{pkg.bd.list}}" wx:key="{{index}}">
+				<navigator url="{{item.url}}" class="grid">
+					<view class="grid_icon">
+						<image class="grid_img" src="{{item.img}}" alt="" />
+					</view>
+					<view class="grid_label">{{ item.title }}</view>
+				</navigator>
+			</block>
+		</view>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
+export default class XBGrid extends wepy.component {
+  mixins = [MixCompRefresher];
+
+  props = {
+    width: { type: [String], default: '25%' },
+    theme: { type: [String], default: 'xb-border' }
+  };
+
+  doPostRefresh() {
+    if (!this.pkg.theme || this.pkg.theme === 'default') {
+      this.pkg.theme = this.theme;
+    }
+    if (!this.pkg.width) {
+      this.pkg.width = this.width;
+    }
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
