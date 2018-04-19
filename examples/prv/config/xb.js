@@ -18,7 +18,8 @@ const mine = {
   userSvc: {
     hd: { title: '我的服务', desc: '' },
     bd: {
-      width: '25%',      list: [
+      width: '25%',
+      list: [
         { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon6.png', fa: '', title: '优惠券', cnt: 0 },
         { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon7.png', fa: '', title: '收藏夹', cnt: 3 },
         { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon8.png', fa: '', title: '商品点评', cnt: 0 },
