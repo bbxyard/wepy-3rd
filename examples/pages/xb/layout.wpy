@@ -45,7 +45,7 @@ export default class LayoutPage extends wepy.page {
     this.$invoke('gridC', 'refresh', {theme: 'wux', bd});
 
     // #2. list
-    this.$invoke('listA', 'refresh', {theme: 'default', bd});
+    this.$invoke('listA', 'refresh', {theme: 'default', hd: {title: 'List-Style'}, bd});
 
     // #3. footer
     this.$invoke('footer', 'refresh', this.config.xb.footer);

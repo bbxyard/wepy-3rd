@@ -17,6 +17,7 @@
         text-align: center;
         margin-top: 30rpx;
         position: relative;
+        .fa { line-height: 52rpx; font-size: 1.38rem; color: moccasin; }
         .img { width: 45rpx; height: 45rpx; display: inline-block; }
         .txt { font-size: 24rpx; color: #666; margin-top: 9rpx; display: block; }
         .zan-badge__count { left:45%; width:36rpx; }
@@ -37,6 +38,7 @@
         box-sizing: border-box;
         .border-bottom-solid;
         .border-right-solid;
+        .fa { line-height: 52rpx; font-size: 1.38rem; color: orange; }
         .img { width: 45rpx; height: 45rpx; display: inline-block; }
         .txt { font-size: 24rpx; color: #666; margin-top: 9rpx; display: block; }
         .zan-badge__count { left:45%; width:36rpx; top: 4rpx; }
@@ -150,7 +152,7 @@
       <view class="grid-b-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};">
         <navigator url="{{item.url}}">
           <!-- 图标优先使用FontAwesome -->
-          <view class="fa {{item.fa}} img" wx:if="{{item.fa}}"></view>
+          <view class="fa {{item.fa}}" wx:if="{{item.fa}}"></view>
           <view wx:else><image class="img" src="{{item.img}}" /></view>
           <!-- 文本描述 -->
           <text class="txt">{{item.title}}</text>

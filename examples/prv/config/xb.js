@@ -14,6 +14,10 @@ const footer = {
 };
 
 const index = {
+  list: [
+    { url: '/3rd/examples/pages/fa', fa: 'fa-thumbs-o-up', title: 'Font Awesome Demo', desc: '字体图标' },
+    { url: '/3rd/examples/pages/xb/layout', fa: 'fa-linux', title: 'Layout Demo', desc: '布局' }
+  ]
 };
 
 const mine = {
@@ -66,11 +70,11 @@ const fa = {
 const layout = {
   list: [
     { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-tosend.png', fa: '', title: '优惠券', desc: 'Coupon', cnt: 0 },
-    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-favor.png', fa: '', title: '收藏夹', desc: 'Favor', cnt: 3 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-favor.png', fa: 'fa-star', title: '收藏夹', desc: 'Favor', cnt: 3 },
     { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-comment.png', fa: '', title: '商品点评', desc: 'Comment', cnt: 0 },
     { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-contact.png', fa: '', title: '联系客服', desc: 'Contact', cnt: 0 },
     { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-address.png', fa: '', title: '地址管理', desc: 'Address', cnt: 0 },
-    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-password.png', fa: '', title: '修改密码', desc: 'Password', cnt: 0 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-password.png', fa: 'fa-user-secret', title: '修改密码', desc: 'Password', cnt: 0 },
     // { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-help.png', fa: '', title: '帮助', desc: 'Help', cnt: 0 },
     { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-setting.png', fa: '', title: '设置', desc: 'Settings', cnt: 0 }
   ]

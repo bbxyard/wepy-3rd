@@ -1,5 +1,4 @@
 <style lang="less">
-
 </style>
 
 <template>
@@ -7,14 +6,22 @@
 
     <title title="3rd Demos" desc="Enjoy it." />
 
-    <view class="zan-panel">
-      <navigator url="/3rd/examples/pages/fa">
-        Font Awesome Demo
+    <lister />
+
+    <!-- <view class="weui-cells__title" style="color: grey;">Have Fun</view>
+    <view class="weui-cells weui-cells_after-title">
+      <block wx:for="{{list}}" wx:key="{{index}}">
+      <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <view class="fa {{item.fa}}"></view>
+        </view>
+        <view class="weui-cell__bd">{{item.title}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">
+          {{item.desc}}
+        </view>
       </navigator>
-      <navigator url="/3rd/examples/pages/xb/layout">
-        Layout Demo
-      </navigator>
-    </view>
+      </block>
+    </view> -->
 
     <footer fixed="true" />
   </view>
@@ -24,18 +31,25 @@
 import wepy from 'wepy';
 import MyTitle from '@/xb/xbWeTitle';
 import MyFooter from '@/xb/xbWeFooter';
+import LayoutList from '@/xb/layout/xbList';
 import MixPageRefresher from '@/../mixins/MixPageRefresher';
 export default class DemoIndex extends wepy.page {
   components = {
     title: MyTitle,
-    footer: MyFooter
+    footer: MyFooter,
+    lister: LayoutList
   };
 
   mixins = [MixPageRefresher];
 
-  data = { };
+  data = { list: [] };
 
   doStartAsyncLoad() {
+    // #1. lister
+    this.list = this.config.xb.index.list;
+    this.$invoke('lister', 'refresh', { hd: { title: 'Have Fun'}, bd: {list: this.list} });
+
+    // #N. footer
     let footer = this.config.xb.footer;
     this.$invoke('footer', 'refresh', footer);
   }
