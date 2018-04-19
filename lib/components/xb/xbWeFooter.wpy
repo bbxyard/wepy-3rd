@@ -1,13 +1,15 @@
-<style>
-  .weui-footer { margin-bottom: 50px; }
-  .weui-footer_fixed-bottom { margin-bottom: 0; }
+<style lang="less">
+  .weui-footer { margin-bottom: 20rpx; margin-top: 20rpx; }
+  .weui-footer_fixed-bottom { margin-bottom: 36rpx; }
 </style>
 
 <template>
-  <view class="weui-footer weui-footer_fixed-bottom">
+  <view class="weui-footer {{fixed === 'true' ? 'weui-footer_fixed-bottom' : ''}}">
     <view class="weui-footer__links">
-      <block wx:for="{{links}}" wx:key="{{index}}">
+      <block wx:for="{{links}}" wx:key="{{item.url}}">
+        <block wx:if="{{!item.hidden}}">
         <navigator class="weui-footer__link" url="{{item.url}}">{{item.txt}}</navigator>
+        </block>
       </block>
     </view>
     <view class="weui-footer__text">{{copyright}}</view>
@@ -15,11 +17,22 @@
 </template>
 
 <script>
-  import wepy from 'wepy';
-  export default class xbWeFooter extends wepy.component {
-    props = {
-      copyright: { type: [String], default: '' },
-      links: { type: [Array], default: [] }
-    };
+import wepy from 'wepy';
+import MixCompRefresher from '../../mixins/MixCompRefresher';
+export default class xbWeFooter extends wepy.component {
+  mixins = [MixCompRefresher];
+
+  props = {
+    fixed: { type: [String], default: 'false' },
+    copyright: { type: [String], default: '' },
+    links: { type: [Array], default: [] }
+  };
+
+  doPostRefresh() {
+    let pkg = this.pkg; // MixCompRefresher中定义
+    this.copyright = pkg.copyright;
+    this.links = pkg.links;
+    this.$apply();
   }
+}
 </script>

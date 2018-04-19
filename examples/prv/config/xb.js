@@ -1,3 +1,20 @@
+/**
+ * @file xb.js
+ * @description 配置文件
+ */
+
+const footer = {
+  links: [
+    { url: '/pages/index', txt: 'Home', hidden: false },
+    { url: '/3rd/examples/pages/index', txt: '3rdHome', hidden: false },
+    { url: '/3rd/examples/pages/yzz/index', txt: 'yzz', hidden: false },
+    { url: '/3rd/examples/pages/mine', txt: 'Mine', hidden: false }
+  ],
+  copyright: 'Copyright © 2013-2018 bbxyard'
+};
+
+const index = {
+};
 
 const mine = {
   self: {
@@ -62,5 +79,7 @@ const layout = {
 export default {
   mine,
   fa,
+  footer,
+  index,
   layout
 };

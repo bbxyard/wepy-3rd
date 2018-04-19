@@ -11,15 +11,16 @@
     <gridB />
     <gridC />
     <listA />
+    <footer />
   </view>
 </template>
 
 <script>
 import wepy from 'wepy';
 import Title from '@/xb/xbWeTitle';
+import MyFooter from '@/xb/xbWeFooter';
 import LayoutGrid from '@/xb/layout/xbGrid';
 import LayoutList from '@/xb/layout/xbList';
-import MixGlobal from '@/../mixins/MixCompGlobal';
 import MixPageRefresher from '@/../mixins/MixPageRefresher';
 export default class LayoutPage extends wepy.page {
   components = {
@@ -27,16 +28,13 @@ export default class LayoutPage extends wepy.page {
     gridA: LayoutGrid,
     gridB: LayoutGrid,
     gridC: LayoutGrid,
-    listA: LayoutList
+    listA: LayoutList,
+    footer: MyFooter
   };
 
-  mixins = [MixGlobal, MixPageRefresher];
+  mixins = [MixPageRefresher];
 
-  data = {
-    pkg: {}
-  };
-
-  async startAsyncLoad() {
+  async doStartAsyncLoad() {
     // #0. 本身
     this.ui = this.config.xb.layout;
 
@@ -48,11 +46,13 @@ export default class LayoutPage extends wepy.page {
 
     // #2. list
     this.$invoke('listA', 'refresh', {theme: 'default', bd});
+
+    // #3. footer
+    this.$invoke('footer', 'refresh', this.config.xb.footer);
+    this.$apply();
   }
 
   onLoad() {
-    this.config = this.getGConfig(); // 实际开发, 建议config统一从Global获取
-    this.startAsyncLoad();
     console.log(`${this.$name} loaded.`);
   }
 }

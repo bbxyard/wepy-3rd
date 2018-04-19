@@ -9,30 +9,28 @@
     <userInfoComp />
     <userOrder />
     <userSvc />
+    <footer fixed="true" />
   </view>
 </template>
 
 <script>
 import wepy from 'wepy';
+import MyFooter from '@/xb/xbWeFooter';
 import UserInfo from '@/xb/panel/xbUserInfo';
 import UserOrder from '@/xb/panel/xbUserOrder';
 import UserSvc from '@/xb/panel/xbUserSvc';
-import MixGlobal from '@/../mixins/MixCompGlobal';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
 export default class Mine extends wepy.page {
-  constructor() {
-    super();
-    this.config = null;
-  }
-
-  mixins = [MixGlobal];
+  mixins = [MixPageRefresher];
 
   components = {
     userInfoComp: UserInfo,
     userOrder: UserOrder,
-    userSvc: UserSvc
+    userSvc: UserSvc,
+    footer: MyFooter
   };
 
-  async startAsyncLoad() {
+  async doStartAsyncLoad() {
     // #0. mine本身
     this.ui = this.config.xb.mine;
     wepy.setNavigationBarTitle({title: this.ui.self.navTitle});
@@ -47,11 +45,14 @@ export default class Mine extends wepy.page {
 
     // #3. userSvc
     this.$invoke('userSvc', 'refresh', this.ui.userSvc);
+
+    // #N. footer
+    this.$invoke('footer', 'refresh', this.config.xb.footer);
+
+    this.$apply();
   }
 
   onLoad() {
-    this.config = this.getGConfig(); // 实际开发, 建议config统一从Global获取
-    this.startAsyncLoad();
     console.log(`${this.$name} just do it.`);
   }
 }

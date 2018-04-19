@@ -33,24 +33,31 @@
       </block>
     </view>
   </view>
+
+  <footer />
 </template>
 
 <script>
 import wepy from 'wepy';
 import Title from '@/xb/xbWeTitle';
-import MixGlobal from '@/../mixins/MixCompGlobal';
+import MyFooter from '@/xb/xbWeFooter';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
 export default class FA extends wepy.page {
-  components = { title: Title };
+  components = { title: Title, footer: MyFooter };
 
-  mixins = [MixGlobal];
+  mixins = [MixPageRefresher];
 
   data = {
     list: []
   };
 
-  onLoad() {
-    this.config = this.getGConfig();
+  doStartAsyncLoad() {
+    let footer = this.config.xb.footer; 
     this.list = this.config.xb.fa.list;
+    this.$invoke('footer', 'refresh', footer);
+  }
+
+  onLoad() {
     console.log(`${this.$name} loaded.`);
   }
 }

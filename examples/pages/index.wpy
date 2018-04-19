@@ -16,8 +16,7 @@
       </navigator>
     </view>
 
-    <footer :copyright="copyright" :links="links" />
-
+    <footer fixed="true" />
   </view>
 </template>
 
@@ -25,21 +24,21 @@
 import wepy from 'wepy';
 import MyTitle from '@/xb/xbWeTitle';
 import MyFooter from '@/xb/xbWeFooter';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
 export default class DemoIndex extends wepy.page {
   components = {
     title: MyTitle,
     footer: MyFooter
   };
 
-  data = {
-    links: [
-      { url: '/pages/index', txt: 'Home', hidden: false },
-      { url: '/3rd/examples/pages/index', txt: '3rdHome', hidden: false },
-      { url: '/3rd/examples/pages/yzz/index', txt: 'yzz', hidden: false },
-      { url: '/3rd/examples/pages/mine', txt: 'Mine', hidden: false }
-    ],
-    copyright: 'Copyright © 2013-2018 bbxyard'
-  };
+  mixins = [MixPageRefresher];
+
+  data = { };
+
+  doStartAsyncLoad() {
+    let footer = this.config.xb.footer;
+    this.$invoke('footer', 'refresh', footer);
+  }
 
   onLoad() {
     console.log(`${this.$name} loaded.`);
