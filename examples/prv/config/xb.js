@@ -7,27 +7,27 @@ const mine = {
     hd: { title: '我的订单', desc: '查看全部订单' },
     bd: {
       list: [
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon1.png', fa: '', title: '待付款', cnt: 0 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon2.png', fa: '', title: '待发货', cnt: 1 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon3.png', fa: '', title: '已发货', cnt: 5 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon4.png', fa: '', title: '待评价', cnt: 8 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon5.png', fa: '', title: '退款/售后', cnt: 0 }
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-topay.png', fa: '', title: '待付款', cnt: 0 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-tosend.png', fa: '', title: '待发货', cnt: 1 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-send.png', fa: '', title: '已发货', cnt: 5 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-tocomment.png', fa: '', title: '待评价', cnt: 8 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-refund.png', fa: '', title: '退款/售后', cnt: 0 }
       ]
     }
   },
   userSvc: {
+    // width: '25%', 自动判断
     hd: { title: '我的服务', desc: '' },
     bd: {
-      width: '25%',
       list: [
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon6.png', fa: '', title: '优惠券', cnt: 0 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon7.png', fa: '', title: '收藏夹', cnt: 3 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon8.png', fa: '', title: '商品点评', cnt: 0 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon9.png', fa: '', title: '联系客服', cnt: 0 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon10.png', fa: '', title: '地址管理', cnt: 0 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon11.png', fa: '', title: '修改密码', cnt: 0 },
-        // { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon12.png', fa: '', title: '帮助', cnt: 0 },
-        { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon13.png', fa: '', title: '设置', cnt: 0 }
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-coupon.png', fa: '', title: '优惠券', cnt: 0 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-favor.png', fa: '', title: '收藏夹', cnt: 3 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-comment.png', fa: '', title: '商品点评', cnt: 0 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-contact.png', fa: '', title: '联系客服', cnt: 0 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-address.png', fa: '', title: '地址管理', cnt: 0 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-password.png', fa: '', title: '修改密码', cnt: 0 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-help.png', fa: '', title: '帮助', cnt: 0 },
+        { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-setting.png', fa: '', title: '设置', cnt: 0 }
       ]
     }
   }
@@ -48,14 +48,14 @@ const fa = {
 
 const layout = {
   list: [
-    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon6.png', fa: '', title: '优惠券', desc: 'Coupon', cnt: 0 },
-    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon7.png', fa: '', title: '收藏夹', desc: 'Favor', cnt: 3 },
-    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon8.png', fa: '', title: '商品点评', desc: 'Comment', cnt: 0 },
-    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon9.png', fa: '', title: '联系客服', desc: 'Contact', cnt: 0 },
-    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon10.png', fa: '', title: '地址管理', desc: 'Address', cnt: 0 },
-    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon11.png', fa: '', title: '修改密码', desc: 'Password', cnt: 0 },
-    // { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon12.png', fa: '', title: '帮助', desc: 'Help', cnt: 0 },
-    { url: '', img: 'http://img02.camel.com.cn/image/zwuc_icon13.png', fa: '', title: '设置', desc: 'Settings', cnt: 0 }
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-tosend.png', fa: '', title: '优惠券', desc: 'Coupon', cnt: 0 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-favor.png', fa: '', title: '收藏夹', desc: 'Favor', cnt: 3 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-comment.png', fa: '', title: '商品点评', desc: 'Comment', cnt: 0 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-contact.png', fa: '', title: '联系客服', desc: 'Contact', cnt: 0 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-address.png', fa: '', title: '地址管理', desc: 'Address', cnt: 0 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-password.png', fa: '', title: '修改密码', desc: 'Password', cnt: 0 },
+    // { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-help.png', fa: '', title: '帮助', desc: 'Help', cnt: 0 },
+    { url: '', img: 'https://d.app.bbxyard.com/ui/iconfont-setting.png', fa: '', title: '设置', desc: 'Settings', cnt: 0 }
   ]
 };
 

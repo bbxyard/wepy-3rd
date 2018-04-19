@@ -191,11 +191,12 @@ export default class XBGrid extends wepy.component {
   };
 
   doPostRefresh() {
-    if (!this.pkg.theme || this.pkg.theme === 'default') {
-      this.pkg.theme = this.theme;
+    let pkg = this.pkg; // MixCompRefresher中定义
+    if (!pkg.theme || pkg.theme === 'default') {
+      pkg.theme = this.theme;
     }
-    if (!this.pkg.width) {
-      this.pkg.width = this.width;
+    if (!pkg.width) {
+      pkg.width = this.width;
     }
   }
 

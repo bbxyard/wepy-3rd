@@ -2,7 +2,7 @@
 @mineAvatarSide: 120rpx;
 @mineAvatarRadius: 50%;
 .user-info {
-  .theme-default {
+  .theme-center {
     height: 300rpx;
     text-align: center;
     padding: 20rpx;
@@ -31,7 +31,7 @@
 <template>
 <view class="user-info">
   <!-- 缺省样式 -->
-  <view class="theme-default" wx:if="{{theme === 'default'}}">
+  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'center'}}">
     <view class="line">
       <image class="avatarImg" src="{{userInfo.avatarUrl}}"></image>
     </view>
@@ -49,20 +49,24 @@
 
 <script>
 import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
 export default class XBUserInfo extends wepy.component {
-  component = {};
+  mixins = [MixCompRefresher];
 
-  data = {
-    userInfo: {},
-    theme: 'default'
+  props = {
+    theme: { type: [String], default: 'center' }
   };
 
-  methods = {
-    refresh(pkg) {
-      this.userInfo = pkg.userInfo;
-      this.theme = pkg.theme;
-      this.$apply();
+  data = {
+    userInfo: {}
+  };
+
+  doPostRefresh() {
+    let pkg = this.pkg; // MixCompRefresher中定义
+    if (!pkg.theme || pkg.theme === 'default') {
+      pkg.theme = this.theme;
     }
+    this.userInfo = pkg.userInfo;
   }
 
   onLoad() {

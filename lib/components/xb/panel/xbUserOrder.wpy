@@ -56,18 +56,9 @@
 
 <script>
 import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
 export default class XBUserOrder extends wepy.component {
-  data = {
-    pkg: {}
-  };
-
-  methods = {
-    refresh(pkg) {
-      this.pkg = pkg;
-      this.$apply();
-    }
-  }
-
+  mixins = [MixCompRefresher];
   onLoad() {
     console.log(`${this.$name} loaded.`);
   }

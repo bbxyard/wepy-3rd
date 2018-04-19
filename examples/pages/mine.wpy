@@ -32,10 +32,6 @@ export default class Mine extends wepy.page {
     userSvc: UserSvc
   };
 
-  data = {
-
-  };
-
   async startAsyncLoad() {
     // #0. mine本身
     this.ui = this.config.xb.mine;
