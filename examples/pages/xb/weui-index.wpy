@@ -1,17 +1,13 @@
 <style lang="less">
-.nav-fa-icon {
-  color: lightsalmon;
-}
+
 </style>
 
 <template>
   <view class='page'>
 
-    <title title="3rd Demos" desc="Enjoy it." />
-
-    <!-- <lister /> -->
-
-    <naver />
+    <title title="WeUI" desc="WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。" />
+    
+    <nav />
 
     <footer fixed="false" />
   </view>
@@ -21,29 +17,23 @@
 import wepy from 'wepy';
 import MyTitle from '@/xb/xbWeTitle';
 import MyFooter from '@/xb/xbWeFooter';
-import LayoutList from '@/xb/layout/xbList';
 import LayoutNav from '@/xb/layout/xbNav';
 import MixPageRefresher from '@/../mixins/MixPageRefresher';
-export default class DemoIndex extends wepy.page {
+export default class WeUIIndex extends wepy.page {
   components = {
     title: MyTitle,
     footer: MyFooter,
-    lister: LayoutList,
-    naver: LayoutNav
+    nav: LayoutNav
   };
 
   mixins = [MixPageRefresher];
 
-  data = { };
+  data = { list: [] };
 
   doStartAsyncLoad() {
     // #1. lister
-    // this.list = this.config.xb.index.list;
-    // this.$invoke('lister', 'refresh', { hd: {title: 'Have Fun'}, bd: {list: this.list} });
-
-    // #2. nav
-    this.nav = this.config.xb.index.nav;
-    this.$invoke('naver', 'refresh', { theme: 'list', bd: {list: this.nav} });
+    this.list = this.config.xb.WeUIIndex.list;
+    this.$invoke('nav', 'refresh', { theme: 'list', bd: {list: this.list} });
 
     // #N. footer
     let footer = this.config.xb.footer;

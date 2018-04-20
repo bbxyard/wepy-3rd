@@ -1,10 +1,4 @@
 <style lang="less">
-.border-bottom-solid() {
-  border-bottom:1px solid #D9D9D9;
-}
-.border-right-solid() {
-  border-right:1rpx solid #D9D9D9;
-}
 
 .xb-layout-grid {
   .theme-xb {

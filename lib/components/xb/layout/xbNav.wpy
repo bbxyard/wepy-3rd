@@ -1,0 +1,118 @@
+<style lang="less">
+
+@xbNavFAColor: grey;
+
+.nav-fa-icon {
+  font-size: 1.38rem; color: @xbNavFAColor;
+} 
+
+.xb-layout-nav {
+  .theme-list {
+    .weui-flex {
+      align-items: center;
+    }
+    .weui-cells {
+      margin-top: 0;
+      opacity: 0;
+      transform: translateY(-50%);
+      transition: 0.3s;
+      &:before, &:after { display: none; }
+      &_show { opacity: 1; transform: translateY(0); }
+    }
+    .weui-cell { &:before { right: 15px; } }
+    .cat-list {
+      padding-left: 30rpx;
+      padding-right: 30rpx;
+      .cat-list__item {
+        margin: 10px 0;
+        background-color: #FFF;
+        border-radius: 2px;
+        overflow: hidden;
+        &:first-child { margin-top: 0; }
+      }
+      .cat-list__img { width: 30px; height: 30px; }
+      .cat-list__item-hd {
+        padding: 20px;
+        transition: opacity 0.3s;
+        &_show { opacity: .4; }
+      }
+      .cat-list__item-bd {
+        height: 0;
+        overflow: hidden;
+        &_show { height: auto; }
+      }
+    }
+
+  }
+
+  .theme-tab-up {
+
+  }
+
+  .theme-tab-left {
+
+  }
+}
+
+</style>
+
+<template>
+<view class="xb-layout-nav">
+  <!-- 列表风格-从WeUI样例代码抠出来的 -->
+  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'list'}}">
+    <view class="cat-list">
+      <repeat for="{{pkg.bd.list}}" key="id">
+        <view class="cat-list__item">
+          <view id="{{item.id}}" class="weui-flex cat-list__item-hd {{item.open? 'cat-list__item-hd_show': ''}}" @tap="toggle({{item.id}})">
+            <view class="weui-flex__item">{{item.name}}</view>
+            <view class="fa {{item.fa}} nav-fa-icon" wx:if="{{item.fa}}"></view>
+            <view wx:else><image class="cat-list__img" src="{{item.img}}" /></view>
+          </view>
+          <view class="cat-list__item-bd {{item.open? 'cat-list__item-bd_show': ''}}">
+            <view class="weui-cells {{item.open? 'weui-cells_show': ''}}">
+              <!-- item.sublist 和 item.pages两种风格 -->
+              <block wx:for="{{item.sublist}}" wx:for-item="si" wx:for-index="idx" wx:key="{{idx}}">
+                <navigator url="{{si.url}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__bd">{{si.title}}</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access">{{si.desc}}</view>
+                </navigator>
+              </block>
+              <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
+                <navigator url="./{{page}}" class="weui-cell weui-cell_access">
+                  <view class="weui-cell__bd">{{page}}</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+        </view>
+      </repeat>
+    </view>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
+export default class XBNav extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'list' }
+  };
+  methods = {
+    toggle (id) {
+      this.pkg.bd.list.forEach(v => (v.open = (v.id === id) ? !v.open : false));
+    }
+  };
+  doPostRefresh() {
+    let pkg = this.pkg; // MixCompRefresher中定义
+    if (!pkg.theme || pkg.theme === 'default') {
+      pkg.theme = this.theme;
+    }
+  }
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

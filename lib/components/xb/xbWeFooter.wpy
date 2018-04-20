@@ -8,7 +8,7 @@
     <view class="weui-footer__links">
       <block wx:for="{{links}}" wx:key="{{item.url}}">
         <block wx:if="{{!item.hidden}}">
-        <navigator class="weui-footer__link" url="{{item.url}}">{{item.txt}}</navigator>
+        <navigator class="weui-footer__link" url="{{item.url}}">{{item.title}}</navigator>
         </block>
       </block>
     </view>

@@ -5,18 +5,21 @@
 
 const footer = {
   links: [
-    { url: '/pages/index', txt: 'Home', hidden: false },
-    { url: '/3rd/examples/pages/index', txt: '3rdHome', hidden: false },
-    { url: '/3rd/examples/pages/yzz/index', txt: 'yzz', hidden: false },
-    { url: '/3rd/examples/pages/mine', txt: 'Mine', hidden: false }
+    { url: '/pages/index', title: 'Home', hidden: false },
+    { url: '/3rd/examples/pages/index', title: '3rdHome', hidden: false },
+    { url: '/3rd/examples/pages/yzz/index', title: 'yzz', hidden: false },
+    { url: '/3rd/examples/pages/mine', title: 'Mine', hidden: false }
   ],
   copyright: 'Copyright © 2013-2018 bbxyard'
 };
 
-const index = {
+const WeUIIndex = {
   list: [
-    { url: '/3rd/examples/pages/fa', fa: 'fa-thumbs-o-up', title: 'Font Awesome Demo', desc: '字体图标' },
-    { url: '/3rd/examples/pages/xb/layout', fa: 'fa-linux', title: 'Layout Demo', desc: '布局' }
+    { id: 'form', name: '表单', open: false, img: '', fa: 'fa-navicon', pages: ['input', 'list', 'uploader'] },
+    { id: 'widget', name: '基础组件', open: false, img: '', fa: 'fa-usb', pages: ['article', 'badge', 'button', 'flex', 'grid', 'icons', 'loadmore', 'panel', 'preview', 'progress', 'slider'] },
+    { id: 'feedback', name: '操作反馈', open: false, img: '', fa: 'fa-check-circle', pages: ['actionsheet', 'dialog', 'msg', 'picker'] },
+    { id: 'nav', name: '导航相关', open: false, img: '', fa: 'fa-tree', pages: ['navbar', 'footer'] },
+    { id: 'search', name: '搜索相关', open: false, img: '', fa: 'fa-search', pages: ['searchbar'] }
   ]
 };
 
@@ -80,7 +83,40 @@ const layout = {
   ]
 };
 
+const CAT = {
+  cool: [
+    { url: '/3rd/examples/pages/fa', fa: 'fa-thumbs-o-up', title: 'Font Awesome Demo', desc: '字体图标' },
+  ],
+  layout: [
+    { url: '/3rd/examples/pages/index', img: '', fa: 'fa-home', title: '3rd-Home-Index', desc: '导航-列表' },
+    { url: '/3rd/examples/pages/xb/layout', img: '', fa: 'fa-linux', title: '单一列表', desc: 'Grid-List' },
+    { url: '/3rd/examples/pages/xb/weui-index', img: '', fa: 'fa-weixin', title: 'WeUI-Index', desc: '导航-列表' }
+  ],
+  mine: [
+    { url: '/3rd/examples/pages/mine', img: '', fa: 'fa-user', title: '我的', desc: '个人中心' }
+  ],
+  lib: [
+    { url: '/3rd/examples/pages/yzz/index', img: '', fa: 'fa-coffee', title: 'yzz', desc: '' },
+    { url: '/3rd/examples/pages/wux/index', img: '', fa: 'fa-coffee', title: 'wux', desc: '' },
+    { url: '/3rd/examples/pages/zan/index', img: '', fa: 'fa-coffee', title: 'zan', desc: '有赞' },
+    { url: '/3rd/examples/pages/xb/weui-index', img: '', fa: 'fa-weixin', title: 'WeUI-Index', desc: '仅为目录' }
+  ]
+}
+
+const index = {
+  nav: [
+    { id: 'cool', name: '特效', open: false, fa: 'fa-tv', sublist: CAT.cool },
+    { id: 'layout', name: '布局', open: false, fa: 'fa-navicon', sublist: CAT.layout },
+    { id: 'mine', name: '个人中心', open: false, fa: 'fa-user', sublist: CAT.mine },
+    { id: 'lib', name: '三方库合集', open: false, fa: 'fa-folder', sublist: CAT.lib },
+    { id: 'uorder', name: '我的订单', open: false, fa: 'fa-truck', sublist: mine.userOrder.bd.list },
+    { id: 'usvc', name: '我的服务', open: false, fa: 'fa-star', sublist: mine.userSvc.bd.list },
+    { id: 'footer', name: 'Footer', open: false, fa: 'fa-paw', sublist: footer.links }
+  ]
+};
+
 export default {
+  WeUIIndex,
   mine,
   fa,
   footer,
