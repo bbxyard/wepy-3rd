@@ -1,0 +1,61 @@
+<style lang="less">
+.wx-discover {
+  .xb-layout-list {
+    margin-top: 30rpx;
+    margin-bottom: 40rpx;
+  }
+  .list-img {
+    width: 60rpx;
+    height: 60rpx;
+    margin-right: 20rpx;
+  }
+  .list-fa-icon {
+    font-size: 1.2rem;
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+  }
+}
+</style>
+
+<template>
+  <view class="wx-discover page">
+
+    <listerA />
+    <listerB />
+    <listerC />
+    <listerD />
+    <listerE />
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import LayoutList from '@/xb/layout/xbList';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
+export default class WXDiscover extends wepy.page {
+  components = {
+    listerA: LayoutList,
+    listerB: LayoutList,
+    listerC: LayoutList,
+    listerD: LayoutList,
+    listerE: LayoutList
+  };
+
+  mixins = [MixPageRefresher];
+
+  doStartAsyncLoad() {
+    // #1. lister
+    let ui = this.config.wx.discover;
+    this.$invoke('listerA', 'refresh', { theme: '', bd: {list: ui.listA} });
+    this.$invoke('listerB', 'refresh', { theme: 'cells', bd: {list: ui.listB} });
+    this.$invoke('listerC', 'refresh', { theme: 'default', bd: {list: ui.listC} });
+    this.$invoke('listerD', 'refresh', { bd: {list: ui.listD} });
+    this.$invoke('listerE', 'refresh', { bd: {list: ui.listE} });
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

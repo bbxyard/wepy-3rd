@@ -1,0 +1,42 @@
+<style lang="less">
+
+</style>
+
+<template>
+  
+</template>
+
+<script>
+import wepy from 'wepy';
+import MyTitle from '@/xb/xbWeTitle';
+import MyFooter from '@/xb/xbWeFooter';
+import LayoutNav from '@/xb/layout/xbNav';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
+export default class WXIndex extends wepy.page {
+  components = {
+    title: MyTitle,
+    footer: MyFooter,
+    nav: LayoutNav
+  };
+
+  mixins = [MixPageRefresher];
+
+  data = { list: [] };
+
+  doStartAsyncLoad() {
+    // #1. lister
+    this.list = this.config.xb.WeUIIndex.list;
+    this.$invoke('nav', 'refresh', { theme: 'list', bd: {list: this.list} });
+
+    // #N. footer
+    let footer = this.config.xb.footer;
+    this.$invoke('footer', 'refresh', footer);
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+    console.log('Title: ', MyTitle);
+    console.log('Footer: ', MyFooter);
+  }
+}
+</script>

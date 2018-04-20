@@ -1,20 +1,27 @@
 <style lang="less">
+.list-img {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.list-fa-icon {
+  font-size: 1rem;
+  color: orange;
+  padding-right: 10rpx;
+}
+
 .xb-layout-list {
+  // 细胞主题
   .theme-cells {
     .weui-cells__title {
       color: grey;
     }
     .weui-cell {
       .img {
-        margin-right: 5px;
-        width: 40rpx; 
-        height: 40rpx;
         display: block;
       }
       .fa {
-        font-size: 1rem;
-        color: orange;
-        padding-right: 10rpx;
+        
       }
     }
   }
@@ -30,9 +37,9 @@
     <view class="weui-cells weui-cells_after-title">
     <block wx:for="{{pkg.bd.list}}" wx:for-index="index" wx:key="{{index}}">
       <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <view class="fa {{item.fa}}" wx:if="{{item.fa}}"></view>
-          <view wx:else><image class="img" src="{{item.img}}" /></view>
+        <view class="weui-cell__hd" wx:if="{{item.fa || item.img}}">
+          <view class="fa {{item.fa}} list-fa-icon" wx:if="{{item.fa}}"></view>
+          <view wx:elif="{{item.img}}"><image class="img list-img" src="{{item.img}}" /></view>
         </view>
         <view class="weui-cell__bd">{{item.title}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">{{item.desc}}</view>

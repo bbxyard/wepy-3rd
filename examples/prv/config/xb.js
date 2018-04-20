@@ -86,6 +86,8 @@ const layout = {
 const CAT = {
   cool: [
     { url: '/3rd/examples/pages/fa', fa: 'fa-thumbs-o-up', title: 'Font Awesome Demo', desc: '字体图标' },
+    { url: '/3rd/examples/pages/wx/wx-discover', fa: 'fa-thumbs-o-up', title: '仿朋友圈', desc: 'Discover' },
+    { url: '/3rd/examples/pages/wx/wx-mine', fa: 'fa-thumbs-o-up', title: '仿个人中心', desc: 'Me' }
   ],
   layout: [
     { url: '/3rd/examples/pages/index', img: '', fa: 'fa-home', title: '3rd-Home-Index', desc: '导航-列表' },

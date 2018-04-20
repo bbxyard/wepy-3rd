@@ -1,0 +1,55 @@
+<style lang="less">
+.wx-mine {
+  .xb-layout-list {
+    margin-top: 30rpx;
+    margin-bottom: 40rpx;
+  }
+  .list-img {
+    width: 56rpx;
+    height: 56rpx;
+    margin-right: 20rpx;
+  }
+  .list-fa-icon {
+    font-size: 1.2rem;
+    padding-left: 18rpx;
+    padding-right: 18rpx;
+  }
+}
+</style>
+
+<template>
+  <view class="wx-mine page">
+
+    <listerB />
+    <listerC />
+    <listerD />
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import LayoutList from '@/xb/layout/xbList';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
+export default class WXMine extends wepy.page {
+  components = {
+    listerB: LayoutList,
+    listerC: LayoutList,
+    listerD: LayoutList
+  };
+
+  mixins = [MixPageRefresher];
+
+  doStartAsyncLoad() {
+    // #1. lister
+    let ui = this.config.wx.mine;
+    this.$invoke('listerB', 'refresh', { theme: 'cells', bd: {list: ui.listB} });
+    this.$invoke('listerC', 'refresh', { theme: 'default', bd: {list: ui.listC} });
+    this.$invoke('listerD', 'refresh', { bd: {list: ui.listD} });
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

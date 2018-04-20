@@ -1,0 +1,51 @@
+<style lang="less">
+.wx-setting {
+  .xb-layout-list {
+    margin-top: 30rpx;
+    margin-bottom: 40rpx;
+  }
+  .weui-cells {
+    font-size: 0.85rem;
+  }
+}
+</style>
+
+<template>
+  <view class="wx-setting page">
+
+    <listerA />
+    <listerB />
+    <listerC />
+    <listerD />
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import LayoutList from '@/xb/layout/xbList';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
+export default class WXSetting extends wepy.page {
+  components = {
+    listerA: LayoutList,
+    listerB: LayoutList,
+    listerC: LayoutList,
+    listerD: LayoutList
+  };
+
+  mixins = [MixPageRefresher];
+
+  doStartAsyncLoad() {
+    // #1. lister
+    let ui = this.config.wx.setting;
+    this.$invoke('listerA', 'refresh', { theme: '', bd: {list: ui.listA} });
+    this.$invoke('listerB', 'refresh', { theme: 'cells', bd: {list: ui.listB} });
+    this.$invoke('listerC', 'refresh', { theme: 'default', bd: {list: ui.listC} });
+    this.$invoke('listerD', 'refresh', { bd: {list: ui.listD} });
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

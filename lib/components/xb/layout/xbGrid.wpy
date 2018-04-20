@@ -1,4 +1,5 @@
 <style lang="less">
+@import '../../../style/xb/var.less';
 
 .xb-layout-grid {
   .theme-xb {
