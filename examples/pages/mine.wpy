@@ -38,16 +38,16 @@ export default class Mine extends wepy.page {
     // #1. userInfo
     const userInfo = await this.UT.getUserInfoEx(false);
     const userInfoPkg = { theme: 'default',  userInfo };
-    this.$invoke('userInfoComp', 'refresh', userInfoPkg);
+    this.render('userInfoComp', userInfoPkg);
 
     // #2. userOrder
-    this.$invoke('userOrder', 'refresh', this.ui.userOrder);
+    this.render('userOrder', this.ui.userOrder);
 
     // #3. userSvc
-    this.$invoke('userSvc', 'refresh', this.ui.userSvc);
+    this.render('userSvc', this.ui.userSvc);
 
     // #N. footer
-    this.$invoke('footer', 'refresh', this.config.xb.footer);
+    this.render('footer', this.config.xb.footer);
 
     this.$apply();
   }

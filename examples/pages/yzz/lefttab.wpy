@@ -29,7 +29,7 @@ export default class LefttabPage extends wepy.page {
 
   onLoad() {
     this.ltUI = config.yzz.lefttab.main;
-    this.$invoke('lt', 'refresh', this.ltUI);
+    this.render('lt', this.ltUI);
     console.log(`${this.$name} loaded.`);
   }
 }

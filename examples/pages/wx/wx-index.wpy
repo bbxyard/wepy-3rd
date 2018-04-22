@@ -26,11 +26,11 @@ export default class WXIndex extends wepy.page {
   doStartAsyncLoad() {
     // #1. lister
     this.list = this.config.xb.WeUIIndex.list;
-    this.$invoke('nav', 'refresh', { theme: 'list', bd: {list: this.list} });
+    this.render('nav', { theme: 'list', bd: {list: this.list} });
 
     // #N. footer
     let footer = this.config.xb.footer;
-    this.$invoke('footer', 'refresh', footer);
+    this.render('footer', footer);
   }
 
   onLoad() {

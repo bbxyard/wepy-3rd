@@ -48,7 +48,7 @@ export default class DemoIndex extends wepy.page {
   events = {
     'tap-tab': (index) => {
       const theme = this.tab[index].theme;
-      this.$invoke('naver', 'refresh', { theme, bd: {list: this.nav} });
+      this.render('naver', { theme, bd: {list: this.nav} });
     }
   }
 
@@ -56,19 +56,15 @@ export default class DemoIndex extends wepy.page {
     // #0. self
     let ui = this.config.xb.index;
     this.tab = ui.tab;
-    this.$invoke('taber', 'refresh', { bd: {tab: this.tab, activeIndex: ui.tabActiveIndex} });
-
-    // #1. lister
-    // this.list = this.config.xb.index.list;
-    // this.$invoke('lister', 'refresh', { hd: {title: 'Have Fun'}, bd: {list: this.list} });
+    this.render('taber', { bd: {tab: this.tab, activeIndex: ui.tabActiveIndex} });
 
     // #2. nav
     this.nav = this.config.xb.index.nav;
-    this.$invoke('naver', 'refresh', { theme: 'list-panel', bd: {list: this.nav} });
+    this.render('naver', { theme: 'list-panel', bd: {list: this.nav} });
 
     // #N. footer
     let footer = this.config.xb.footer;
-    this.$invoke('footer', 'refresh', footer);
+    this.render('footer', footer);
   }
 
   onLoad() {

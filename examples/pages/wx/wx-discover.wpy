@@ -47,11 +47,11 @@ export default class WXDiscover extends wepy.page {
   doStartAsyncLoad() {
     // #1. lister
     let ui = this.config.wx.discover;
-    this.$invoke('listerA', 'refresh', { theme: '', bd: {list: ui.listA} });
-    this.$invoke('listerB', 'refresh', { theme: 'cells', bd: {list: ui.listB} });
-    this.$invoke('listerC', 'refresh', { theme: 'default', bd: {list: ui.listC} });
-    this.$invoke('listerD', 'refresh', { bd: {list: ui.listD} });
-    this.$invoke('listerE', 'refresh', { bd: {list: ui.listE} });
+    this.render('listerA', { theme: '', bd: {list: ui.listA} });
+    this.render('listerB', { theme: 'cells', bd: {list: ui.listB} });
+    this.render('listerC', { theme: 'default', bd: {list: ui.listC} });
+    this.render('listerD', { bd: {list: ui.listD} });
+    this.render('listerE', { bd: {list: ui.listE} });
   }
 
   onLoad() {
