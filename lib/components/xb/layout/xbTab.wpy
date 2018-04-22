@@ -1,0 +1,73 @@
+<style lang="less">
+.xb-layout-tab {
+  .theme-weui {
+    // .weui-tab;
+    .weui-navbar { 
+      position: relative;
+      border-bottom-width: 0;
+    }
+  }
+  .theme-zan {
+
+  }
+}
+</style>
+
+<template>
+<view class="xb-layout-tab">
+  <!-- weui -->
+  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'weui'}}">
+    <view class="weui-tab">
+    <view class="weui-navbar">
+      <view wx:for="{{pkg.bd.tab}}" wx:key="{{index}}" id="{{index}}" class="weui-navbar__item {{activeIndex == index? 'weui-bar__item_on': ''}}" @tap="tabClick">
+        <view class="weui-navbar__title">{{item.title}}</view>
+      </view>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+    </view>
+  </view>
+  <!-- zan -->
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
+export default class XBNav extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'weui' },
+  };
+  data = {
+    tab: [],
+    activeIndex: 1,
+    sliderOffset: 0,
+    sliderLeft: 0
+  }
+  methods = {
+    tabClick(e) {
+      this.sliderOffset = e.currentTarget.offsetLeft;
+      this.activeIndex  = e.currentTarget.id;
+      this.$emit('tap-tab', this.activeIndex);
+    }
+  };
+  doPostRefresh() {
+    let pkg = this.pkg; // MixCompRefresher中定义
+    if (!pkg.theme || pkg.theme === 'default') {
+      pkg.theme = this.theme;
+    }
+    if (pkg.bd.activeIndex != null) {
+      this.activeIndex = pkg.bd.activeIndex;
+    }
+
+    let res = wepy.getSystemInfoSync();
+    const SLIDER_WIDTH = 16 * 6; // 需要设置slider的宽度，用于计算中间位置
+    // let res = { windowWidth: 375 };
+    this.sliderLeft   = (res.windowWidth / pkg.bd.tab.length - SLIDER_WIDTH) / 2;
+    this.sliderOffset =  res.windowWidth / pkg.bd.tab.length * this.activeIndex;
+  }
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

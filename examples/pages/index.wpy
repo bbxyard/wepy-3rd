@@ -2,12 +2,17 @@
 .nav-fa-icon {
   color: lightsalmon;
 }
+.theme-list {
+  padding-top: 30rpx;
+}
 </style>
 
 <template>
   <view class='page'>
 
-    <title title="3rd Demos" desc="Enjoy it." />
+    <taber />
+
+    <!-- <title title="3rd Demos" desc="Enjoy it." /> -->
 
     <!-- <lister /> -->
 
@@ -22,21 +27,37 @@ import wepy from 'wepy';
 import MyTitle from '@/xb/xbWeTitle';
 import MyFooter from '@/xb/xbWeFooter';
 import LayoutList from '@/xb/layout/xbList';
+import LayoutTab from '@/xb/layout/xbTab';
 import LayoutNav from '@/xb/layout/xbNav';
 import MixPageRefresher from '@/../mixins/MixPageRefresher';
 export default class DemoIndex extends wepy.page {
   components = {
-    title: MyTitle,
+    // title: MyTitle,
     footer: MyFooter,
     lister: LayoutList,
+    taber: LayoutTab,
     naver: LayoutNav
   };
 
   mixins = [MixPageRefresher];
 
-  data = { };
+  data = {
+    tab: []
+  };
+
+  events = {
+    'tap-tab': (index) => {
+      const theme = this.tab[index].theme;
+      this.$invoke('naver', 'refresh', { theme, bd: {list: this.nav} });
+    }
+  }
 
   doStartAsyncLoad() {
+    // #0. self
+    let ui = this.config.xb.index;
+    this.tab = ui.tab;
+    this.$invoke('taber', 'refresh', { bd: {tab: this.tab, activeIndex: ui.tabActiveIndex} });
+
     // #1. lister
     // this.list = this.config.xb.index.list;
     // this.$invoke('lister', 'refresh', { hd: {title: 'Have Fun'}, bd: {list: this.list} });

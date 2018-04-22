@@ -106,6 +106,13 @@ const CAT = {
 }
 
 const index = {
+  tab: [
+    { theme: 'list', title: '下拉列表' },
+    { theme: 'list-list', title: '列表' },
+    { theme: 'list-grid', title: '网格' },
+    { theme: 'list-panel', title: '面板' }
+  ],
+  tabActiveIndex: 2,
   nav: [
     { id: 'cool', title: '特效', open: false, fa: 'fa-tv', sublist: CAT.cool },
     { id: 'layout', title: '布局', open: false, fa: 'fa-navicon', sublist: CAT.layout },
