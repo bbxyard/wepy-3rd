@@ -52,7 +52,7 @@ export default class FA extends wepy.page {
   };
 
   doStartAsyncLoad() {
-    let footer = this.config.xb.footer; 
+    let footer = this.config.xb.footer;
     this.list = this.config.xb.fa.list;
     this.$invoke('footer', 'refresh', footer);
   }

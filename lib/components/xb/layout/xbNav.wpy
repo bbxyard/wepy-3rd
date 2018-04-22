@@ -1,4 +1,6 @@
 <style lang="less">
+@import '../../../style/xb/layout.less';
+@import '../../../style/xb/panel.less';
 
 @xbNavFAColor: grey;
 
@@ -42,7 +44,28 @@
         &_show { height: auto; }
       }
     }
+  }
 
+  .theme-list-list {
+    .theme-cells {
+      margin-bottom: 30rpx;
+    }
+  }
+
+  /* 多个list下再来个grid */
+  .theme-list-grid {
+    .zan-panel {
+      margin-top: 0;
+    }
+    .grid-b-item {
+      width: 25%;
+    }
+  }
+
+  .theme-list-panel {
+    .tg-b-item {
+      width: 25%;
+    }
   }
 
   .theme-tab-up {
@@ -64,7 +87,7 @@
       <repeat for="{{pkg.bd.list}}" key="id">
         <view class="cat-list__item">
           <view id="{{item.id}}" class="weui-flex cat-list__item-hd {{item.open? 'cat-list__item-hd_show': ''}}" @tap="toggle({{item.id}})">
-            <view class="weui-flex__item">{{item.name}}</view>
+            <view class="weui-flex__item">{{item.title}}</view>
             <view class="fa {{item.fa}} nav-fa-icon" wx:if="{{item.fa}}"></view>
             <view wx:else><image class="cat-list__img" src="{{item.img}}" /></view>
           </view>
@@ -88,6 +111,91 @@
         </view>
       </repeat>
     </view>
+  </view>
+
+  <!-- 列表列表-布局 -->
+  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'list-list'}}">
+    <block wx:for="{{pkg.bd.list}}" wx:for-item="cat" wx:key="id">
+      <!-- 先裹一层framwork -->
+      <view class="xb-layout-list">
+        <view class="theme-cells">
+          <!-- 实体 -->
+          <view class="weui-cells__title" wx:if="{{cat.title}}">{{cat.title}}</view>
+          <view class="weui-cells weui-cells_after-title">
+          <block wx:for="{{cat.sublist}}" wx:for-item="item" wx:for-index="index" wx:key="{{index}}">
+            <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd" wx:if="{{item.fa || item.img}}">
+                <view class="fa {{item.fa}} list-fa-icon" wx:if="{{item.fa}}"></view>
+                <view wx:elif="{{item.img}}"><image class="img list-img" src="{{item.img}}" /></view>
+              </view>
+              <view class="weui-cell__bd">{{item.title}}</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">{{item.desc}}</view>
+            </navigator>
+          </block>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 列表窗格-布局 -->  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'list-grid'}}">
+    <block wx:for="{{pkg.bd.list}}" wx:for-item="cat" wx:key="id">
+      <!-- 先裹一层framwork -->
+      <view class="xb-layout-grid">
+      <view class="theme-xb">
+        <view class="weui-cells__title" wx:if="{{cat.title}}">{{cat.title}}</view>
+        <view class="grid-body zan-panel">
+          <!-- 实体 -->
+          <view class="grid-b-item" wx:for="{{cat.sublist}}" wx:for-item="item"  wx:key="{{index}}">
+            <navigator url="{{item.url}}">
+              <!-- 图标优先使用FontAwesome -->
+              <view class="fa {{item.fa}}" wx:if="{{item.fa}}"></view>
+              <view wx:else><image class="img" src="{{item.img}}" /></view>
+              <!-- 文本描述 -->
+              <text class="txt">{{item.title}}</text>
+              <!-- 数量-徽标-小红点 -->
+              <view class="zan-badge__count" wx:if="{{item.cnt > 0}}">
+                <text>{{item.cnt}}</text>
+              </view>
+            </navigator>
+          </view>
+        </view>
+      </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 列表面板-布局 -->
+  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'list-panel'}}">
+    <block wx:for="{{pkg.bd.list}}" wx:for-item="cat" wx:key="id">
+      <!-- 先裹一层framwork -->
+      <view class="xb-panel-title-grid">
+      <view class="theme-no-border">
+        <!-- header -->
+        <view class="tg-head weui-cell_link">
+          <view class="weui-cell__bd tg-h-title">{{cat.title}}</view>
+          <view class="weui-cell__ft tg-h-desc weui-cell__ft_in-access" wx:if="{{cat.desc}}">{{cat.desc}}</view>
+        </view>
+
+        <!-- body -->
+        <view class="tg-body">
+          <view class="tg-b-item" wx:for="{{cat.sublist}}" wx:for-item="item" wx:key="{{index}}">
+            <navigator url="{{item.url}}">
+              <!-- 图标优先使用FontAwesome -->
+              <view class="fa {{item.fa}} icon" wx:if="{{item.fa}}"></view>
+              <view wx:else><image class="img" src="{{item.img}}" /></view>
+              <!-- 文本描述 -->
+              <text class="txt">{{item.title}}</text>
+              <!-- 数量-徽标-小红点 -->
+              <view class="zan-badge__count" wx:if="{{item.cnt > 0}}">
+                <text>{{item.cnt}}</text>
+              </view>
+            </navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
   </view>
 </view>
 </template>

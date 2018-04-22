@@ -1,43 +1,19 @@
 <style lang="less">
-.user-svc {
-  .us-head {
-    line-height: 80rpx;
-    margin-left: 20rpx;
-    padding: 10rpx 20rpx 10rpx 0;
-    border-bottom: 1px solid #d9d9d9;
-    display: flex;
-    .us-h-title { font-size: 0.75rem; }
-    .us-h-desc { font-size: 0.65rem; }
-  }
-  .us-body {
-    padding-bottom: 24rpx;
-    display: flex;
-    flex-wrap: wrap;
-    .us-b-item {
-      text-align: center;
-      margin-top: 30rpx;
-      position: relative;
-      .icon { line-height: 45rpx; font-size: 1.38rem; color:moccasin }
-      .img { width: 45rpx; height: 45rpx; display: inline-block; }
-      .txt { font-size: 24rpx; color: #666; margin-top: 9rpx; display: block; }
-      .zan-badge__count { left:45%; width:36rpx; }
-    }
-  }
-}
+@import '../../../style/xb/panel.less';
 </style>
 
 <template>
-  <view class="user-svc zan-panel">
+<view class="xb-panel-title-grid">
+  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'no-border'}}">
     <!-- header -->
-    <view class="us-head weui-cell_link">
-      <view class="weui-cell__bd us-h-title">{{pkg.hd.title}}</view>
-      <view class="weui-cell__ft us-h-desc weui-cell__ft_in-access" wx:if="{{pkg.hd.desc}}">{{pkg.hd.desc}}</view>
+    <view class="tg-head weui-cell_link">
+      <view class="weui-cell__bd tg-h-title">{{pkg.hd.title}}</view>
+      <view class="weui-cell__ft tg-h-desc weui-cell__ft_in-access" wx:if="{{pkg.hd.desc}}">{{pkg.hd.desc}}</view>
     </view>
 
     <!-- body -->
-    <!--  -->
-    <view class="us-body">
-      <view class="us-b-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};">
+    <view class="tg-body">
+      <view class="tg-b-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};">
         <navigator url="{{item.url}}">
           <!-- 图标优先使用FontAwesome -->
           <view class="fa {{item.fa}} icon" wx:if="{{item.fa}}"></view>
@@ -52,6 +28,7 @@
       </view>
     </view>
   </view>
+</view>
 </template>
 
 <script>
@@ -61,12 +38,16 @@ export default class XBUserSvc extends wepy.component {
   mixins = [MixCompRefresher];
 
   props = {
+    theme: { type: [String], default: 'no-border' },
     width: { type: [String], default: '25%' }
   };
 
   doPostRefresh() {
     // 智能计算width
     let pkg = this.pkg; // MixCompRefresher中定义
+    if (!pkg.theme || pkg.theme === 'default') {
+      pkg.theme = this.theme;
+    }
     if (!pkg.width) {
       let arr = [5, 3, 4];
       let len = pkg.bd.list.length;

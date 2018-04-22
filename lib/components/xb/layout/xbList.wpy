@@ -1,31 +1,5 @@
 <style lang="less">
-.list-img {
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 10rpx;
-}
-.list-fa-icon {
-  font-size: 1rem;
-  color: orange;
-  padding-right: 10rpx;
-}
-
-.xb-layout-list {
-  // 细胞主题
-  .theme-cells {
-    .weui-cells__title {
-      color: grey;
-    }
-    .weui-cell {
-      .img {
-        display: block;
-      }
-      .fa {
-        
-      }
-    }
-  }
-}
+@import '../../../style/xb/layout.less';
 
 </style>
 

@@ -15,11 +15,11 @@ const footer = {
 
 const WeUIIndex = {
   list: [
-    { id: 'form', name: '表单', open: false, img: '', fa: 'fa-navicon', pages: ['input', 'list', 'uploader'] },
-    { id: 'widget', name: '基础组件', open: false, img: '', fa: 'fa-usb', pages: ['article', 'badge', 'button', 'flex', 'grid', 'icons', 'loadmore', 'panel', 'preview', 'progress', 'slider'] },
-    { id: 'feedback', name: '操作反馈', open: false, img: '', fa: 'fa-check-circle', pages: ['actionsheet', 'dialog', 'msg', 'picker'] },
-    { id: 'nav', name: '导航相关', open: false, img: '', fa: 'fa-tree', pages: ['navbar', 'footer'] },
-    { id: 'search', name: '搜索相关', open: false, img: '', fa: 'fa-search', pages: ['searchbar'] }
+    { id: 'form', title: '表单', open: false, img: '', fa: 'fa-navicon', pages: ['input', 'list', 'uploader'] },
+    { id: 'widget', title: '基础组件', open: false, img: '', fa: 'fa-usb', pages: ['article', 'badge', 'button', 'flex', 'grid', 'icons', 'loadmore', 'panel', 'preview', 'progress', 'slider'] },
+    { id: 'feedback', title: '操作反馈', open: false, img: '', fa: 'fa-check-circle', pages: ['actionsheet', 'dialog', 'msg', 'picker'] },
+    { id: 'nav', title: '导航相关', open: false, img: '', fa: 'fa-tree', pages: ['navbar', 'footer'] },
+    { id: 'search', title: '搜索相关', open: false, img: '', fa: 'fa-search', pages: ['searchbar'] }
   ]
 };
 
@@ -107,13 +107,13 @@ const CAT = {
 
 const index = {
   nav: [
-    { id: 'cool', name: '特效', open: false, fa: 'fa-tv', sublist: CAT.cool },
-    { id: 'layout', name: '布局', open: false, fa: 'fa-navicon', sublist: CAT.layout },
-    { id: 'mine', name: '个人中心', open: false, fa: 'fa-user', sublist: CAT.mine },
-    { id: 'lib', name: '三方库合集', open: false, fa: 'fa-folder', sublist: CAT.lib },
-    { id: 'uorder', name: '我的订单', open: false, fa: 'fa-truck', sublist: mine.userOrder.bd.list },
-    { id: 'usvc', name: '我的服务', open: false, fa: 'fa-star', sublist: mine.userSvc.bd.list },
-    { id: 'footer', name: 'Footer', open: false, fa: 'fa-paw', sublist: footer.links }
+    { id: 'cool', title: '特效', open: false, fa: 'fa-tv', sublist: CAT.cool },
+    { id: 'layout', title: '布局', open: false, fa: 'fa-navicon', sublist: CAT.layout },
+    { id: 'mine', title: '个人中心', open: false, fa: 'fa-user', sublist: CAT.mine },
+    { id: 'lib', title: '三方库合集', open: false, fa: 'fa-folder', sublist: CAT.lib },
+    { id: 'uorder', title: '我的订单', open: false, fa: 'fa-truck', sublist: mine.userOrder.bd.list },
+    { id: 'usvc', title: '我的服务', open: false, fa: 'fa-star', sublist: mine.userSvc.bd.list },
+    { id: 'footer', title: 'Footer', open: false, fa: 'fa-paw', sublist: footer.links }
   ]
 };
 

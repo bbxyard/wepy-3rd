@@ -1,0 +1,70 @@
+@import './var.less';
+
+.list-img {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.list-fa-icon {
+  font-size: 1rem;
+  color: orange;
+  padding-right: 10rpx;
+}
+
+.xb-layout-list {
+  // 细胞主题
+  .theme-cells {
+    .weui-cells__title {
+      color: grey;
+    }
+    .weui-cell {
+      .img {
+        display: block;
+      }
+      .fa {
+        
+      }
+    }
+  }
+}
+
+.xb-layout-grid {
+  .theme-xb {
+    .grid-body {
+      padding-bottom: 24rpx;
+      margin-bottom: 20rpx;
+      display: flex;
+      flex-wrap: wrap;
+      .grid-b-item {
+        text-align: center;
+        margin-top: 30rpx;
+        position: relative;
+        .fa { line-height: 52rpx; font-size: 1.38rem; color: moccasin; }
+        .img { width: 45rpx; height: 45rpx; display: inline-block; }
+        .txt { font-size: 24rpx; color: #666; margin-top: 9rpx; display: block; }
+        .zan-badge__count { left:45%; width:36rpx; }
+      }
+    }
+  }
+
+  .theme-xb-border {
+    .grid-body {
+      margin-bottom: 20rpx;
+      display: flex;
+      flex-wrap: wrap;
+      .grid-b-item {
+        text-align: center;
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+        position: relative;
+        box-sizing: border-box;
+        .border-bottom-solid;
+        .border-right-solid;
+        .fa { line-height: 52rpx; font-size: 1.38rem; color: orange; }
+        .img { width: 45rpx; height: 45rpx; display: inline-block; }
+        .txt { font-size: 24rpx; color: #666; margin-top: 9rpx; display: block; }
+        .zan-badge__count { left:45%; width:36rpx; top: 4rpx; }
+      }
+    }
+  }
+}
