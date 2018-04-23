@@ -1,0 +1,108 @@
+<style lang="less">
+.zan-index {
+  .panel-card {
+    .zan-card { }
+    .zan-card__thumb { margin-right: 30rpx; }
+  }
+  .panel-helper { }
+}
+</style>
+
+<template>
+<view class="zan-index page">
+  <!-- taber -->
+  <taber />
+
+  <block wx:for="{{getData}}" wx:for-index="index" wx:key="{{index}}">
+    <!-- card -->
+    <view class="panel-card zan-panel" wx:if="{{curId === 'card'}}">
+      <view class="zan-card">
+        <view class="zan-card__thumb">
+          <image class="zan-card__img" src="{{item.img.src}}" mode="{{item.img.mode}}" />
+        </view>
+        <view class="zan-card__detail">
+          <block wx:for="{{item.detail}}" wx:for-item="si" wx:for-index="idx" wx:key="idx">
+          <view class="zan-card__detail-row {{si.C}}">
+            <view class="zan-card__right-col {{si.RC}}" wx:if="{{si.R}}">{{si.R}}</view>
+            <view class="zan-card__left-col {{si.LC}}" wx:if="{{si.L}}">{{si.L}}</view>
+          </view>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <!-- helper -->
+    <view class="panel-helper zan-panel" wx:if="{{curId === 'helper'}}">
+      <view class="zan-cell">
+        <view class="zan-cell__bd">
+          <block wx:for="{{item.sublist}}" wx:for-item="si" wx:key="{{si.title}}">
+          <view class="{{si.class}}" style="{{si.style ? si.style : ''}}">
+            {{si.title}}
+          </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MyTitle from '@/xb/xbWeTitle';
+import MyFooter from '@/xb/xbWeFooter';
+import LayoutNav from '@/xb/layout/xbNav';
+import LayoutTab from '@/xb/layout/xbTab';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
+export default class XBZanIndex extends wepy.page {
+  components = {
+    title: MyTitle,
+    footer: MyFooter,
+    taber: LayoutTab,
+    naver: LayoutNav
+  };
+
+  mixins = [MixPageRefresher];
+
+  data = {
+    ui: null,
+    helper: null,
+    curId: ''
+  };
+
+  computed = {
+    getData() {
+      if (!this.config) {
+        return null;
+      }
+      const d = this.config.zan.demo[this.curId];
+      return d;
+    }
+  };
+
+  events = {
+    'tap-tab': (index) => {
+      // 更新列表
+      const item = this.ui.tab.list[index];
+      this.curId = item.id;
+      // this.$apply();
+    }
+  };
+
+  doStartAsyncLoad() {
+    // #0. self
+    this.ui = this.config.zan.index;
+    this.curId = this.ui.tab.selectedId;
+    this.render('taber', { theme: this.ui.tabTheme, bd: {tab: this.ui.tab} });
+
+    // #N. footer
+    let footer = this.config.xb.footer;
+    this.render('footer', footer);
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

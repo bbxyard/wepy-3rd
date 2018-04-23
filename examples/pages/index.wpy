@@ -58,7 +58,7 @@ export default class DemoIndex extends wepy.page {
     // #0. self
     let ui = this.config.xb.index;
     this.tab = ui.tab;
-    this.render('taber', { theme: this.tabTheme, bd: {tab: this.tab, activeIndex: ui.tabActiveIndex} });
+    this.render('taber', { theme: this.tabTheme, bd: {tab: this.tab} });
 
     // #2. nav
     this.nav = this.config.xb.index.nav;
