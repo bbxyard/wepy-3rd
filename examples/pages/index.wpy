@@ -42,12 +42,14 @@ export default class DemoIndex extends wepy.page {
   mixins = [MixPageRefresher];
 
   data = {
-    tab: []
+    tab: [],
+    tabTheme: 'weui'
   };
 
   events = {
     'tap-tab': (index) => {
-      const theme = this.tab[index].theme;
+      // 更新列表
+      const theme = this.tab.list[index].theme;
       this.render('naver', { theme, bd: {list: this.nav} });
     }
   }
@@ -56,7 +58,7 @@ export default class DemoIndex extends wepy.page {
     // #0. self
     let ui = this.config.xb.index;
     this.tab = ui.tab;
-    this.render('taber', { bd: {tab: this.tab, activeIndex: ui.tabActiveIndex} });
+    this.render('taber', { theme: this.tabTheme, bd: {tab: this.tab, activeIndex: ui.tabActiveIndex} });
 
     // #2. nav
     this.nav = this.config.xb.index.nav;
@@ -67,7 +69,13 @@ export default class DemoIndex extends wepy.page {
     this.render('footer', footer);
   }
 
-  onLoad() {
+  doHandleOption(option) {
+    if (option.tabTheme) {
+      this.tabTheme = option.tabTheme;
+    }
+  }
+
+  onLoad(option) {
     console.log(`${this.$name} loaded.`);
     console.log('Title: ', MyTitle);
     console.log('Footer: ', MyFooter);

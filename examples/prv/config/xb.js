@@ -106,13 +106,17 @@ const CAT = {
 }
 
 const index = {
-  tab: [
-    { theme: 'list', title: '下拉列表' },
-    { theme: 'list-list', title: '列表' },
-    { theme: 'list-grid', title: '网格' },
-    { theme: 'list-panel', title: '面板' }
-  ],
-  tabActiveIndex: 2,
+  tab: {  // 结构和ZanTab保持一致
+    list: [
+      { id: 'list', theme: 'list', title: '下拉列表' },
+      { id: 'list-list', theme: 'list-list', title: '列表' },
+      { id: 'list-grid', theme: 'list-grid', title: '网格' },
+      { id: 'list-panel', theme: 'list-panel', title: '面板' }
+    ],
+    selectedId: 'list-grid',
+    height: 45
+  },
+
   nav: [
     { id: 'cool', title: '特效', open: false, fa: 'fa-tv', sublist: CAT.cool },
     { id: 'layout', title: '布局', open: false, fa: 'fa-navicon', sublist: CAT.layout },
@@ -124,11 +128,20 @@ const index = {
   ]
 };
 
+const demo = {
+  list: [
+    { url: '/3rd/examples/pages/index', fa: 'fa-list', title: 'Go to Example', desc: 'by Weui Tab' },
+    { url: '/3rd/examples/pages/index?tabTheme=zan', fa: 'fa-list', title: 'Go to Example', desc: 'by ZanTab' },
+    { url: '/3rd/examples/pages/index?tabTheme=zan-scroll', fa: 'fa-list', title: 'Go to Example', desc: 'by ZanTabScroll' }
+  ]
+};
+
 export default {
   WeUIIndex,
   mine,
   fa,
   footer,
   index,
-  layout
+  layout,
+  demo
 };

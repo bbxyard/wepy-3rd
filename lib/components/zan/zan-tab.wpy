@@ -49,10 +49,10 @@
         </view>
       </scroll-view>
     </block>
-    <block>
+    <block wx:else>
       <view class="zan-tab__bd {{fixed ? 'zan-tab__bd--fixed' : ''}}">
         <view wx:for="{{tab.list}}" wx:key="id" class="zan-tab__item {{tab.selectedId == item.id ? 'zan-tab__item--selected' : ''}}" data-comp-id="{{compId}}" data-item-id="{{item.id}}" @tap="handleZanTabChange">
-          <view class="zan-tab__title">{{item.title}</view>
+          <view class="zan-tab__title">{{item.title}}</view>
         </view>
       </view>
     </block>
@@ -64,6 +64,7 @@
   export default class zanTab extends wepy.component {
     props = {
       tab: Object,
+      fixed: false,
       componentId: { type: [String], default: '' }
     };
     data = { showDialog: false };
