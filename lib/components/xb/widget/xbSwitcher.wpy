@@ -1,0 +1,71 @@
+<style lang="less">
+.xb-widget-switcher {
+  padding: 20rpx 0;
+  .theme-weui {
+
+  }
+  .theme-v-ani {
+    text-align: center;
+    .switch {
+      width: 160rpx;
+      padding: 4rpx 20rpx;
+      border: 2rpx solid #ba77ff;
+      color: #ba77ff;
+      font-size: 0.75rem;
+      border-radius: 40rpx;
+      text-align: center;
+      margin: 0 auto;
+      display: flex;
+    }
+  }
+}
+</style>
+
+<template>
+<view class="xb-widget-switcher">
+  <view class="theme-{{theme}}" wx:if="{{theme === 'weui'}}">
+    <view class="weui-cell weui-cell_switch" @tap="tapSwitch">
+      <view class="weui-cell__bd">{{title}}</view>
+      <view class="weui-cell__ft">
+        <switch name="{{name}}" checked="{{value}}"/>
+      </view>
+    </view>
+  </view>
+  <view class="theme-{{theme}}" wx:if="{{theme === 'v-ani'}}">
+    <view class="switch" @tap="tapVAniSwitch">
+      <view animation="{{switchAnimation}}">▼</view>
+      <text>{{title}}</text>
+    </view>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class XBWidgetSwitcher extends wepy.component {
+  props = {
+    theme: { type: [String], default: 'v-ani' },
+    name: { type: [String], default: 'switcher' },
+    title: { type: [String], default: '状态切换' },
+    value: { type: [Boolean], default: false }  // 初始状态
+  };
+  data = {
+    pkg: {},
+    switchAnimation: null
+  };
+  methods = {
+    tapSwitch(e) {
+      this.value = !this.value;
+      this.$emit('tap-switch', this.name, this.title, this.value);
+    },
+    tapVAniSwitch(e) {
+      let animation = wepy.createAnimation({duration: 400, timingFunction: 'linear'});
+      let deg = (this.value) ? 0 : 180;
+      animation.rotate(deg).step();
+      this.switchAnimation = animation.export();
+      this.value = !this.value;
+      this.$emit('tap-switch', this.name, this.title, this.value);
+    }
+  }
+}
+</script>
