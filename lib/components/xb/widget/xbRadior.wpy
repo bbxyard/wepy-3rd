@@ -1,0 +1,85 @@
+<style lang="less">
+.xb-widget-radior {
+  .theme-base {
+    margin-top: 0;
+  }
+
+  .theme-panel {
+    .theme-base;
+    .radior-panel {
+      background:#fff;
+      overflow:hidden;
+      margin: 20rpx 20rpx 0 20rpx;
+      padding: 20rpx 30rpx;
+      font-size: 0.8rem;
+      border-radius: 4%;
+      display: flex;
+      .row-title {
+        display: flex;
+        .row-title-L {
+          padding-right: 0.5rem;
+        }
+        .row-title-R {
+          color: orange;
+          border-left: 1rpx solid #e5e5e5;
+          padding-left: 0.5rem;
+        }
+      }
+    }
+  }
+  .theme-panel-border {
+    .theme-panel;
+    .radior-panel {
+      border:  1rpx solid #e5e5e5;
+    }
+  }
+}
+</style>
+
+<template>
+  <view class="xb-widget-radior">
+    <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'panel'}}">
+      <radio-group @change="radioChange">
+        <label class="radior-panel" wx:for="{{pkg.bd.list}}" wx:key="value">
+          <view class="weui-cell__bd">
+            <!-- 左侧为两列 -->
+            <block wx:if="{{item.title.R}}">
+              <view class="row-title">
+                <view class="row-title-L">{{item.title.L}}</view>
+                <view class="row-title-R">{{item.title.R}}</view>
+              </view>
+            </block>
+            <!-- 左侧为1列 -->
+            <block wx:else>
+              {{item.title}}
+            </block>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio">
+            <radio class="" value="{{index}}" checked="{{item.checked}}"/>
+          </view>
+        </label>
+      </radio-group>
+    </view>
+  </view>
+</template>
+
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
+export default class XBWidgetRadior extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'panel' }
+  };
+  methods = {
+    radioChange(e) {
+      const index = e.detail.value;
+      this.$emit('radio-change', index);
+    }
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

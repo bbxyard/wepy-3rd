@@ -27,3 +27,31 @@ page {
   text-align: left;
   font-size: 14px;
 }
+
+/*底部*/
+.page__footer{
+  width: 100%;
+  position: fixed;
+  left:0;
+  bottom: 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-top: 1px solid #ba77ff;
+
+  view:first-child{
+    flex-grow: 2;
+    text-align: center
+  }
+  view:first-child text{
+    color: #ba77ff;
+  }
+  view:last-child{
+    flex-grow: 1;
+    text-align: center;
+    background: #ba77ff;
+    color: white;
+  }
+}

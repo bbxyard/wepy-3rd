@@ -1,0 +1,58 @@
+<style lang="less">
+.xb-widget-order-amounter {
+  .theme-base {
+    .order-panel {
+      margin: 40rpx 20rpx 40rpx 20rpx;
+      border-radius: 4%;
+    }
+    .order-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: orange;
+      font-size: 1.2rem;
+      .fa {
+
+      }
+      .order-amount {
+        padding-left: 0.7rem;
+      }
+    }
+  }
+  .theme-M {
+    .theme-base;
+  }
+}
+</style>
+
+<template>
+  <view class="xb-widget-order-amounter">
+    <view class="theme-{{pkg.theme}}">
+      <view class="order-info order-panel">
+        <view class="fa fa-rmb"></view>
+        <view class="order-amount">{{info.amount}}</view>
+      </view>
+    </view>
+  </view>
+</template>
+
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../../mixins/MixCompRefresher';
+export default class XBWidgetOrderAmounter extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'M' }
+  };
+  data = {
+    info: {}
+  };
+  doPostRefresh() {
+    this.info = this.pkg.bd.info;
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>

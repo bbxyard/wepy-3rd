@@ -25,20 +25,16 @@
       <!-- 操作区域 - 用户自定义 -->
 
       <!-- 扩展区域 -->
-      <view class="weui-msg__extra-area">
+      <!-- <view class="weui-msg__extra-area">
         <footer :links="ftLinks" :copyright="ftCopyright" />
-      </view>
+      </view> -->
     </view>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy';
-  import Footer from './xbWeFooter';
   export default class XBWeMsg extends wepy.component {
-    components = {
-      footer: Footer
-    };
     props = {
       type: { type: [String], default: 'success' },
       title: { type: [String], default: '操作成功' },
@@ -47,14 +43,6 @@
       ftLinks: { type: [Array], default: [{ url: 'index', txt: '主页' }] },
       ftCopyright: { type: [String], default: 'Copyright © 2008-2018 xxx' },
       iconSize: { type: [Number], default: 93 }
-    };
-    methods = {
-      tapRecommand() {
-        console.log(`tap recommand: ${this.$name}`);
-      },
-      tapAux() {
-        console.log(`tap aux: ${this.$name}`);
-      }
     };
     onLoad() {
       console.log(`${this.$name} page loaded done!`);

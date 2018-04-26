@@ -1,0 +1,66 @@
+<style lang="less">
+.xb-widget-carder {
+  .theme-base {
+
+  }
+  .theme-zan {
+    .theme-base;
+    .zan-panel {
+      border-top-width: 0;
+      border-bottom-width: 0;
+      margin-left: 20rpx;
+      margin-right: 20rpx;
+      border-radius: 4%;
+    }
+  }
+}
+</style>
+
+<template>
+  <view class="xb-widget-carder">
+    <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'zan'}}">
+      <view class="zan-panel">
+        <view class="zan-card">
+          <view class="zan-card__thumb">
+            <image class="zan-card__img" src="{{info.img.src}}" mode="{{info.img.mode}}" style="{{info.img.style}}" />
+          </view>
+          <view class="zan-card__detail">
+            <block wx:for="{{info.detail}}" wx:for-item="si" wx:for-index="idx" wx:key="idx">
+            <view class="zan-card__detail-row {{si.AC}}" style="{{si.AS}}" >
+              <!-- 整行模式 -->
+              <block wx:if="{{si.A}}">
+                {{si.A}}
+              </block>
+              <!-- 两列模式 -->
+              <block wx:else>
+                <view class="zan-card__right-col {{si.RC}}" style="{{si.RS}}" wx:if="{{si.R}}">{{si.R}}</view>
+                <view class="zan-card__left-col {{si.LC}}" style="{{si.LS}}" wx:if="{{si.L}}">{{si.L}}</view>
+              </block>
+            </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../mixins/MixCompRefresher';
+export default class XBWidgetCarder extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'zan' }
+  };
+  data = {
+    info: {}
+  };
+  doPostRefresh() {
+    this.info = this.pkg.bd.info;
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
