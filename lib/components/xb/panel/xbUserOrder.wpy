@@ -30,10 +30,21 @@
 <template>
   <view class="user-order zan-panel">
     <!-- header -->
-    <view class="uo-head weui-cell_link">
-      <view class="weui-cell__bd uo-h-title">{{pkg.hd.title}}</view>
-      <view class="weui-cell__ft uo-h-desc weui-cell__ft_in-access" wx:if="{{pkg.hd.desc}}">{{pkg.hd.desc}}</view>
-    </view>
+    <!-- 若存在url，则多套一层navigator -->
+    <block wx:if="{{pkg.hd.url}}">
+      <navigator url="{{pkg.hd.url}}">
+        <view class="uo-head weui-cell_link">
+          <view class="weui-cell__bd uo-h-title">{{pkg.hd.title}}</view>
+          <view class="weui-cell__ft uo-h-desc weui-cell__ft_in-access" wx:if="{{pkg.hd.desc}}">{{pkg.hd.desc}}</view>
+        </view>
+      </navigator>
+    </block>
+    <block wx:else>
+      <view class="uo-head weui-cell_link">
+        <view class="weui-cell__bd uo-h-title">{{pkg.hd.title}}</view>
+        <view class="weui-cell__ft uo-h-desc weui-cell__ft_in-access" wx:if="{{pkg.hd.desc}}">{{pkg.hd.desc}}</view>
+      </view>
+    </block>
 
     <!-- body -->
     <view class="uo-body">
