@@ -1,0 +1,40 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <view class="page-wux-button">
+    <btn />
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import WuxButton from '@/wux/wuxButton';
+import MixCompGlobal from '@/../mixins/MixCompGlobal';
+import MixPageRefresher from '@/../mixins/MixPageRefresher';
+export default class ExamWuxButton extends wepy.page {
+  components = {
+    btn: WuxButton
+  };
+
+  mixins = [MixCompGlobal, MixPageRefresher];
+
+  events = {
+    'tap-button': (idx) => {
+      const buttons = this.info.buttons;
+      console.log('tap-button: idx=%d, item: ', idx, buttons[idx]);
+    }
+  }
+
+  doStartAsyncLoad() {
+    let ui = this.config.wux.btn;
+    this.info = {buttons: ui.buttons};
+    this.render('btn', {theme: 'BL', bd: {info: this.info}});
+  }
+
+  onLoad() {
+    console.log(`${this.$name} loaded.`);
+  }
+};
+</script>

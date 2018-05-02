@@ -1,0 +1,74 @@
+<style lang="less">
+@import '../../style/wux.less';
+</style>
+
+<template>
+  <view class="wux-button">
+    <view class="wux-backdrop--transparent" wx:if="{{ info.backdrop && info.opened }}"></view>
+    <view class="wux-speed-dial {{rt.className}} {{rt.animateCss}} {{ info.opened ? 'wux-speed-dial--opened' : '' }}" data-opened="{{info.opened}}" @tap="toggle" wx:if="{{info.visible}}">
+      <view class="wux-speed-dial__action" hover-class="wux-speed-dial__action--hover">
+        <text class="wux-speed-dial__text"></text>
+      </view>
+      <view class="wux-speed-dial__buttons" wx:if="{{info.buttons.length}}">
+        <block wx:for="{{info.buttons}}" wx:key="{{index}}">
+          <view class="wux-speed-dial__button {{item.className}}" data-index="{{index}}" data-label="{{item.label}}" @tap="tapBtn" hover-class="wux-speed-dial__button--hover">
+            <image class="wux-speed-dial__icon" src="{{item.icon}}" />
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '@/../mixins/MixCompRefresher';
+export default class WrapWuxButton extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'BR' }
+  };
+  data = {
+    rt: {
+      className: 'wux-speed-dial--bottom-right',
+      animateCss: ''
+    },
+    info: {
+      backdrop: true,
+      opened: false,
+      visible: true,
+      buttons: []
+    }
+  };
+  methods = {
+    toggle() {
+      this.info.opened = !this.info.opened;
+    },
+    tapBtn(e) {
+      const idx = e.currentTarget.dataset.index;
+      this.$emit('tap-button', idx);
+    }
+  };
+  setTheme(theme) {
+    const types = [
+      { theme: 'TL', type: `topLeft`, className: `wux-speed-dial--top-left` },
+      { theme: 'TR', type: `topRight`, className: `wux-speed-dial--top-right` },
+      { theme: 'BL', type: `bottomLeft`, className: `wux-speed-dial--bottom-left` },
+      { theme: 'BR', type: `bottomRight`, className: `wux-speed-dial--bottom-right` }
+    ];
+    for (let i = 0; i < types.length; ++i) {
+      const item = types[i];
+      if (item.theme === this.pkg.theme) {
+        this.rt.className = item.className;
+      }
+    }
+  }
+  doPostRefresh() {
+    this.info = Object.assign({}, this.info, this.pkg.bd.info);
+    this.setTheme(this.pkg.theme);
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
