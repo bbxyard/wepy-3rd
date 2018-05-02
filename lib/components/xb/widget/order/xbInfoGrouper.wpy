@@ -1,0 +1,59 @@
+<style lang="less">
+.theme-base {
+  margin-top: 20rpx;
+  .weui-form-preview__hd {
+    line-height: 2;
+  }
+  .weui-form-preview__label {
+    min-width: 5em;
+  }
+  .xb-preview__ft_label {
+    min-width: 5em;
+  }
+  .xb-preview__ft_value {
+    min-width: 5em;
+  }
+}
+.xb-widget-order-info-grouper__theme-LL {
+  .theme-base;
+  .weui-form-preview__value {
+    text-align: left;
+  }
+}
+.xb-widget-order-info-grouper__theme-LR {
+  .theme-base;
+}
+</style>
+
+<template>
+  <view class="xb-widget-order-info-grouper__theme-{{pkg.theme}}">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__bd">
+        <block wx:for="{{pkg.bd.group.detail}}" wx:for-item="kv" wx:key="{{index}}">
+        <view class="weui-form-preview__item {{kv.AC}}}" style="{{kv.AS}}">
+          <view class="weui-form-preview__label {{kv.KC}}" style="{{kv.KS}}">{{kv.K}}</view>
+          <view class="weui-form-preview__value {{kv.VC}}" style="{{kv.VS}}">{{kv.V}}</view>
+        </view>
+        </block>
+      </view>
+      <view class="weui-form-preview__ft" wx:if="{{pkg.bd.group.ft}}">
+      </view>
+    </view>
+  </view>  
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../../mixins/MixCompRefresher';
+export default class XBWidgetOrderInfoGrouper extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'LR' }
+  };
+  doPostRefresh() {
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
