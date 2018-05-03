@@ -2,7 +2,7 @@
 </style>
 
 <template>
-  <view class="weui-cells__title" style="color: {{color}};" @tap="tap">{{name}}</view>
+  <view class="weui-cells__title" style="color: {{color}};" @tap="tap">{{title}}</view>
 </template>
 
 <script>
@@ -10,8 +10,8 @@
   import randomColor from 'randomcolor';
   export default class XBGroupTitle extends wepy.component {
     props = {
-      name: { type: [String], default: '' },
-      color: { type: [String], default: 'grey' }
+      title: { type: [String], default: '' },
+      color: { type: [String], default: 'gray' }
     };
     methods = {
       tap() {
