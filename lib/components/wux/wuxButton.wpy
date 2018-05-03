@@ -11,8 +11,13 @@
       </view>
       <view class="wux-speed-dial__buttons" wx:if="{{info.buttons.length}}">
         <block wx:for="{{info.buttons}}" wx:key="{{index}}">
-          <view class="wux-speed-dial__button {{item.className}}" data-index="{{index}}" data-label="{{item.label}}" @tap="tapBtn" hover-class="wux-speed-dial__button--hover">
-            <image class="wux-speed-dial__icon" src="{{item.icon}}" />
+          <view wx:if="{{!item.hidden}}" class="wux-speed-dial__button {{item.className}}" data-index="{{index}}" data-label="{{item.label}}" @tap="tapBtn" hover-class="wux-speed-dial__button--hover">
+            <block wx:if="{{item.fa}}">
+              <view class="fa {{item.fa}}"></view>
+            </block>
+            <block wx:else>
+              <image class="wux-speed-dial__icon" src="{{item.icon}}" />
+            </block>
           </view>
         </block>
       </view>

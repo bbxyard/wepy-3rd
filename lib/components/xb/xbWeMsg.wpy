@@ -34,7 +34,9 @@
 
 <script>
   import wepy from 'wepy';
+  import MixCompRefresher from '../../mixins/MixCompRefresher';
   export default class XBWeMsg extends wepy.component {
+    mixins = [MixCompRefresher];
     props = {
       type: { type: [String], default: 'success' },
       title: { type: [String], default: '操作成功' },
@@ -44,6 +46,17 @@
       ftCopyright: { type: [String], default: 'Copyright © 2008-2018 xxx' },
       iconSize: { type: [Number], default: 93 }
     };
+    data = {
+      info: {}
+    };
+    doPostRefresh() {
+      this.info = this.pkg.bd.info;
+      if (this.info) {
+        this.type = this.info.type;
+        this.title = this.info.title;
+        this.desc = this.info.desc;
+      }
+    }
     onLoad() {
       console.log(`${this.$name} page loaded done!`);
     }
