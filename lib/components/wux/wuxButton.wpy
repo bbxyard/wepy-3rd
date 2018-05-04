@@ -48,10 +48,11 @@ export default class WrapWuxButton extends wepy.component {
   methods = {
     toggle() {
       this.info.opened = !this.info.opened;
+      this.$emit('wux-switch-button', this.info.opened, this.$name);
     },
     tapBtn(e) {
       const idx = e.currentTarget.dataset.index;
-      this.$emit('tap-button', idx);
+      this.$emit('wux-tap-button', idx, this.$name);
     }
   };
   setTheme(theme) {
