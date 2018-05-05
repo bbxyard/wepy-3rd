@@ -1,0 +1,127 @@
+<style lang="less">
+.theme-base {
+
+}
+
+/* 读写别名 */
+.xb-widget-pic-gallery__theme-R {
+  .theme-base;
+  .top-btn { display: none; }
+}
+.xb-widget-pic-gallery__theme-W {
+  .theme-base;
+  .top-btn {
+    position: relative;
+    color: red;
+    font-size: 1rem;
+    float: right;
+    right: 8rpx;
+  }
+  .weui-uploader__file {
+    margin-right: 0;
+  }
+  .img {
+    margin-top: 6px;
+  }
+  .weui-uploader__img {
+    width: 72px;
+    height: 72px;
+  }
+  .weui-uploader__input-box {
+    width: 72px;
+    height: 72px;
+    margin-top: 6px;
+  }
+}
+
+/* 画廊 */
+.xb-widget-pic-gallery__theme-G {
+  .xb-widget-pic-gallery__theme-R;
+}
+.xb-widget-pic-gallery__theme-Gallery {
+  .xb-widget-pic-gallery__theme-R;
+}
+</style>
+
+<template>
+  <view class="xb-widget-pic-gallery__theme-{{pkg.theme}}">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <!-- 依次展示上传上来的图片 -->
+                <block wx:for="{{list}}" wx:key="{{index}}">
+                  <view class="weui-uploader__file" @tap="previewImage" id="{{index}}" wx:if="{{item.action !== 'del'}}">
+                    <view class="fa fa-times-circle top-btn" data-index="{{index}}" catchtap="del"></view>
+                    <image class="weui-uploader__img img" src="{{item.src}}" mode="aspectFill" />
+                  </view>
+                </block>
+                <!-- 选择图片框 -->
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" @tap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>  
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../../mixins/MixCompRefresher';
+export default class XBWidgetPicGallery extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    theme: { type: [String], default: 'W' }
+  };
+  data = {
+    list: []
+  };
+  methods = {
+    async chooseImage (e) {
+      const res = await wepy.chooseImage({ sizeType: ['original', 'compressed'], source: ['album', 'camera'] });
+      if (res.errMsg === 'chooseImage:ok') {
+        let newList = res.tempFilePaths.map((url) => { return { action: 'add', src: url }; });
+        this.list = this.list.concat(newList);
+        this.$apply();
+        this.$emit('upload-url-list', this.list, this.$name);
+      }
+    },
+    del(e) {
+      const idx = e.currentTarget.dataset.index;
+      this.list[idx].action = 'del';
+      this.$emit('upload-url-list', this.list, this.$name);
+    },
+    previewImage (e) {
+      const idx = parseInt(e.currentTarget.id);
+      const url = this.list[idx].src;
+      wepy.previewImage({
+        current: url, // 当前显示图片的http链接
+        urls: this.getActiveUrlList() // 需要预览的图片http链接列表
+      });
+    }
+  }
+  getActiveList() {
+    let outList = [];
+    this.list.forEach(item => {
+      if (item.action !== 'del') outList.push(item);
+    });
+    return outList;
+  }
+  getActiveUrlList() {
+    let outList = this.getActiveList().map((item) => item.src);
+    return outList;
+  }
+  doPostRefresh() {
+    this.list = this.pkg.bd.list;
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
