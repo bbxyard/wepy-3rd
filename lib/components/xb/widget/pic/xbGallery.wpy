@@ -52,7 +52,7 @@
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="uploaderFiles">
                 <!-- 依次展示上传上来的图片 -->
-                <block wx:for="{{list}}" wx:key="{{index}}">
+                <block wx:for="{{getList}}" wx:key="{{index}}">
                   <view class="weui-uploader__file" @tap="previewImage" id="{{index}}" wx:if="{{item.action !== 'del'}}">
                     <view class="fa fa-times-circle top-btn" data-index="{{index}}" catchtap="del"></view>
                     <image class="weui-uploader__img img" src="{{item.src}}" mode="aspectFill" />
@@ -104,6 +104,11 @@ export default class XBWidgetPicGallery extends wepy.component {
         current: url, // 当前显示图片的http链接
         urls: this.getActiveUrlList() // 需要预览的图片http链接列表
       });
+    }
+  };
+  computed = {
+    getList() {
+      return this.list;
     }
   }
   getActiveList() {
