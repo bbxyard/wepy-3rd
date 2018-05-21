@@ -35,9 +35,12 @@
     <view class="line">
       <image class="avatarImg" src="{{userInfo.avatarUrl}}"></image>
     </view>
-    <view class="line">
+    <view class="line" wx:if="{{userInfo.nickName}}">
       <text>{{userInfo.nickName}}</text>
       <text wx:if="{{userInfo.role != 'visitor'}}" style="padding-left: 0.5rem;">{{userInfo.role}}</text>
+    </view>
+    <view class="line" wx:if="{{!userInfo.nickName}}">
+      <view class="zan-btn--small" open-type="getUserInfo" @tap="bindLogin">登录</view>
     </view>
   </view>
   <!-- 样式2 -->
@@ -60,6 +63,13 @@ export default class XBUserInfo extends wepy.component {
   data = {
     userInfo: {}
   };
+
+  methods = {
+    bindLogin(e) {
+      console.log('Let us login first');
+      this.$emit('tap-login', this.$name);
+    }
+  }
 
   doPostRefresh() {
     let pkg = this.pkg; // MixCompRefresher中定义
