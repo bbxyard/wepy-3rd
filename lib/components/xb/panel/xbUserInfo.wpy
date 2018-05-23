@@ -39,9 +39,9 @@
       <text>{{userInfo.nickName}}</text>
       <text wx:if="{{userInfo.role != 'visitor'}}" style="padding-left: 0.5rem;">{{userInfo.role}}</text>
     </view>
-    <view class="line" wx:if="{{!userInfo.nickName}}">
+    <!-- <view class="line" wx:if="{{!userInfo.nickName}}">
       <view class="zan-btn--small" open-type="getUserInfo" @tap="bindLogin">登录</view>
-    </view>
+    </view> -->
   </view>
   <!-- 样式2 -->
 
