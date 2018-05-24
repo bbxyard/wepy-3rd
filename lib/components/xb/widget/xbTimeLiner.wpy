@@ -1,0 +1,140 @@
+<style lang="less">
+@import '../../../style/xb/in/widget.less';
+.xb-widget-timeliner {
+  .tl {
+    display: flex;
+    .tl-left {
+      width: 0%;
+    }
+    .tl-mid {
+      width: 10%;
+      display: flex;
+      top: 10rpx;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      .tl-hd {
+        width: 18rpx;
+        height: 18rpx;
+        background-color: olivedrab;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 10;
+      }
+      .tl-bd {
+        width: 2rpx;
+        height: 100%;
+        background-color: #e5e5e5;
+        position: absolute;
+        z-index: 2;
+      }
+    }
+    .tl-right {
+      width: 90%;
+      margin-bottom: 20rpx;
+      .tl-hd {
+        // background-color: gray;
+      }
+      .tl-bd {
+        color: #999;
+        // background-color: #06bf04;
+        // height: 300rpx;
+      }
+    }
+  }
+
+  .tl-bd-gallery {
+
+  }
+}
+
+</style>
+<template>
+  <view class="xb-widget-timeliner">
+      <block wx:for="{{ list }}" wx:for-item="item" wx:key="unique" wx:for-index="index">
+          <view class="tl">
+
+            <view class="tl-mid">
+              <view class="tl-hd" data-idx="{{index}}" @tap="bindToggle"></view>
+              <view class="tl-bd"></view>
+            </view>
+
+            <view class="tl-right">
+              <view class="tl-hd">
+                <!-- 标题 -->
+                <!-- 描述 -->
+                <view class="zan-steps__title">{{ item.text }}</view>
+                <view wx:if="{{ hasDesc && item.desc }}" class="zan-steps__title zan-steps__title--desc">{{ item.desc }}</view>
+              </view>
+
+              <!-- 正文 -->
+              <view class="tl-bd" wx:if="{{item.open}}">
+                <!-- 相册模式 -->
+                <view class="tl-bd-{{type}}" wx:if="{{type === 'gallery'}}">
+                  <view class="xb-widget-pic-gallery__theme-G">
+                  <view class="weui-cells_after-title">
+                  <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                      <view class="weui-uploader">
+                        <view class="weui-uploader__bd">
+                          <view class="weui-uploader__files" id="uploaderFiles">
+                            <!-- 依次展示上传上来的图片 -->
+                            <block wx:for="{{item.urls}}" wx:for-item="si" wx:for-index="sii" wx:key="{{sii}}">
+                              <view class="weui-uploader__file" @tap="previewImage" id="{{sii}}" wx:if="{{si.action !== 'del'}}">
+                                <view class="fa fa-times-circle top-btn" data-index="{{sii}}" catchtap="del"></view>
+                                <image class="weui-uploader__img img" src="{{si.src || si}}" mode="aspectFill" />
+                              </view>
+                            </block>
+                            <!-- 选择图片框 -->
+                            <view class="weui-uploader__input-box" wx:if="{{si.action}}">
+                              <view class="weui-uploader__input" @tap="chooseImage"></view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                  </view>
+                  </view>
+                </view>
+
+                <!-- 其它模式 -->
+              </view>
+            </view>
+          </view>
+
+        <!-- </view> -->
+      </block>
+  </view>
+</template>
+<script>
+import wepy from 'wepy';
+export default class XBWidgetTimeLiner extends wepy.component {
+  props = {
+    list: Object,
+    type: String,
+    hasDesc: { type: Boolean, default: false },
+    className: { type: String, default: '' }
+  };
+  data = {
+
+  };
+  methods = {
+    bindToggle(e) {
+      const idx = e.currentTarget.dataset.idx;
+      const item = this.list[idx];
+      item.open = !item.open;
+      this.$emit('xb-timeliner-toggle', item.open, this.$name);
+    },
+    previewImage(e) {
+
+    },
+    del(e) {
+
+    },
+    chooseImage(e) {
+
+    }
+  };
+};
+</script>
