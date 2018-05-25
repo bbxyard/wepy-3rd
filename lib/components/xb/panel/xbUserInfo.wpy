@@ -24,6 +24,12 @@
     .line:last-child text{
       font-size: 0.85rem;
     }
+    .btn-login {
+      position: static;
+      display: inline-block;
+      color: yellow;
+      font-weight: bold;
+    }
   }
 }
 </style>
@@ -39,9 +45,9 @@
       <text>{{userInfo.nickName}}</text>
       <text wx:if="{{userInfo.role != 'visitor'}}" style="padding-left: 0.5rem;">{{userInfo.role}}</text>
     </view>
-    <!-- <view class="line" wx:if="{{!userInfo.nickName}}">
-      <view class="zan-btn--small" open-type="getUserInfo" @tap="bindLogin">登录</view>
-    </view> -->
+    <view class="line" wx:if="{{!userInfo.nickName}}">
+      <view class="btn-login" open-type="getUserInfo" @tap="bindLogin">{{ui.login}}</view>
+    </view>
   </view>
   <!-- 样式2 -->
 
@@ -61,7 +67,8 @@ export default class XBUserInfo extends wepy.component {
   };
 
   data = {
-    userInfo: {}
+    userInfo: {},
+    ui: {}
   };
 
   methods = {
@@ -77,6 +84,7 @@ export default class XBUserInfo extends wepy.component {
       pkg.theme = this.theme;
     }
     this.userInfo = pkg.userInfo;
+    this.ui = pkg.ui;
   }
 
   onLoad() {
