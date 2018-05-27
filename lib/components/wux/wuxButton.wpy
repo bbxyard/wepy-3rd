@@ -5,7 +5,7 @@
 <template>
   <view class="wux-button">
     <view class="wux-backdrop--transparent" wx:if="{{ info.backdrop && info.opened }}"></view>
-    <view class="wux-speed-dial {{rt.className}} {{rt.animateCss}} {{ info.opened ? 'wux-speed-dial--opened' : '' }}" data-opened="{{info.opened}}" @tap="toggle" wx:if="{{info.visible}}">
+    <view class="wux-speed-dial {{rt.className}} {{rt.animateCss}} {{ info.opened ? 'wux-speed-dial--opened' : '' }}" data-opened="{{info.opened}}" @tap="toggle" wx:if="{{visible}}">
       <view class="wux-speed-dial__action" hover-class="wux-speed-dial__action--hover">
         <text class="wux-speed-dial__text"></text>
       </view>
@@ -31,7 +31,8 @@ import MixCompRefresher from '@/../mixins/MixCompRefresher';
 export default class WrapWuxButton extends wepy.component {
   mixins = [MixCompRefresher];
   props = {
-    theme: { type: [String], default: 'BR' }
+    theme: { type: [String], default: 'BR' },
+    visible: { type: [Boolean], default: false }
   };
   data = {
     rt: {
@@ -41,7 +42,6 @@ export default class WrapWuxButton extends wepy.component {
     info: {
       backdrop: true,
       opened: false,
-      visible: true,
       buttons: []
     }
   };
@@ -71,6 +71,9 @@ export default class WrapWuxButton extends wepy.component {
   }
   doPostRefresh() {
     this.info = Object.assign({}, this.info, this.pkg.bd.info);
+    if (this.info.visible !== undefined) {
+      this.visible = this.info.visible;
+    }
     this.setTheme(this.pkg.theme);
   }
   onLoad(option) {
