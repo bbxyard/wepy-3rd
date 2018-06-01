@@ -1,5 +1,4 @@
 <style lang="less">
-@import '../../../style/xb/panel.less';
 </style>
 
 <template>
@@ -13,8 +12,8 @@
 
     <!-- body -->
     <view class="tg-body">
-      <view class="tg-b-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};">
-        <navigator url="{{item.url}}">
+      <view class="tg-b-btn-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};" data-idx="{{index}}" @tap="bindTap">
+        <button class="btn-svc" open-type="{{item.openType}}">
           <!-- 图标优先使用FontAwesome -->
           <view class="fa {{item.fa}} icon" wx:if="{{item.fa}}"></view>
           <view wx:else><image class="img" src="{{item.img}}" /></view>
@@ -24,7 +23,7 @@
           <view class="zan-badge__count" wx:if="{{item.cnt > 0}}">
             <text>{{item.cnt}}</text>
           </view>
-        </navigator>
+        </button>
       </view>
     </view>
   </view>
@@ -41,6 +40,13 @@ export default class XBUserSvc extends wepy.component {
     theme: { type: [String], default: 'no-border' },
     width: { type: [String], default: '25%' }
   };
+
+  methods = {
+    bindTap(e) {
+      const idx = e.currentTarget.dataset.idx;
+      this.$emit('xb-user-svc-btn-tap', idx, this.$name);
+    }
+  }
 
   doPostRefresh() {
     // 智能计算width
