@@ -12,7 +12,7 @@
 
     <!-- body -->
     <view class="tg-body">
-      <view class="tg-b-btn-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};" data-idx="{{index}}" @tap="bindTap">
+      <view class="tg-b-btn-item" wx:for="{{pkg.bd.list}}" wx:key="{{index}}" style="width: {{pkg.width}};" wx:if="{{!item.hidden}}" data-idx="{{index}}" @tap="bindTap">
         <button class="btn-svc" open-type="{{item.openType}}">
           <!-- 图标优先使用FontAwesome -->
           <view class="fa {{item.fa}} icon" wx:if="{{item.fa}}"></view>
