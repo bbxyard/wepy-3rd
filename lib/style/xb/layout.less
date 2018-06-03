@@ -1,30 +1,26 @@
 @import './var.less';
 
-.list-img {
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 10rpx;
-}
-.list-fa-icon {
-  font-size: 1rem;
-  color: orange;
-  padding-right: 10rpx;
-}
-
 .xb-layout-list {
   // 细胞主题
-  .theme-cells {
-    .weui-cells__title {
-      color: grey;
-    }
+  .theme-base {
+    .weui-cells__title { color: grey; }
     .weui-cell {
-      .img {
-        display: block;
+      .img { display: block; }
+      .fa { }
+      .list-img {
+        width: 40rpx;
+        height: 40rpx;
+        margin-right: 10rpx;
       }
-      .fa {
-        
+      .list-fa-icon {
+        font-size: 1rem;
+        padding-right: 10rpx;
       }
     }
+  }
+  .theme-cells { .theme-base; }
+  .theme-picker {
+    .theme-base;
   }
 }
 
