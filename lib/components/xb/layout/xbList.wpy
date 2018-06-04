@@ -34,7 +34,7 @@
     <view class="weui-cells__title" wx:if="{{pkg.hd.title}}">{{pkg.hd.title}}</view>
     <view class="weui-cells weui-cells_after-title">
     <block wx:for="{{pkg.bd.list}}" wx:for-index="index" wx:key="{{index}}">
-      <picker wx:if="{{!item.hidden}}" bindchange="bindPickerChange" value="{{item.idx}}" data-idx="{{index}}" range="{{item.range}}">
+      <picker wx:if="{{!item.hidden}}" bindchange="bindPickerChange" value="{{item.idx}}" data-idx="{{index}}" range-key="{{item.rangeKey}}" range="{{item.range}}">
         <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <view class="weui-cell__hd" wx:if="{{item.fa || item.img}}">
             <view class="fa {{item.fa}} list-fa-icon" wx:if="{{item.fa}}"></view>
@@ -42,7 +42,7 @@
           </view>
           <view class="weui-cell__bd item-title">{{item.title}}</view>
           <view class="weui-cell__ft weui-cell__ft_in-access" wx:if="{{item.desc}}">
-            <view class="picker item-desc">{{item.range[item.idx]}}</view>
+            <view class="picker item-desc">{{ item.rangeKey ? item.range[item.idx][item.rangeKey] : item.range[item.idx]}}</view>
           </view>
         </view>
       </picker>
