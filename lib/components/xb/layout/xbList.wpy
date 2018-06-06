@@ -71,10 +71,12 @@ export default class XBList extends wepy.component {
     },
     bindPickerChange(e) {
       const idx = e.currentTarget.dataset.idx;
-      const si = e.detail.value;
+      const si = parseInt(e.detail.value);
       const item = this.pkg.bd.list[idx];
-      item.idx = si;
-      this.$emit('xb-tap-list-picker-item', idx, si, this.$name);
+      if (item.idx !== si) {
+        item.idx = si;
+        this.$emit('xb-tap-list-picker-item', idx, si, this.$name);
+      }
     }
   };
   doPostRefresh() {
