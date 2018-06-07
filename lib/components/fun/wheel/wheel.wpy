@@ -73,8 +73,8 @@
       speed: { default: 16 },       /* 每帧速度 */
       awardNumber: { default: 1 },  /* 中奖区域 从1开始 */
       mode: { type: [Number], default: 1 },
-      picBG: { type: [String], default: '/components/fun/wheel/images/dial_bg.png' },
-      picPointer: { type: [String], default: '/components/fun/wheel/images/dial_pointer.png' }
+      picBG: { type: [String], default: 'https://d.app.bbxyard.com/asset/img/wheel_dial_bg.png' },
+      picPointer: { type: [String], default: 'https://d.app.bbxyard.com/asset/img/wheel_dial_pointer.png' }
     };
 
     data = {
