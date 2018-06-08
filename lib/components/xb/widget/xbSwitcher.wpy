@@ -7,15 +7,22 @@
   .theme-v-ani {
     text-align: center;
     .switch {
-      width: 160rpx;
+      width: 180rpx;
       padding: 4rpx 20rpx;
       border: 2rpx solid #ba77ff;
       color: #ba77ff;
       font-size: 0.75rem;
       border-radius: 40rpx;
-      text-align: center;
+      justify-content: center;
       margin: 0 auto;
       display: flex;
+      .icon {
+        // text-align: left;
+        padding-right: 4rpx;
+      }
+      .txt {
+        // text-align: center;
+      }
     }
   }
 }
@@ -33,8 +40,8 @@
   </view>
   <view class="theme-{{theme}}" wx:if="{{theme === 'v-ani'}}">
     <view class="switch" @tap="tapVAniSwitch">
-      <view animation="{{switchAnimation}}">▼</view>
-      <text>{{title}}</text>
+      <view class="icon" animation="{{switchAnimation}}">▼</view>
+      <view class="txt">{{title}}</view>
     </view>
   </view>
 </view>
