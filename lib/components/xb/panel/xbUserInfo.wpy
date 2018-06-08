@@ -1,6 +1,7 @@
 <style lang="less">
 @mineAvatarSide: 120rpx;
 @mineAvatarRadius: 50%;
+@mineBgColor: #ff9966;
 .user-info {
   .theme-center {
     height: 300rpx;
@@ -8,7 +9,7 @@
     padding: 20rpx;
     box-sizing: border-box;
     color: white;
-    background: #ff9966;
+    background: @mineBgColor;
     .avatarImg {
       width: @mineAvatarSide;
       height: @mineAvatarSide;
@@ -25,11 +26,12 @@
       font-size: 0.85rem;
     }
     .btn-login {
-      position: static;
       display: inline-block;
       color: yellow;
+      background-color: @mineBgColor;
       font-weight: bold;
     }
+    button::after{ border: none; }
   }
 }
 </style>
@@ -46,7 +48,7 @@
       <text wx:if="{{userInfo.role != 'visitor'}}" style="padding-left: 0.5rem;">{{userInfo.role}}</text>
     </view>
     <view class="line" wx:if="{{!userInfo.nickName}}">
-      <view class="btn-login" open-type="getUserInfo" @tap="bindLogin">{{ui.login}}</view>
+      <button class="btn-login" open-type="getUserInfo" @tap="bindLogin">{{ui.login}}</button>
     </view>
   </view>
   <!-- 样式2 -->
