@@ -4,7 +4,7 @@
 
   }
   .theme-zan {
-    margin-bottom: 30rpx;
+    // margin-bottom: 30rpx;
   }
 }
 </style>
