@@ -5,6 +5,12 @@
   .theme-base {
     .weui-cells__title { color: grey; }
     .weui-cell {
+      .item-hd-flex {
+        display: flex;
+        .item-hd-title {
+          padding-right: 0.35rem;
+        }
+      }
       .img { display: block; }
       .fa { }
       .list-img {
@@ -14,14 +20,12 @@
       }
       .list-fa-icon {
         font-size: 1rem;
-        padding-right: 10rpx;
+        padding-right: 0.35rem;
       }
     }
   }
   .theme-cells { .theme-base; }
-  .theme-picker {
-    .theme-base;
-  }
+  .theme-picker { .theme-base; }
 }
 
 .xb-layout-grid {

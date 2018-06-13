@@ -1,5 +1,5 @@
 <style lang="less">
-@import '../../../style/xb/layout.less';
+// @import '../../../style/xb/layout.less';
 </style>
 
 <template>
@@ -18,9 +18,10 @@
         <view class="weui-cell__ft weui-cell__ft_in-access item-desc" wx:if="{{item.desc}}">{{item.desc}}</view>
       </navigator>
       <view wx:if="{{!item.hidden && !item.url}}" data-idx="{{index}}" @tap="bindTapListItem" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd" wx:if="{{item.fa || item.img}}">
+        <view class="weui-cell__hd {{item.hdTitle ? 'item-hd-flex' : ''}}" wx:if="{{item.fa || item.img}}">
           <view class="fa {{item.fa}} list-fa-icon" wx:if="{{item.fa}}"></view>
           <view wx:elif="{{item.img}}"><image class="img list-img" src="{{item.img}}" /></view>
+          <view class="item-hd-title" wx:if="{{item.hdTitle}}">{{item.hdTitle}}</view>
         </view>
         <view class="weui-cell__bd item-title">{{item.title}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access item-desc" wx:if="{{item.desc}}">{{item.desc}}</view>
