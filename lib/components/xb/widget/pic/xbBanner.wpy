@@ -1,0 +1,95 @@
+<style lang="less">
+@ItemImgHeight: 240rpx;
+@ItemColor: gray;
+.xb-widget-pic-banner {
+  .xb-widget-pic-banner-scroll {
+    display: block;
+    width: 100%;
+    // height: @ItemImgHeight + 20rpx * 2 + 20rpx;
+    white-space: nowrap;
+    .box-no-play {
+      display: block;
+      .box-framework {
+        display: inline-block;
+        width: 30%;
+        height: @ItemImgHeight;
+        .box-item {
+          display: flex;
+          height: 100%;
+          flex-direction: column;
+          background-color: white;
+          .box-item-img {
+            padding: 10rpx;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+          }
+          .box-item-title {
+            padding: 20rpx 0;
+            color: @ItemColor;
+            line-height: 20rpx;
+            text-align: center;
+          }
+        }
+      }
+
+    }
+
+    .box-x-no-play { .box-no-play; }
+    .box-y-no-play { .box-no-play; }
+  }
+  .xb-widget-pic-banner-swiper {
+    .box-x-play {
+
+    }
+    .box-y-play {
+
+    }
+  }
+}
+</style>
+
+<template>
+  <view class="xb-widget-pic-banner">
+    <!-- 静态 -->
+    <view class="xb-widget-pic-banner-scroll" wx:if="{{theme === 'x-no-play' || theme === 'y-no-play'}}">
+      <scroll-view class="box-{{theme}}" scroll-x="{{theme === 'x-no-play'}}" scroll-y="{{theme === 'y-no-play'}}">
+        <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="{{index}}">
+          <view class="box-framework">
+          <view class="box-item">
+            <image class="box-item-img" src="{{item.url}}" mode="{{mode}}" />
+            <view class="box-item-title">{{item.title}}</view>
+          </view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+
+    <!-- 动态swiper -->
+    <view class="xb-widget-pic-banner-swiper" wx:if="{{theme === 'x-play' || theme === 'y-play'}}">
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MixCompRefresher from '../../../../mixins/MixCompRefresher';
+export default class XBWidgetPicBanner extends wepy.component {
+  mixins = [MixCompRefresher];
+  props = {
+    // swiper(x-play, y-play), scroll_view(x-no-play, y-no-play)
+    theme: { type: [String], default: 'x-no-play' }
+  };
+  data = {
+    list: [],
+    mode: 'aspectFit'
+  };
+  doPostRefresh() {
+    this.list = this.pkg.bd.list;
+    this.mode = this.mode;
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
