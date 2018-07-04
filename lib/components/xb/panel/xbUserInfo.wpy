@@ -48,7 +48,7 @@
       <text wx:if="{{userInfo.role != 'visitor'}}" style="padding-left: 0.5rem;">{{userInfo.role}}</text>
     </view>
     <view class="line" wx:if="{{!userInfo.nickName}}">
-      <button class="btn-login" open-type="getUserInfo" @tap="bindLogin">{{ui.login}}</button>
+      <button class="btn-login" open-type="getUserInfo" @tap="bindLogin">{{meta.login}}</button>
     </view>
   </view>
   <!-- 样式2 -->
@@ -70,7 +70,7 @@ export default class XBUserInfo extends wepy.component {
 
   data = {
     userInfo: {},
-    ui: {}
+    meta: {}
   };
 
   methods = {
@@ -86,7 +86,7 @@ export default class XBUserInfo extends wepy.component {
       pkg.theme = this.theme;
     }
     this.userInfo = pkg.userInfo;
-    this.ui = pkg.ui;
+    this.meta = pkg.meta;
   }
 
   onLoad() {
