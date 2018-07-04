@@ -16,10 +16,10 @@
         .box-item {
           display: flex;
           height: 100%;
+          padding: 10rpx;
           flex-direction: column;
           background-color: white;
           .box-item-img {
-            padding: 10rpx;
             width: 100%;
             height: 100%;
             background-color: white;
@@ -29,6 +29,8 @@
             color: @ItemColor;
             line-height: 20rpx;
             text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
       }
