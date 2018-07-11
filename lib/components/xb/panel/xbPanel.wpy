@@ -1,0 +1,80 @@
+<style lang="less">
+.xb-panel {
+  background-color: #fff;
+  text-align: left;
+
+  &.no-padding{ display: inherit; }
+  &.no-border { display: inherit; }
+  &.no-margin-top { margin-top: 0; }
+  &.border-v { border-top : 1rpx solid #e5e5e5; border-bottom: 1rpx solid #e5e5e5 }
+  &.margin-top { margin-top: 20rpx; }
+  &.padding-tdlr { padding: 20rpx 30rpx; }
+
+  .title {
+    padding-bottom: 20rpx;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .info {
+    padding: 15rpx;
+  }
+  .testcounter {
+    margin-top: 15rpx;
+    position: absolute;
+  }
+  .counterview {
+    margin-left: 120rpx;
+  }
+}
+</style>
+
+<template>
+  <block>
+    <slot name="gtitle"></slot>
+    <view class="xb-panel {{getThisClass}} {{getRTClass}}" style="{{getStyle}}">
+      <slot name="title"></slot>
+      <slot name="head"></slot>
+      <slot></slot>
+    </view>
+  </block>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class XBPanel extends wepy.component {
+  props = {
+    border: { type: [String], default: '' },
+    margin: { type: [String], default: 'top' },
+    padding: { type: [String], default: 'padding-tdlr' },
+    style: { type: [String], default: '' }
+  };
+  computed = {
+    getThisClass() { return this.$name; },
+    getUserStyle() { return this.style; },
+    getRTClass() {
+      const classes = [];
+      switch (this.border) {
+        case 'v': classes.push('border-v'); break;
+        default: break; // PASS
+      }
+      switch (this.margin) {
+        case 'no-top': classes.push('no-margin-top'); break;
+        case 'top':
+        default:
+          classes.push('margin-top'); break;
+      }
+      switch (this.padding) {
+        case 'no': break;
+        default:
+          classes.push('padding-tdlr'); break;
+      }
+      const out = classes.join(' ');
+      return out;
+    }
+  };
+  onLoad() {
+    console.log(`${this.$name}-Panel loaded.`);
+  }
+}
+
+</script>
