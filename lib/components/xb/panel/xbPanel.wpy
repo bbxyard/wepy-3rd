@@ -13,17 +13,7 @@
   .title {
     padding-bottom: 20rpx;
     font-size: 14px;
-    font-weight: bold;
-  }
-  .info {
-    padding: 15rpx;
-  }
-  .testcounter {
-    margin-top: 15rpx;
-    position: absolute;
-  }
-  .counterview {
-    margin-left: 120rpx;
+    // font-weight: bold;
   }
 }
 </style>

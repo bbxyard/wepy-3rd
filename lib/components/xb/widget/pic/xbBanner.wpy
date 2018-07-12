@@ -55,7 +55,7 @@
     <!-- 静态 -->
     <view class="xb-widget-pic-banner-scroll" wx:if="{{theme === 'x-no-play' || theme === 'y-no-play'}}">
       <scroll-view class="box-{{theme}}" scroll-x="{{theme === 'x-no-play'}}" scroll-y="{{theme === 'y-no-play'}}">
-        <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="{{index}}">
+        <block wx:for="{{getList}}" wx:for-item="item" wx:for-index="index" wx:key="{{index}}">
           <view class="box-framework">
           <view class="box-item">
             <image class="box-item-img" src="{{item.url}}" mode="{{mode}}" />
@@ -79,11 +79,12 @@ export default class XBWidgetPicBanner extends wepy.component {
   mixins = [MixCompRefresher];
   props = {
     // swiper(x-play, y-play), scroll_view(x-no-play, y-no-play)
-    theme: { type: [String], default: 'x-no-play' }
+    theme: { type: [String], default: 'x-no-play' },
+    list: { type: [Array], default: [] },
+    mode: { type: [String], default: 'aspectFit' }
   };
-  data = {
-    list: [],
-    mode: 'aspectFit'
+  computed = {
+    getList() { return this.list; }
   };
   doPostRefresh() {
     this.list = this.pkg.bd.list;
