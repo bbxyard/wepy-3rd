@@ -4,7 +4,7 @@
 <template>
 <view class="xb-layout-list">
   <!-- 缺省主题 -->
-  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'cells'}}">
+  <block class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'cells'}}">
     <view class="weui-cells__title" wx:if="{{pkg.hd.title}}">{{pkg.hd.title}}</view>
     <view class="weui-cells weui-cells_after-title">
       <slot name="head"></slot>
@@ -32,10 +32,10 @@
       </block>
       <slot></slot>
 		</view>
-  </view>
+  </block>
 
   <!-- 主题2 -->
-  <view class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'picker'}}">
+  <block class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'picker'}}">
     <view class="weui-cells__title" wx:if="{{pkg.hd.title}}">{{pkg.hd.title}}</view>
     <view class="weui-cells weui-cells_after-title">
     <block wx:for="{{pkg.bd.list}}" wx:for-index="index" wx:key="{{index}}">
@@ -54,7 +54,7 @@
       </picker>
     </block>
 		</view>
-  </view>
+  </block>
   
   <!-- 主题3 -->
 

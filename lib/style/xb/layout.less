@@ -1,38 +1,20 @@
 @import './var.less';
 
 .xb-layout-list {
-  // 细胞主题
-  .theme-base {
-    .weui-cells__title { color: grey; }
-    .weui-cell {
-      .item-hd-flex {
-        display: flex;
-        .item-hd-title { padding-right: 0.5rem; }
-      }
-      .img { display: block; }
-      .fa { }
-      .list-img {
-        width: 40rpx;
-        height: 40rpx;
-        margin-right: 10rpx;
-      }
-      .list-fa-icon {
-        font-size: 1rem;
-        padding-right: 0.35rem;
-      }
-      .weui-input {
-        display: block;
-      }
-      .item-title {
-        font-size: 0.85rem;
-      }
-      .item-desc {
-        display: block;
-      }
+  .weui-cells__title { color: grey; }
+  .weui-cell {
+    .item-hd-flex {
+      display: flex;
+      .item-hd-title { padding-right: 0.5rem; }
     }
+    .img { display: block; }
+    .fa { display: inherit; }
+    .list-img { width: 40rpx; height: 40rpx; margin-right: 10rpx; }
+    .list-fa-icon { font-size: 1rem; padding-right: 0.35rem; }
+    .weui-input { display: block; }
+    .item-title { font-size: 0.85rem; }
+    .item-desc { display: block; }
   }
-  .theme-cells { .theme-base; }
-  .theme-picker { .theme-base; }
 }
 
 .xb-layout-grid {
