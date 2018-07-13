@@ -81,7 +81,7 @@ export default class XBUserInfo extends wepy.component {
   }
 
   doPostRefresh() {
-    let pkg = this.pkg; // MixCompRefresher中定义
+    const pkg = this.pkg; // MixCompRefresher中定义
     if (!pkg.theme || pkg.theme === 'default') {
       pkg.theme = this.theme;
     }

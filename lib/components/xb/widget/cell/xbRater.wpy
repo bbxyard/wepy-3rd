@@ -1,0 +1,74 @@
+<style lang="less">
+.xb-widget-rater {
+  display: flex;
+  .bd-input {
+    display: flex;
+  }
+}
+</style>
+
+<template>
+  <block>
+    <view class="weui-cell weui-cell_access xb-widget-rater" hover-class="{{info.hover ? 'weui-cell_active' : ''}}">
+      <view class="weui-cell__hd item-hd-flex">
+        <view class="fa {{info.fa}} list-fa-icon" />
+        <view class="item-hd-title">{{info.hdTitle}}</view>
+      </view>
+      <block wx:if="{{isDisabled}}">
+        <view class="weui-cell__bd item-title">
+          <rep :fontSize.sync="getFontSize" :disabled.sync="isDisabled" :activeColor.sync="getActiveColor" />
+        </view>
+        <view class="weui-cell__ft item-desc {{info.hover ? 'weui-cell__ft_in-access' : ''}}" wx:if="{{info.desc}}">{{info.desc}}</view>
+      </block>
+      <block wx:if="{{!isDisabled}}">
+        <view class="weui-cell__bd item-title bd-input">
+          <rep maxlength="32" :fontSize.sync="getFontSize" :disabled.sync="isDisabled" :activeColor.sync="getActiveColor" />
+          <!-- <input name="{{info.name}}" id="{{info.id}}" value="{{info.desc}}" max="{{attr.maxInput}}" @input="bindInput" class="weui-input" placeholder="{{meta.placeholder}}" /> -->
+        </view>
+      </block>
+    </view>
+  </block>
+</template>
+
+<script>
+import wepy from 'wepy';
+import WuxRater from '@/wux/wuxRater';
+import MixCompRefresher from '../../../../mixins/MixCompRefresher';
+export default class XBWidgetRater extends wepy.component {
+  mixins = [MixCompRefresher];
+  components = { rep: WuxRater };
+  data = {
+    meta: { placeholder: '' },
+    info: { hover: false, fa: '', hdTitle: '', desc: '', value: 0 },
+    attr: { fontSize: '1rem', disabled: false, activeColor: '#fc6' }
+  };
+  computed = {
+    getFontSize() { return this.attr.fontSize; },
+    isDisabled() { return this.attr.disabled; },
+    getActiveColor() { return this.attr.activeColor; }
+  };
+  methods = {
+    bindInput(e) {
+      const value = e.detail.value;
+      console.log('e: ', value);
+    }
+  };
+  events = {
+    'wux-rater-input': (content) => {
+      this.$emit('xb-rater-input', content, this.$name);
+    },
+    'wux-rater-value': (value) => {
+      this.$emit('xb-rater-value', value, this.$name);
+    }
+  };
+  doPostRefresh() {
+    this.info = Object.assign({}, this.info, this.pkg.info);
+    this.attr = Object.assign({}, this.attr, this.pkg.attr);
+    const opt = Object.assign({value: this.info.value, content: this.info.desc}, this.attr);
+    this.renderSub('rep', {opt});
+  }
+  onLoad(option) {
+    console.log(`${this.$name} loaded.`);
+  }
+}
+</script>
