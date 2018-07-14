@@ -3,6 +3,12 @@
   background-color: #fff;
   text-align: left;
 
+  .weui-cell { padding-left: 0; }
+  .weui-cells::before { border: none; }
+  .weui-cells::after { border: none; }
+  .weui-cell::before { border: none; }
+  .weui-cell::after { border: none; }
+
   &.no-padding{ display: inherit; }
   &.no-border { display: inherit; }
   &.no-margin-top { margin-top: 0; }

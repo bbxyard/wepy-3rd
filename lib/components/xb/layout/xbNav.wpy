@@ -118,10 +118,9 @@
     <block wx:for="{{pkg.bd.list}}" wx:for-item="cat" wx:key="id">
       <!-- 先裹一层framwork -->
       <view class="xb-layout-list">
-        <view class="theme-cells">
-          <!-- 实体 -->
-          <view class="weui-cells__title" wx:if="{{cat.title}}">{{cat.title}}</view>
-          <view class="weui-cells weui-cells_after-title">
+        <!-- 实体 -->
+        <view class="weui-cells__title" wx:if="{{cat.title}}">{{cat.title}}</view>
+        <view class="weui-cells weui-cells_after-title">
           <block wx:for="{{cat.sublist}}" wx:for-item="item" wx:for-index="index" wx:key="{{index}}">
             <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
               <view class="weui-cell__hd" wx:if="{{item.fa || item.img}}">
@@ -132,7 +131,6 @@
               <view class="weui-cell__ft weui-cell__ft_in-access">{{item.desc}}</view>
             </navigator>
           </block>
-          </view>
         </view>
       </view>
     </block>
