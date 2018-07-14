@@ -10,7 +10,7 @@
   }
   .wux-rater__content { 
     display: flex; flex-direction: column; justify-content: center; height: 100%;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-wrap: normal;
+    text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-wrap: normal; }
   }
   // .wux-rater__box:last-of-type {
   //   margin-right: 1rem !important;
