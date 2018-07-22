@@ -31,6 +31,7 @@
   "homepage": "https://github.com/bbxyard/wepy-3rd#readme",
   "devDependencies": {},
   "dependencies": {
-    "randomcolor": "^0.5.3"
+    "randomcolor": "^0.5.3",
+    "wepy": "^1.7.2"
   }
 }
