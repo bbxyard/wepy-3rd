@@ -21,7 +21,7 @@
 <template>
 	<view class="wux-rater {{rt.className}} {{rt.animateCss}} {{mode === 'W' ? 'weui-input' : ''}}">
 		<!-- 星标 -->
-    <block wx:for="{{rt.stars}}" wx:key="{{index}}">
+    <block wx:for="{{getStars}}" wx:key="{{index}}">
 			<!-- <view class="wux-rater__box {{ value > index ? 'wux-rater__box--active' : '' }}" @tap="bindClick" data-index="{{index}}" style="color: {{rt.colors && rt.colors[index] ? rt.colors[index]: defaultColor }}; {{getStyle}}"> -->
 			<view class="wux-rater__box {{ value > index ? 'wux-rater__box--active' : '' }} {{ disabled ? 'disabled' : '' }}" @tap="bindClick" data-index="{{index}}" style="color: {{rt.colors && rt.colors[index] ? rt.colors[index]: defaultColor }}; {{getStyle}}">
 				<view class="wux-rater__inner">
@@ -112,6 +112,13 @@ export default class WrapWuxRater extends wepy.component {
       let style = `font-size: ${fontSize}; width: ${fontSize}; line-height: ${fontSize};`;
       style = style + ' height: ' + (this.height ? this.height : fontSize) + ';';
       return style;
+    },
+    getStars() {
+      if (this.rt.stars.length === 0 && this.value > 0) {
+        console.log('re-computed: ', this.value);
+        this.update(this.value);
+      }
+      return this.rt.stars;
     }
   };
 
