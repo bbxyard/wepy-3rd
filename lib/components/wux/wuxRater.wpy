@@ -3,18 +3,14 @@
   .disabled { cursor: not-allowed; }
   .content { display: block; }
   .rater-input { display: block; }
-  .wux-rater__box { display: flex; flex-direction: column; justify-content: center; }
   .bugfix_only_last_box_after {
     color: white;
-    float: left;
+    // float: left;
   }
   .wux-rater__content { 
     display: flex; flex-direction: column; justify-content: center; height: 100%;
     text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-wrap: normal; }
   }
-  // .wux-rater__box:last-of-type {
-  //   margin-right: 1rem !important;
-  // }
 }
 </style>
 
@@ -22,11 +18,13 @@
 	<view class="wux-rater {{rt.className}} {{rt.animateCss}} {{mode === 'W' ? 'weui-input' : ''}}">
 		<!-- 星标 -->
     <block wx:for="{{getStars}}" wx:key="{{index}}">
-			<!-- <view class="wux-rater__box {{ value > index ? 'wux-rater__box--active' : '' }}" @tap="bindClick" data-index="{{index}}" style="color: {{rt.colors && rt.colors[index] ? rt.colors[index]: defaultColor }}; {{getStyle}}"> -->
-			<view class="wux-rater__box {{ value > index ? 'wux-rater__box--active' : '' }} {{ disabled ? 'disabled' : '' }}" @tap="bindClick" data-index="{{index}}" style="color: {{rt.colors && rt.colors[index] ? rt.colors[index]: defaultColor }}; {{getStyle}}">
-				<view class="wux-rater__inner">
+			<view class="wux-rater__box {{ value > index ? 'wux-rater__box--active' : '' }} {{ disabled ? 'disabled' : '' }}" 
+          @tap="bindClick" data-index="{{index}}"
+          style="color: {{rt.colors && rt.colors[index] ? rt.colors[index]: defaultColor }}; {{getSizeStyle}}">
+				<view class="wux-rater__inner" style="{{getSizeStyle}}">
 					{{star}}
-					<view class="wux-rater__outer" style="color: {{activeColor}}; width: {{ rt.cutPercent + '%' }}" wx:if="{{ rt.cutPercent > 0 && rt.cutIndex === index }}">
+					<view class="wux-rater__outer" wx:if="{{ rt.cutPercent > 0 && rt.cutIndex === index }}"
+            style="{{getSizeStyle}}; color: {{activeColor}}; {{getCutStyle}}">
 						{{star}}
 					</view>
 				</view>
@@ -34,8 +32,9 @@
 		</block>
 
     <!-- last-of-type搞不定，自定义空结点来占位 -->
-    <view class="bugfix_only_last_box_after">{{spec.box_ph}}
-    </view>
+    <text class="bugfix_only_last_box_after" space="ensp" wx:if="{{item.text || item || mode === 'W' || content}}">
+      {{spec.box_ph}}
+    </text>
 
     <!-- 星标文本 -->
 		<block wx:for="{{text}}" wx:key="{{index}}">
@@ -60,21 +59,24 @@ import MixCompRefresher from '@/../mixins/MixCompRefresher';
 export default class WrapWuxRater extends wepy.component {
   mixins = [MixCompRefresher];
   props = {
-    mode: { type: [Number], default: 'R' },
-    max: { type: [Number], default: 5 },
-    value: { type: [Number], default: 0 },
+    mode: { type: [String], default: 'R' },
+    max: { type: [String, Number], default: 5 },
+    value: { type: [String, Number], default: 0 },
     star: { type: [String], default: '★' },
     activeColor: { type: [String], default: '#fc6' },
     defaultColor: { type: [String], default: '#ccc' },
     // margin: { type: [String], default: '4rpx' },
     height: { type: [String], default: '100%' },
     fontSize: { type: [String], default: '50rpx' },
-    disabled: { type: [Boolean], default: false },
+    disabled: { type: [Boolean], default: true },
     text: { type: [Array], default: [] },
     maxlength: { type: [Number], default: 0 },  // 激活input
     content: { type: [String], default: '' },
     ph: { type: [String], default: '' }, // placeholder
+    direction: { type: [String], default: 'row' },
     defaultTextColor: { type: [String], default: '#999' }
+
+    // row, row-r, column, colum-r
   };
   data = {
     rt: {
@@ -85,7 +87,7 @@ export default class WrapWuxRater extends wepy.component {
       cutIndex: -1,
       cutPercent: 0
     },
-    spec: { box_ph: '-' }
+    spec: { box_ph: ' ' }
   };
   methods = {
     /**
@@ -104,7 +106,7 @@ export default class WrapWuxRater extends wepy.component {
     }
   };
   computed = {
-    getStyle() {
+    getSizeStyle() {
       const fontSize = this.fontSize;
       // const margin = (index + 1 !== this.max) ? `margin-right: ${this.margin}; ` : '';
       // const margin = `margin-right: ${this.margin}; `;
@@ -112,6 +114,16 @@ export default class WrapWuxRater extends wepy.component {
       let style = `font-size: ${fontSize}; width: ${fontSize}; line-height: ${fontSize};`;
       style = style + ' height: ' + (this.height ? this.height : fontSize) + ';';
       return style;
+    },
+    getCutStyle() {
+      let whStyle = '';
+      this._updateCut();
+      if (this.direction === 'column' || this.direction === 'column-r') {
+        whStyle = `height: ${this.rt.cutPercent}%; width: 100%`;
+      } else {
+        whStyle = `width: ${this.rt.cutPercent}%; height: 100%`;
+      }
+      return whStyle;
     },
     getStars() {
       if (this.rt.stars.length === 0 && this.value > 0) {
@@ -127,31 +139,51 @@ export default class WrapWuxRater extends wepy.component {
    */
   update(rawValue = 0) {
     const _val = Number(rawValue);
-    this.value = (_val < 0) ? 0 : (_val > this.max ? this.max : _val);
+    const newVal = (_val < 0) ? 0 : (_val > this.max ? this.max : _val);
+    this.value = newVal;
+
+    // 更新stars
+    this._initStars();
 
     // 更新cut
-    const _combVal = this.value.toString().split(`.`);
-    const sliceValue = _combVal.length === 1 ? [_combVal[0], 0] : _combVal;
-    this.rt.cutIndex = sliceValue[0] * 1;
-    this.rt.cutPercent = sliceValue[1] * 10;
+    this._updateCut();
 
-    // 更新style
-    const bound = Number(sliceValue[0]);
-    const colors = [];
-    for (let i = 0; i < bound; ++i) colors.push(this.activeColor);
-    for (let j = bound; j < this.max; ++j) colors.push(this.defaultColor);
-    this.rt.colors = colors;
+    // 更新color-style
+    this._updateColorStyle();
 
     this.$emit('wux-rater-value', this.value, this.$name);
   }
 
   // 更新stars
-  initStars() {
+  _initStars() {
     if (this.rt.stars.length !== this.max) {
       const stars = [];
       for (let i = 0; i < this.max; ++i) stars.push(i);
       this.rt.stars = stars;
     }
+  }
+
+  // 更新cut
+  _updateCut() {
+    const v100 = Number(this.value) * 100;
+    this.rt.cutIndex = parseInt(v100 / 100);
+    this.rt.cutPercent = v100 % 100;
+    switch (this.direction) {
+      case 'row-r':
+      case 'column-r':
+        this.rt.cutIndex = this.rt.cutPercent >= 50 ? this.rt.cutIndex + 1 : this.rt.cutIndex;
+        this.rt.cutPercent = 0; // reverse下，无百分比. 四舍5入
+        break;
+    }
+  }
+
+  // 更新color-style
+  _updateColorStyle() {
+    const bound = this.rt.cutIndex;
+    const colors = [];
+    for (let i = 0; i < bound; ++i) colors.push(this.activeColor);
+    for (let j = bound; j < this.max; ++j) colors.push(this.defaultColor);
+    this.rt.colors = colors;
   }
 
   doPostRefresh() {
@@ -163,12 +195,10 @@ export default class WrapWuxRater extends wepy.component {
         if (opt[key] !== undefined) this[key] = opt[key];
       });
     }
-    this.initStars();
     this.update(this.value);
   }
 
   onLoad() {
-    this.doPostRefresh();
     console.log(`${this.$name}-Rater loaded. [${this.value} / ${this.max}]`);
   }
 }
