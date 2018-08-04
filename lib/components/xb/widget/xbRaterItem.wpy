@@ -1,0 +1,23 @@
+<style lang="less">
+.xb-widget-rater-item {
+  .star-info { margin-right: 20rpx; }
+}
+</style>
+
+<template>
+  <view class="xb-widget-rater-item row">
+    <repeat for="{{ [item.star] }}" item="star">
+      <starBar :star.sync="star" />
+    </repeat>
+    <text class="star-info">{{item.score}} - {{item.content}}</text>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import MyStarBar from './xbStarBar';
+export default class CompWidgetRaterItem extends wepy.component {
+  components = { starBar: MyStarBar };
+  props = { item: {} };
+}
+</script>

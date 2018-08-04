@@ -89,6 +89,11 @@ export default class WrapWuxRater extends wepy.component {
     },
     spec: { box_ph: ' ' }
   };
+  watch = {
+    value (newV, oldV) {
+      console.log(`value: from ${newV} to ${oldV}`);
+    }
+  };
   methods = {
     /**
      * 点击触发事件
