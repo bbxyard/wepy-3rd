@@ -3,7 +3,7 @@
   display: flex;
   .rb-act-color { color: gold; }
   .rb-def-color { color: #ccc; }
-  .ft-size { font-size: 1rem; }
+  .ft-size { font-size: 32rpx; }
   .rb { position: relative; }
   .rb-in { position: relative; display: block; }
   .rb-out { position: absolute; display: block; left: 0; top: 0; overflow: hidden; }
@@ -13,10 +13,10 @@
 <template>
   <view class="xb-widget-star-bar">
     <block wx:for="{{star.max}}" wx:for-item="sNum" wx:for-index="sIdx" wx:key="{{sIdx}}">
-      <view class="rb {{ star.value > sIdx ? 'rb-act-color' : 'rb-def-color' }}">
-        <view class="rb-in ft-size">
+      <view class="rb">
+        <view class="rb-in ft-size {{ star.value > sIdx ? 'rb-act-color' : 'rb-def-color' }}">
           {{star.s}}
-          <view class="rb-out ft-size rb-act-color" style="width: {{star.cutPercent}}%" wx:if="{{ star.cutPercent > 0 && star.value === sIdx }}">
+          <view class="rb-out ft-size rb-act-color" style="width: {{star.cutPercent}}%;" wx:if="{{ star.cutPercent > 0 && star.value === sIdx }}">
             {{star.s}}
           </view>
         </view>
@@ -29,5 +29,12 @@
 import wepy from 'wepy';
 export default class CompWidgetStarBar extends wepy.component {
   props = { star: {} };
+  computed = {
+    // getCutStyle() {
+    //   const w = (this.fontSize) ? (this.star.cutPercent * this.fontSize) : (this.star.cutPercent + '%');
+    //   const style = `width: ${w};`;
+    //   return style; 
+    // }
+  };
 }
 </script>
