@@ -29,12 +29,5 @@
 import wepy from 'wepy';
 export default class CompWidgetStarBar extends wepy.component {
   props = { star: {} };
-  computed = {
-    // getCutStyle() {
-    //   const w = (this.fontSize) ? (this.star.cutPercent * this.fontSize) : (this.star.cutPercent + '%');
-    //   const style = `width: ${w};`;
-    //   return style; 
-    // }
-  };
-}
+};
 </script>
