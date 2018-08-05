@@ -9,7 +9,8 @@
     <repeat for="{{ [item.star] }}" item="star">
       <starBar :star.sync="star" />
     </repeat>
-    <text class="star-info">{{item.score}} - {{item.content}}</text>
+    <slot></slot>
+    <!-- <text class="star-info">{{item.score}} - {{item.content}}</text> -->
   </view>
 </template>
 
