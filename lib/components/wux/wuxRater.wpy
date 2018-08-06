@@ -18,7 +18,7 @@
 	<view class="wux-rater {{rt.className}} {{rt.animateCss}} {{mode === 'W' ? 'weui-input' : ''}}">
 		<!-- 星标 -->
     <block wx:for="{{getStars}}" wx:key="{{index}}">
-			<view class="wux-rater__box {{ value > index ? 'wux-rater__box--active' : '' }} {{ disabled ? 'disabled' : '' }}" 
+			<view class="wux-rater__box {{ value > index ? 'wux-rater__box--active' : '' }} {{ mode === 'R' ? 'disabled' : '' }}" 
           @tap="bindClick" data-index="{{index}}"
           style="color: {{rt.colors && rt.colors[index] ? rt.colors[index]: defaultColor }}; {{getSizeStyle}}">
 				<view class="wux-rater__inner" style="{{getSizeStyle}}">
@@ -68,7 +68,6 @@ export default class WrapWuxRater extends wepy.component {
     // margin: { type: [String], default: '4rpx' },
     height: { type: [String], default: '100%' },
     fontSize: { type: [String], default: '50rpx' },
-    disabled: { type: [Boolean], default: true },
     text: { type: [Array], default: [] },
     maxlength: { type: [Number], default: 0 },  // 激活input
     content: { type: [String], default: '' },
@@ -101,7 +100,7 @@ export default class WrapWuxRater extends wepy.component {
     bindClick(e) {
       const idx = e.currentTarget.dataset.index;
       const value = this.value;
-      if (!this.disabled) {
+      if (this.mode !== 'R') {
         this.update(value === idx + 1 ? idx : idx + 1);
       }
     },
@@ -195,7 +194,7 @@ export default class WrapWuxRater extends wepy.component {
     if (this.pkg.opt) {
       const {opt} = this.pkg;
       const keys = ['mode', 'max', 'maxlength', 'content', 'ph',
-        'activeColor', 'fontSize', 'disabled', 'value'];
+        'activeColor', 'fontSize', 'value'];
       keys.forEach(key => {
         if (opt[key] !== undefined) this[key] = opt[key];
       });
