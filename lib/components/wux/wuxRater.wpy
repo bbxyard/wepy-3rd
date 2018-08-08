@@ -32,7 +32,7 @@
 		</block>
 
     <!-- last-of-type搞不定，自定义空结点来占位 -->
-    <text class="bugfix_only_last_box_after" space="ensp" wx:if="{{item.text || item || mode === 'W' || content}}">
+    <text class="bugfix_only_last_box_after" space="ensp" wx:if="{{item.text || item || maxlength > 0 || content}}">
       {{spec.box_ph}}
     </text>
 
@@ -44,10 +44,10 @@
 		</block>
 
     <!-- 扩展文本 -->
-    <view class="wux-rater__content" wx:if="{{mode === 'W'}}">
+    <view class="wux-rater__content" wx:if="{{mode === 'W' && maxlength > 0}}">
       <input value="{{content}}" maxlength="{{maxlength}}" @input="bindInput" class="rater-input" placeholder="{{ph}}" />
     </view>
-    <view class="wux-rater__content" wx:if="{{mode === 'R'}}">
+    <view class="wux-rater__content" wx:if="{{mode === 'R' && content}}">
       <text>{{content}}</text>
     </view>
 	</view>
