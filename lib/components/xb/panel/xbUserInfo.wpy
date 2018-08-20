@@ -9,7 +9,7 @@
     padding: 20rpx;
     box-sizing: border-box;
     color: white;
-    background: @mineBgColor;
+    background-color: @mineBgColor;
     .avatarImg {
       width: @mineAvatarSide;
       height: @mineAvatarSide;
@@ -17,6 +17,7 @@
       display: inline-block;
       overflow: hidden;
       margin-top: 20rpx;
+      border: 6rpx solid #FFF;
     }
     .line {
       font-size: 1rem;
