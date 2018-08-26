@@ -1,6 +1,9 @@
 <style lang="less">
 .theme-base {
   display: block;
+  .zan-card {
+    .zan-card__img { border-radius: 10rpx; }
+  }
 }
 .xb-widget-carder__theme-no-margin {
   .theme-base;
