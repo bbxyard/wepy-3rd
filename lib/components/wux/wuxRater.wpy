@@ -1,10 +1,13 @@
 <style lang="less">
 .wux-rater {
+  display: flex; align-items: center;
   .disabled { cursor: not-allowed; }
   .content { display: block; }
   .rater-input { display: block; }
   .bugfix_only_last_box_after {
     color: white;
+    width: 0.35rem;
+    height: 0.35rem;
     // float: left;
   }
   .wux-rater__content { 
@@ -66,7 +69,7 @@ export default class WrapWuxRater extends wepy.component {
     activeColor: { type: [String], default: '#fc6' },
     defaultColor: { type: [String], default: '#ccc' },
     // margin: { type: [String], default: '4rpx' },
-    height: { type: [String], default: '100%' },
+    height: { type: [String], default: '' },
     fontSize: { type: [String], default: '50rpx' },
     text: { type: [Array], default: [] },
     maxlength: { type: [Number], default: 0 },  // 激活input
