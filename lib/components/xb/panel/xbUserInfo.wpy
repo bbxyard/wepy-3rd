@@ -29,7 +29,7 @@
     .btn-login {
       display: inline-block;
       color: yellow;
-      background-color: @mineBgColor;
+      background-color: transparent;
       font-weight: bold;
     }
     button::after{ border: none; }
