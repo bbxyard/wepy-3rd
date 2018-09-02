@@ -70,9 +70,9 @@
     data = { showDialog: false };
     methods = {
       handleZanTabChange(e) {
-        let { compId, itemId: selected } = e.currentTarget.dataset;
-        console.info('[zan:tab:change]', {compId, selected});
-        this.$emit('zanTabChange', {compId, selected});
+        let { compId, itemId: selectedId } = e.currentTarget.dataset;
+        console.info('[zan:tab:change]', {compId, selectedId});
+        this.$emit('zan-tab-tap', {compId, selectedId});
       }
     }
   }

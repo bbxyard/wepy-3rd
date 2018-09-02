@@ -32,7 +32,7 @@ export default class XBWeTab extends wepy.component {
     tabClick(e) {
       this.sliderOffset = e.currentTarget.offsetLeft;
       this.activeIndex  = e.currentTarget.dataset.index;
-      this.$emit('tap-weui-tab', this.activeIndex);
+      this.$emit('weui-tab-tap', this.activeIndex);
     }
   };
   doPostRefresh() {

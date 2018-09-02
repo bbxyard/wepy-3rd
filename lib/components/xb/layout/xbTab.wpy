@@ -41,14 +41,16 @@ export default class XBNav extends wepy.component {
   methods = {
   };
   events = {
-    'tap-weui-tab': (index) => {
+    'weui-tab-tap': (index) => {
       this.$emit('tap-tab', index); // 接力2nd传.
+      this.$emit('xb-tab-tap', index); // 接力2nd传.
     },
-    'zanTabChange': (info) => {
+    'zan-tab-tap': (info) => {
       for (let i = 0; i < this.tab.list.length; ++i) {
         if (this.tab.list[i].id === info.selected) {
           this.tab.selectedId = info.selected;
           this.$emit('tap-tab', i);
+          this.$emit('xb-tab-tap', i);
           break;
         }
       }
