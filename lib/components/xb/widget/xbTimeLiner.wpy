@@ -60,7 +60,7 @@
             </view>
 
             <view class="tl-right">
-              <view class="tl-hd">
+              <view class="tl-hd" data-idx="{{index}}" @tap="bindToggle">
                 <!-- 标题 -->
                 <!-- 描述 -->
                 <view class="zan-steps__title">{{ item.text }}</view>

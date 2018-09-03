@@ -47,8 +47,8 @@ export default class XBNav extends wepy.component {
     },
     'zan-tab-tap': (info) => {
       for (let i = 0; i < this.tab.list.length; ++i) {
-        if (this.tab.list[i].id === info.selected) {
-          this.tab.selectedId = info.selected;
+        if (this.tab.list[i].id === info.selectedId) {
+          this.tab.selectedId = info.selectedId;
           this.$emit('tap-tab', i);
           this.$emit('xb-tab-tap', i);
           break;
