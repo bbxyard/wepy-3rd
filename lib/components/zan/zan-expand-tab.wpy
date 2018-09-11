@@ -85,7 +85,8 @@ import wepy from 'wepy';
 import Tips from 'Tips';
 export default class ExpandTab extends wepy.component {
   props = {
-    tab: { twoWay: true },
+    // tab: { twoWay: true },
+    tab: {},
     fixed: { type: Boolean, default: true }
   };
   data = {
@@ -101,12 +102,21 @@ export default class ExpandTab extends wepy.component {
       if (selectedId === 'EXPAND') {
         this.tab.expandMode = true;
         const actions = this.tab.expand.map(v => v.title);
-        const {index, text} = await Tips.action(...actions);
-        const expandId = this.tab.expand[index].id;
-        this.expandText = text;
-        this.tab.selectedId = expandId;
-        this.$emit('change', { selectedId: expandId });
-        this.$apply();
+        try {
+          const {index, text} = await Tips.action(...actions);
+          const expandId = this.tab.expand[index].id;
+          this.expandText = text;
+          this.tab.selectedId = expandId;
+          this.$emit('change', { selectedId: expandId });
+          this.$apply();
+        } catch (e) {
+          console.log(e, this.tab.selectedId);
+          // 回滚
+          if (!this.expandText) {
+            this.tab.expandMode = false;
+            this.$apply();
+          }
+        }
       } else {
         this.tab.expandMode = false;
         const data = { componentId, selectedId };
