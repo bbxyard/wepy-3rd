@@ -3,25 +3,30 @@
   background-color: #fff;
   text-align: left;
 
-  .weui-cell { padding-left: 0; }
-  .weui-cells::before { border: none; }
-  .weui-cells::after { border: none; }
-  .weui-cell::before { border: none; }
-  .weui-cell::after { border: none; }
+  &.row-border-no {
+    .weui-cell { padding-left: 0; }
+    .weui-cells::before { border: none; }
+    .weui-cells::after { border: none; }
+    .weui-cell::before { border: none; }
+    .weui-cell::after { border: none; }
+  }
+  &.row-border-weui { display: inherit; }
+  // &.row-border { display: inherit; }
 
-  &.no-padding{ display: inherit; }
-  &.no-border { display: inherit; }
-  &.no-margin-top { margin-top: 0; }
-  &.border-v { border-top : 1rpx solid #e5e5e5; border-bottom: 1rpx solid #e5e5e5 }
+  // &.border-no { display: inherit; }
+  &.border-v { border-top : 1rpx solid #e5e5e5; border-bottom: 1rpx solid #e5e5e5; }
+
+  &.margin-no-top { margin-top: 0; }
   &.margin-top { margin-top: 20rpx; }
-  &.padding-tdlr { padding: 20rpx 30rpx; }
+
+  // &.padding-no { display: inherit; }
+  &.padding-vh { padding: 20rpx 30rpx; }
 
   .title {
     padding-bottom: 20rpx;
     font-size: 14px;
     // font-weight: bold;
   }
-  // .xb-layout-list;
 }
 </style>
 
@@ -41,9 +46,10 @@ import wepy from 'wepy';
 export default class XBPanel extends wepy.component {
   props = {
     display: { type: [String], default: 'true' },
-    border: { type: [String], default: '' },
-    margin: { type: [String], default: 'top' },
-    padding: { type: [String], default: 'padding-tdlr' },
+    rowborder: { type: [String], default: 'no' },// no, 'weui'
+    border: { type: [String], default: '' },    // '', 'v'
+    margin: { type: [String], default: 'top' }, // top, no-top
+    padding: { type: [String], default: 'vh' }, // vh, no
     style: { type: [String], default: '' }
   };
   computed = {
@@ -51,12 +57,17 @@ export default class XBPanel extends wepy.component {
     getUserStyle() { return this.style; },
     getRTClass() {
       const classes = [];
+      switch (this.rowborder) {
+        case 'no': classes.push('row-border-no'); break;
+        case 'weui':
+        default: break; // PASS
+      }
       switch (this.border) {
         case 'v': classes.push('border-v'); break;
         default: break; // PASS
       }
       switch (this.margin) {
-        case 'no-top': classes.push('no-margin-top'); break;
+        case 'no-top': classes.push('margin—no-top'); break;
         case 'top':
         default:
           classes.push('margin-top'); break;
@@ -64,7 +75,7 @@ export default class XBPanel extends wepy.component {
       switch (this.padding) {
         case 'no': break;
         default:
-          classes.push('padding-tdlr'); break;
+          classes.push('padding-vh'); break;
       }
       const out = classes.join(' ');
       return out;
