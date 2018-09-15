@@ -46,7 +46,7 @@ import wepy from 'wepy';
 export default class XBPanel extends wepy.component {
   props = {
     display: { type: [String], default: 'true' },
-    rowborder: { type: [String], default: 'no' },// no, 'weui'
+    rowborder: { type: [String], default: 'no' }, // no, 'weui'
     border: { type: [String], default: '' },    // '', 'v'
     margin: { type: [String], default: 'top' }, // top, no-top
     padding: { type: [String], default: 'vh' }, // vh, no
