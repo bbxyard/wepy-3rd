@@ -28,6 +28,7 @@
   box-sizing: border-box;
   margin: 0 10px;
   word-break: keep-all;
+  .fa { font-size: 32rpx; width: 32rpx; padding-left: 2rpx; }
 }
 .zan-tab__title text{
   font-size: 28rpx;
@@ -63,9 +64,12 @@
         >
           <view class="zan-tab__title">
             <text>{{item.title}}</text>
-            <block wx:if="{{tab.order}}">
+            <block wx:if="{{tab.order && item.order != 0}}">
               <image class="icon" src="/3rd/asset/img/order-{{tab.sord}}.png" wx:if="{{tab.selectedId == item.id}}"/>
               <image class="icon" src="/3rd/asset/img/order-none.png" wx:else/>
+            </block>
+            <block wx:if="{{item.fa}}">
+              <text class="fa {{item.fa}}" />
             </block>
           </view>
         </view>
@@ -84,9 +88,12 @@
         >
           <view class="zan-tab__title">
             <text>{{item.title}}</text>
-            <block wx:if="{{tab.order}}">
+            <block wx:if="{{tab.order && item.order != 0}}">
               <image class="icon" src="/3rd/asset/img/order-{{tab.sord}}.png" wx:if="{{tab.selectedId == item.id}}"/>
               <image class="icon" src="/3rd/asset/img/order-none.png" wx:else/>
+            </block>
+            <block wx:if="{{item.fa}}">
+              <text class="fa {{item.fa}}" />
             </block>
           </view>
         </view>
@@ -111,7 +118,7 @@ export default class ZanTab extends wepy.component {
       const { componentId, itemId: selectedId, index } = e.currentTarget.dataset;
       const data = { componentId, selectedId, index };
       // 处理排序情况
-      if (this.tab.order) {
+      if (this.tab.order && this.tab.list[index].order !== 0) {
         const lastId = this.tab.selectedId;
         if (lastId === selectedId) {
           this.tab.sord = (this.tab.sord === 'desc') ? 'asc' : 'desc';
