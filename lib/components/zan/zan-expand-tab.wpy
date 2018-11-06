@@ -107,7 +107,7 @@ export default class ExpandTab extends wepy.component {
           const expandId = this.tab.expand[index].id;
           this.expandText = text;
           this.tab.selectedId = expandId;
-          this.$emit('change', { selectedId: expandId });
+          this.$emit('change', { selectedId: expandId, expanded: true });
           this.$apply();
         } catch (e) {
           console.log(e, this.tab.selectedId);
@@ -119,7 +119,7 @@ export default class ExpandTab extends wepy.component {
         }
       } else {
         this.tab.expandMode = false;
-        const data = { componentId, selectedId };
+        const data = { componentId, selectedId, expanded: false };
         // 直接修改数据/双向通讯
         this.tab.selectedId = selectedId;
         // 发射事件
