@@ -174,9 +174,9 @@
   padding-left: 27px;
 }
 
-.zan-steps--vsteps .zan-steps__title--desc {
-  padding-left: 3px;
-}
+// .zan-steps--vsteps .zan-steps__title--desc {
+//   padding-left: 3px;
+// }
 
 .zan-steps--vsteps .zan-steps__icons {
   position: absolute;
