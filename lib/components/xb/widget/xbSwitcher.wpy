@@ -7,7 +7,7 @@
   .theme-v-ani {
     text-align: center;
     .switch {
-      width: 180rpx;
+      width: 200rpx;
       padding: 4rpx 20rpx;
       border: 2rpx solid #ba77ff;
       color: #ba77ff;
