@@ -5,30 +5,24 @@
 </style>
 
 <template>
-  <view class="page">
-    <view class="weui-msg">
+  <view class="weui-msg">
 
-      <!-- 图标区域 -->
-      <view class="weui-msg__icon-area">
-        <icon type="{{type}}" size="{{iconSize}}" />
-      </view>
-
-      <!-- (提示)文字区域 -->
-      <view class="weui-msg__text-area">
-        <view class="weui-msg__title">{{title}}</view>
-        <view class="weui-msg__desc">
-          {{desc}}
-          <navigator url="{{descLink.url}}" class="weui-msg__link" wx:if="{{descLink}}">{{descLink.txt}}</navigator>
-        </view>
-      </view>
-
-      <!-- 操作区域 - 用户自定义 -->
-
-      <!-- 扩展区域 -->
-      <!-- <view class="weui-msg__extra-area">
-        <footer :links="ftLinks" :copyright="ftCopyright" />
-      </view> -->
+    <!-- 图标区域 -->
+    <view class="weui-msg__icon-area">
+      <icon type="{{type}}" size="{{iconSize}}" />
     </view>
+
+    <!-- (提示)文字区域 -->
+    <view class="weui-msg__text-area">
+      <view class="weui-msg__title">{{title}}</view>
+      <view class="weui-msg__desc">
+        {{desc}}
+        <navigator url="{{descLink.url}}" class="weui-msg__link" wx:if="{{descLink}}">{{descLink.txt}}</navigator>
+      </view>
+    </view>
+
+    <!-- 操作区域 - 用户自定义 -->
+    <slot name="body"></slot>
   </view>
 </template>
 
