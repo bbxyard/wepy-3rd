@@ -125,6 +125,11 @@ export default class ExpandTab extends wepy.component {
         // 发射事件
         this.$emit('change', data);
       }
+    },
+    // 针对扩展部分，增加一个特殊通道.
+    initExpand(expandText) {
+      // this.tab.expandMode = true;
+      this.expandText = expandText;
     }
   };
   computed = {
