@@ -1,6 +1,11 @@
-<style>
+<style lang="less">
   page {
     background-color: #FFFFFF;
+  }
+  .weui-msg {
+    .weui-msg__desc {
+      word-break: keep-all;
+    }
   }
 </style>
 
