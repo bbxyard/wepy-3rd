@@ -98,14 +98,15 @@
         }
 
         value = +value;
+        let overmax = false;
         if (value > max) {
           value = max;
+          overmax = true;
         } else if (value < min) {
           value = min;
-        };
-
-        this.callback(componentId, value);
-        return '' + value;
+        }
+        this.callback(componentId, value, overmax);
+        return '' + value
       }
     }
 
@@ -118,11 +119,12 @@
       this.callback(componentId, quantity + num);
     }
 
-    callback(componentId, quantity) {
+    callback(componentId, quantity, overmax = false) {
       quantity = +quantity;
-      let e = { componentId, quantity };
-      console.info('[zan:quantity:change]', e);
+      const e = { componentId, quantity, overmax };
       this.$emit('zanQuantityChange', e);
+      this.$emit('change', e);
     }
+    onload() {}
   }
 </script>
