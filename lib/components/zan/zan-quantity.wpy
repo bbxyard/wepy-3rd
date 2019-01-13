@@ -106,7 +106,7 @@
           value = min;
         }
         this.callback(componentId, value, overmax);
-        return '' + value
+        return '' + value;
       }
     }
 
