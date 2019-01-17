@@ -2,7 +2,7 @@
 </style>
 
 <template>
-<view class="xb-layout-list">
+<view class="xb-layout-list" wx:if="{{pkg.bd.list.length > 0}}">
   <!-- 缺省主题 -->
   <block class="theme-{{pkg.theme}}" wx:if="{{pkg.theme === 'cells'}}">
     <view class="weui-cells__title" wx:if="{{pkg.hd.title}}">{{pkg.hd.title}}</view>
@@ -55,7 +55,7 @@
     </block>
 		</view>
   </block>
-  
+
   <!-- 主题3 -->
 
 </view>
